@@ -28,6 +28,7 @@ class ComposerStaticInit7819e78dffdb9b2e098c5985f3d3016a
             'Symfony\\Polyfill\\Intl\\Idn\\' => 26,
             'Symfony\\Flex\\' => 13,
             'Symfony\\Contracts\\Service\\' => 26,
+            'Symfony\\Contracts\\HttpClient\\' => 29,
             'Symfony\\Contracts\\EventDispatcher\\' => 34,
             'Symfony\\Contracts\\Cache\\' => 24,
             'Symfony\\Component\\Yaml\\' => 23,
@@ -35,9 +36,11 @@ class ComposerStaticInit7819e78dffdb9b2e098c5985f3d3016a
             'Symfony\\Component\\VarDumper\\' => 28,
             'Symfony\\Component\\Stopwatch\\' => 28,
             'Symfony\\Component\\Routing\\' => 26,
+            'Symfony\\Component\\Process\\' => 26,
             'Symfony\\Component\\Mime\\' => 23,
             'Symfony\\Component\\HttpKernel\\' => 29,
             'Symfony\\Component\\HttpFoundation\\' => 33,
+            'Symfony\\Component\\HttpClient\\' => 29,
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\EventDispatcher\\' => 34,
@@ -48,6 +51,7 @@ class ComposerStaticInit7819e78dffdb9b2e098c5985f3d3016a
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Config\\' => 25,
             'Symfony\\Component\\Cache\\' => 24,
+            'Symfony\\Bundle\\WebServerBundle\\' => 31,
             'Symfony\\Bundle\\MakerBundle\\' => 27,
             'Symfony\\Bundle\\FrameworkBundle\\' => 31,
             'Symfony\\Bridge\\Doctrine\\' => 24,
@@ -121,6 +125,10 @@ class ComposerStaticInit7819e78dffdb9b2e098c5985f3d3016a
         array (
             0 => __DIR__ . '/..' . '/symfony/service-contracts',
         ),
+        'Symfony\\Contracts\\HttpClient\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/http-client-contracts',
+        ),
         'Symfony\\Contracts\\EventDispatcher\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts',
@@ -149,6 +157,10 @@ class ComposerStaticInit7819e78dffdb9b2e098c5985f3d3016a
         array (
             0 => __DIR__ . '/..' . '/symfony/routing',
         ),
+        'Symfony\\Component\\Process\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/process',
+        ),
         'Symfony\\Component\\Mime\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/mime',
@@ -160,6 +172,10 @@ class ComposerStaticInit7819e78dffdb9b2e098c5985f3d3016a
         'Symfony\\Component\\HttpFoundation\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/http-foundation',
+        ),
+        'Symfony\\Component\\HttpClient\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/http-client',
         ),
         'Symfony\\Component\\Finder\\' => 
         array (
@@ -200,6 +216,10 @@ class ComposerStaticInit7819e78dffdb9b2e098c5985f3d3016a
         'Symfony\\Component\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/cache',
+        ),
+        'Symfony\\Bundle\\WebServerBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/web-server-bundle',
         ),
         'Symfony\\Bundle\\MakerBundle\\' => 
         array (

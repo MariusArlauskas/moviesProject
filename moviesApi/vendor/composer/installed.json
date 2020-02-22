@@ -2740,6 +2740,135 @@
         "homepage": "https://symfony.com"
     },
     {
+        "name": "symfony/http-client",
+        "version": "v4.4.4",
+        "version_normalized": "4.4.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/http-client.git",
+            "reference": "250c5363e4d67f8e3c9cdf3362f134e040e69612"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/http-client/zipball/250c5363e4d67f8e3c9cdf3362f134e040e69612",
+            "reference": "250c5363e4d67f8e3c9cdf3362f134e040e69612",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.1.3",
+            "psr/log": "^1.0",
+            "symfony/http-client-contracts": "^1.1.8|^2",
+            "symfony/polyfill-php73": "^1.11",
+            "symfony/service-contracts": "^1.0|^2"
+        },
+        "provide": {
+            "php-http/async-client-implementation": "*",
+            "php-http/client-implementation": "*",
+            "psr/http-client-implementation": "1.0",
+            "symfony/http-client-implementation": "1.1"
+        },
+        "require-dev": {
+            "guzzlehttp/promises": "^1.3.1",
+            "nyholm/psr7": "^1.0",
+            "php-http/httplug": "^1.0|^2.0",
+            "psr/http-client": "^1.0",
+            "symfony/dependency-injection": "^4.3|^5.0",
+            "symfony/http-kernel": "^4.4",
+            "symfony/process": "^4.2|^5.0"
+        },
+        "time": "2020-01-31T09:11:17+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\HttpClient\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nicolas Grekas",
+                "email": "p@tchwork.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony HttpClient component",
+        "homepage": "https://symfony.com"
+    },
+    {
+        "name": "symfony/http-client-contracts",
+        "version": "v1.1.8",
+        "version_normalized": "1.1.8.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/http-client-contracts.git",
+            "reference": "088bae75cfa2ec5eb6d33dce17dbd8613150ce6e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/http-client-contracts/zipball/088bae75cfa2ec5eb6d33dce17dbd8613150ce6e",
+            "reference": "088bae75cfa2ec5eb6d33dce17dbd8613150ce6e",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.1.3"
+        },
+        "suggest": {
+            "symfony/http-client-implementation": ""
+        },
+        "time": "2019-11-07T12:44:51+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Contracts\\HttpClient\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Nicolas Grekas",
+                "email": "p@tchwork.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Generic abstractions related to HTTP clients",
+        "homepage": "https://symfony.com",
+        "keywords": [
+            "abstractions",
+            "contracts",
+            "decoupling",
+            "interfaces",
+            "interoperability",
+            "standards"
+        ]
+    },
+    {
         "name": "symfony/http-foundation",
         "version": "v4.4.4",
         "version_normalized": "4.4.4.0",
@@ -3294,6 +3423,57 @@
         ]
     },
     {
+        "name": "symfony/process",
+        "version": "v4.4.4",
+        "version_normalized": "4.4.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/process.git",
+            "reference": "f5697ab4cb14a5deed7473819e63141bf5352c36"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/process/zipball/f5697ab4cb14a5deed7473819e63141bf5352c36",
+            "reference": "f5697ab4cb14a5deed7473819e63141bf5352c36",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.1.3"
+        },
+        "time": "2020-01-09T09:50:08+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\Process\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony Process Component",
+        "homepage": "https://symfony.com"
+    },
+    {
         "name": "symfony/routing",
         "version": "v4.4.4",
         "version_normalized": "4.4.4.0",
@@ -3622,6 +3802,67 @@
             "instantiate",
             "serialize"
         ]
+    },
+    {
+        "name": "symfony/web-server-bundle",
+        "version": "v4.4.4",
+        "version_normalized": "4.4.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/web-server-bundle.git",
+            "reference": "92a37564d8577f01a21e7a77dab2f4fcad32f4ba"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/web-server-bundle/zipball/92a37564d8577f01a21e7a77dab2f4fcad32f4ba",
+            "reference": "92a37564d8577f01a21e7a77dab2f4fcad32f4ba",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.1.3",
+            "symfony/config": "^3.4|^4.0|^5.0",
+            "symfony/console": "^3.4|^4.0|^5.0",
+            "symfony/dependency-injection": "^3.4|^4.0|^5.0",
+            "symfony/http-kernel": "^3.4|^4.0|^5.0",
+            "symfony/polyfill-ctype": "~1.8",
+            "symfony/process": "^3.4.2|^4.0.2|^5.0"
+        },
+        "suggest": {
+            "symfony/expression-language": "For using the filter option of the log server.",
+            "symfony/monolog-bridge": "For using the log server."
+        },
+        "time": "2020-01-04T13:00:46+00:00",
+        "type": "symfony-bundle",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "4.4-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Bundle\\WebServerBundle\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony WebServerBundle",
+        "homepage": "https://symfony.com"
     },
     {
         "name": "symfony/yaml",
