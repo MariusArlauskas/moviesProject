@@ -6,7 +6,7 @@
 use Symfony\Component\DependencyInjection\Dumper\Preloader;
 
 require dirname(__DIR__, 3).'\\vendor/autoload.php';
-require __DIR__.'/ContainerCmzHLHw/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerL9doiou/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'App\Kernel';
@@ -43,6 +43,9 @@ $classes[] = 'Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DateTime
 $classes[] = 'Sensio\Bundle\FrameworkExtraBundle\EventListener\HttpCacheListener';
 $classes[] = 'Sensio\Bundle\FrameworkExtraBundle\EventListener\IsGrantedListener';
 $classes[] = 'Sensio\Bundle\FrameworkExtraBundle\Request\ArgumentNameConverter';
+$classes[] = 'Nelmio\CorsBundle\EventListener\CorsListener';
+$classes[] = 'Nelmio\CorsBundle\Options\Resolver';
+$classes[] = 'Nelmio\CorsBundle\Options\ConfigProvider';
 $classes[] = 'Symfony\Component\HttpKernel\Log\Logger';
 $classes[] = 'Symfony\Bundle\FrameworkBundle\Routing\Router';
 $classes[] = 'Symfony\Component\DependencyInjection\ParameterBag\ContainerBag';
