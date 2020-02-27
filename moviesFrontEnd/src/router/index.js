@@ -1,21 +1,33 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Homepage from '../components/HomePage'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Homepage from "../components/HomePage";
+import Login from "../components/Auth/Login";
+import SignUp from "../components/Auth/SignUp";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'HomePage',
+    path: "/",
+    name: "HomePage",
     component: Homepage
   },
-]
+  {
+    path: "/login",
+    name: "Login",
+    component: Login
+  },
+  {
+    path: "/signUp",
+    name: "SignUp",
+    component: SignUp
+  }
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   routes,
-  base: '/'
-})
+  base: "/"
+});
 
-export default router
+export default router;

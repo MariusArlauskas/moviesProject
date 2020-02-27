@@ -12,6 +12,8 @@ return [
             [['_route' => 'movies_apimovies', '_controller' => 'App\\Controller\\MoviesController::getMovies'], null, ['GET' => 0], null, false, false, null],
             [['_route' => 'movies_apimovies_add', '_controller' => 'App\\Controller\\MoviesController::addMovies'], null, ['POST' => 0], null, false, false, null],
         ],
+        '/api/users/register' => [[['_route' => 'user_create', '_controller' => 'App\\Controller\\UserController::createAction'], null, ['POST' => 0], null, false, false, null]],
+        '/api/login_check' => [[['_route' => 'api_login_check'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'
@@ -22,6 +24,7 @@ return [
                         .'|(*:84)'
                     .')'
                 .')'
+                .'|/(.*)?(*:99)'
             .')/?$}sD',
     ],
     [ // $dynamicRoutes
@@ -30,6 +33,9 @@ return [
         84 => [
             [['_route' => 'movies_apimovies_put', '_controller' => 'App\\Controller\\MoviesController::updateMovies'], ['id'], ['PUT' => 0], null, false, true, null],
             [['_route' => 'movies_apimovies_delete', '_controller' => 'App\\Controller\\MoviesController::deleteMovies'], ['id'], ['DELETE' => 0], null, false, true, null],
+        ],
+        99 => [
+            [['_route' => 'pageNotFound', '_controller' => 'App\\Controller\\Api\\PageNotFoundController::pageNotFoundAction', 'path' => ''], ['path'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

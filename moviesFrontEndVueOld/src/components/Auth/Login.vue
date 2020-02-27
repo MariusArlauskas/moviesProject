@@ -5,14 +5,12 @@
         <v-flex xs12 sm8 md5>
           <v-form>
             <v-card>
-              <v-toolbar dark color='primary'>
+              <v-toolbar dark color="primary">
                 <v-toolbar-title>Login form</v-toolbar-title>
               </v-toolbar>
-              <v-alert
-                color="error"
-                :value="error"
-                icon="close"
-              >The username or password are incorrect!</v-alert>
+              <v-alert color="error" :value="error" icon="close"
+                >The username or password are incorrect!</v-alert
+              >
 
               <v-card-text>
                 <v-text-field
@@ -45,15 +43,15 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <Notification />
+    <!-- <Notification /> -->
   </div>
 </template>
 
 <script>
-import Notification from "../Notification";
+// import Notification from "../Notification";
 export default {
   name: "login",
-  components: { Notification },
+  // components: { Notification },
   data: () => ({
     username: "",
     password: "",
@@ -92,7 +90,7 @@ export default {
 <style>
 .v-text-field .v-icon {
   color: var(--v-secondary-base);
-} 
+}
 
 .v-application--wrap {
   background-color: var(--v-darkBackgroud-base);
