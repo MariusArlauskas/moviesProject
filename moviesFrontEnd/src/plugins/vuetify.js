@@ -19,7 +19,7 @@ export default new Vuetify({
         error: "#B85188",
         warning: "#9CB021",
         success: "#2AA865",
-        background: "#1F283B"
+        background: "#1F283B"   // rgba(12,16,23,0)
       },
       dark: {}
     }

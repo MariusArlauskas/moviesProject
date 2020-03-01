@@ -5,6 +5,31 @@
     <MovieCard />
     <MovieCard />
     <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
+    <MovieCard />
   </v-layout>
 </template>
 
