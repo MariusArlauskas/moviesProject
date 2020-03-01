@@ -11,7 +11,7 @@
       <a href="/">
         <v-row class="ml-0 my-2" align="center">
           <v-avatar size="35px" color="var(--v-primary-lighten5)" class="mr-2">
-            <v-img contain max-height="33px" max-width="33px" src="../assets/logo.png"></v-img>
+            <v-img contain max-height="33px" max-width="33px" src="../../assets/logo.png"></v-img>
           </v-avatar>
           <v-content class="py-0 white--text">{{ GET_WEB_TITLE }}</v-content>
         </v-row>

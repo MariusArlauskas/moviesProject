@@ -14,9 +14,9 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import ProfileBar from "./components/ProfileBar";
+import Header from "./components/navBars/Header";
+import Footer from "./components/navBars/Footer";
+import ProfileBar from "./components/navBars/ProfileBar";
 import Notification from "./components/Notification";
 export default {
   name: "App",
@@ -52,9 +52,13 @@ export default {
   background: var(--v-background-base);
   /* background-image: url("~@/assets/bgpic.jpg"); */
 }
+.mainConteiner {
+  margin-left: 12%;
+  margin-right: 12%;
+}
 
-.whiteTransparent {
+/* .whiteTransparent {
   background-color: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.5);
-}
+} */
 </style>

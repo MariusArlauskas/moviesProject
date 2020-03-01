@@ -1,8 +1,8 @@
 <template>
   <!-- <v-container v-bind:class="getClass"> -->
-  <v-container class="mr-10 ml-10" style="position:absolute">
+  <v-container class="mainConteiner" style="position:absolute">
     <v-container class="secondary lighten-1 white--text leftColumn">news</v-container>
-    <v-container class="middleColumn secondary lighten-1">chat</v-container>
+    <v-container class="middleColumn secondary lighten-1 white--text">chat</v-container>
     <v-container class="secondary lighten-1 white--text hidden-xs-and-down rightColumn">mystuff</v-container>
   </v-container>
 </template>
@@ -21,27 +21,26 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .leftColumn {
-  width: 29%;
+  width: 17%;
   position: absolute;
   margin-left: 0;
   left: 0;
   right: 0;
 }
 .middleColumn {
-  width: 40%;
+  width: 34%;
   position: absolute;
-  padding: 0;
-  margin-left: 30%;
+  margin-left: 18%;
   left: 0;
   right: 0;
   flex-wrap: wrap;
 }
 .rightColumn {
-  width: 29%;
+  width: 24%;
   position: absolute;
-  margin-left: 71%;
+  margin-left: 53%;
   left: 0;
   right: 0;
 }

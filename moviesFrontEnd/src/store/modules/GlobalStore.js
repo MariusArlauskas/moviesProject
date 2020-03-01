@@ -2,7 +2,7 @@ const state = {
   webTitle: "Movies Society",
   headerLinks: [
     { name: "Home", href: "HomePage", showWhenLoggedIn: true },
-    { name: "Movies", href: "HomePage", showWhenLoggedIn: true },
+    { name: "Movies", href: "MoviesPage", showWhenLoggedIn: true },
     { name: "Login", href: "Login", showWhenLoggedIn: false },
     { name: "SignUp", href: "SignUp", showWhenLoggedIn: false }
   ],
