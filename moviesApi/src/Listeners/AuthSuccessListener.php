@@ -9,7 +9,7 @@ class AuthSuccessListener {
 
 //php bin/console gesdinet:jwt:clear 2015-08-08
 
-    private $secure = false;
+    private $secure = true;
     private $tokenTtl;
 
     public function __construct($tokenTtl)
@@ -33,5 +33,4 @@ class AuthSuccessListener {
                 ), '/', null, $this->secure
         );
     }
-
 }

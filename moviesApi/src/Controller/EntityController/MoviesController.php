@@ -6,9 +6,9 @@
  * Time: 21:26
  */
 
-namespace App\Controller;
+namespace App\Controller\EntityController;
 
-use App\Controller\RemoteApis\TmdbApi;
+use App\Controller\RemoteApi\TmdbApi;
 use App\Repository\MoviesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class MoviesController
  * @package App\Controller
- * @Route("/api", name="movies_api")
+ * @Route("", name="movies_api")
  */
 class MoviesController extends AbstractController
 {

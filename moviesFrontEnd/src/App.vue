@@ -1,28 +1,56 @@
 <template>
   <v-app>
     <Header />
+    <ProfileBar v-show="drawer" />
     <v-content class="mainBackground">
       <!-- <router-link to="/">Home</router-link> -->
 
       <router-view />
     </v-content>
     <Footer />
+    <Notification />
   </v-app>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ProfileBar from "./components/ProfileBar";
+import Notification from "./components/Notification";
 export default {
   name: "App",
-  components: { Header, Footer }
+  components: { Header, Footer, ProfileBar, Notification },
+  data: () => ({}),
+  methods: {
+    setUser() {
+      this.$store
+        .dispatch("SET_USER")
+        .then(() => {})
+        .catch(() => {
+          this.error = true;
+        });
+    }
+  },
+  computed: {
+    ...mapGetters(["GET_USER_DRAWER"]),
+    drawer: {
+      get() {
+        return this.$store.getters.GET_USER_DRAWER;
+      },
+      set() {}
+    }
+  },
+  beforeMount() {
+    this.setUser();
+  }
 };
 </script>
 
 <style>
 .mainBackground {
-  background: rgb(162, 176, 226);
-  background-image: url("~@/assets/bgpic.jpg");
+  background: var(--v-background-base);
+  /* background-image: url("~@/assets/bgpic.jpg"); */
 }
 
 .whiteTransparent {

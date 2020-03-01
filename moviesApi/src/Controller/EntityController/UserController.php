@@ -6,26 +6,26 @@
  * Time: 21:09
  */
 
-namespace App\Controller;
+namespace App\Controller\EntityController;
 
 
 use App\Entity\User;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class UserController
  * @package App\Controller
- * @Route("/api/users")
+ * @Route("/users")
  */
 class UserController extends AbstractController
 {
-    /** TODO add adapter to register controller
-     * @Route("/register", name="user_create", methods={"POST"})
+    /**
+     * @Route("", name="user_create", methods={"POST"})
      * @return JsonResponse
      */
     public function createAction(Request $request)
@@ -40,43 +40,39 @@ class UserController extends AbstractController
             $parametersAsArray = json_decode($content, true);
         }
         // Check if none of the data is missing
-//        if (isset($parametersAsArray['username']) &&
-//            isset($parametersAsArray['password']) &&
-//            isset($parametersAsArray['email']))
-//        {
+        if (isset($parametersAsArray['password']) &&
+            isset($parametersAsArray['name']) &&
+            isset($parametersAsArray['email'])) {
             $email = htmlspecialchars($parametersAsArray['email']);
+            $name = htmlspecialchars(trim($parametersAsArray['name']));
             $password = htmlspecialchars(trim($parametersAsArray['password']));
-//            $email = htmlspecialchars($parametersAsArray['email']);
-//        }else{
-//            return new JsonResponse("Missing data!", Response::HTTP_BAD_REQUEST);
-//        }
-//
-//        // Validation
-//        $repository = $this->getDoctrine()->getRepository(User::class);
-//        $user = $repository->findBy(['username' => $username]);
-//        if ($user) {
-//            return new JsonResponse('Username '.$username.' is already taken.', Response::HTTP_BAD_REQUEST);
-//        }
-        var_dump($parametersAsArray);
+        } else {
+            return new JsonResponse("Missing data!", Response::HTTP_BAD_REQUEST);
+        }
+
+        // Validation
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $user = $repository->findBy(['email' => $email]);
+        if ($user) {
+            return new JsonResponse('Email '.$email.' is already taken.', Response::HTTP_BAD_REQUEST);
+        }
+
         // Creating user object
         $user = new User();
         $user->setEmail($email);
+        $user->setName($name);
         $user->setRoles(['ROLE_USER']);
         $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
-//        $user->setUsername($username);
-//        $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
-//        $user->setEmail($email);
-//        $user->setRoles(['ROLE_USER']);
 
         // Get the Doctrine service and manager
         $em = $this->getDoctrine()->getManager();
 
-        // Add user to Doctrine so that it can be saved
+        // Add user to Doctrine for saving
         $em->persist($user);
 
         // Save user
         $em->flush();
 
-        return new JsonResponse('Saved new user - '.$user->getEmail(), Response::HTTP_OK);
+        return new JsonResponse('Saved new user with email - '.$user->getEmail(), Response::HTTP_OK);
     }
 }

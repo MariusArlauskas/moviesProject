@@ -6,7 +6,7 @@
 use Symfony\Component\DependencyInjection\Dumper\Preloader;
 
 require dirname(__DIR__, 3).'\\vendor/autoload.php';
-require __DIR__.'/Container2REVUx5/srcApp_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerV4Vkfxk/srcApp_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'App\Kernel';
@@ -43,7 +43,6 @@ $classes[] = 'Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\Doctrine
 $classes[] = 'Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\DateTimeParamConverter';
 $classes[] = 'Sensio\Bundle\FrameworkExtraBundle\EventListener\HttpCacheListener';
 $classes[] = 'Sensio\Bundle\FrameworkExtraBundle\EventListener\SecurityListener';
-$classes[] = 'Symfony\Component\Security\Core\Role\RoleHierarchy';
 $classes[] = 'Sensio\Bundle\FrameworkExtraBundle\EventListener\IsGrantedListener';
 $classes[] = 'Sensio\Bundle\FrameworkExtraBundle\Request\ArgumentNameConverter';
 $classes[] = 'Nelmio\CorsBundle\EventListener\CorsListener';
@@ -54,6 +53,7 @@ $classes[] = 'Symfony\Component\Security\Core\Authentication\Token\Storage\Usage
 $classes[] = 'Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage';
 $classes[] = 'Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager';
 $classes[] = 'Symfony\Component\Security\Core\Authentication\AuthenticationTrustResolver';
+$classes[] = 'Symfony\Component\Security\Core\Role\RoleHierarchy';
 $classes[] = 'Symfony\Component\Security\Http\RememberMe\ResponseListener';
 $classes[] = 'Symfony\Component\Security\Core\Authorization\TraceableAccessDecisionManager';
 $classes[] = 'Symfony\Component\Security\Core\Authorization\AccessDecisionManager';

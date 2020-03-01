@@ -1,15 +1,18 @@
 <template>
-  <v-container class="mt-5 mr-10">
+  <v-container class="mt-12 mr-13">
     <v-layout align-start justify-end>
       <v-flex xs12 sm8 md6 xl4>
         <v-form>
-          <v-card flat dark style="border-radius:50px" color="rgb(255, 255, 255, 0.1)">
-            <v-toolbar flat color="rgba(69, 39, 160, 0)">
+          <v-card flat dark style="border-radius:40px" color="secondary">
+            <v-toolbar flat color="transparent">
               <v-toolbar-title class="ml-5">Login form</v-toolbar-title>
             </v-toolbar>
-            <!-- <v-alert color="error" :value="error" icon="close"
-              >The username or password are incorrect!</v-alert
-            >-->
+            <v-alert
+              class="ml-7 mr-7"
+              color="error"
+              :value="error"
+              icon="close"
+            >The username or password is incorrect!</v-alert>
 
             <v-card-text class="justify-center">
               <v-text-field
@@ -29,9 +32,9 @@
               ></v-text-field>
             </v-card-text>
             <v-card-actions class="mr-10 ml-10">
-              <v-btn to="/signup" depressed rounded color="rgba(69, 39, 160, 0)">Sign up</v-btn>
+              <v-btn to="/signUp" depressed rounded color="transparent">Sign up</v-btn>
               <v-spacer></v-spacer>
-              <v-btn depressed rounded color="rgba(69, 39, 160, 0)" @click.prevent="login()">
+              <v-btn depressed rounded color="transparent" @click.once="login()">
                 Login
                 <v-icon>keyboard_arrow_right</v-icon>
               </v-btn>
@@ -41,7 +44,6 @@
       </v-flex>
     </v-layout>
   </v-container>
-  <!-- <Notification /> -->
 </template>
 
 <script>
@@ -63,19 +65,15 @@ export default {
         })
         .then(() => {
           this.$router.push("/");
-          // this.$store
-          //   .dispatch("SET_ROLE")
-          //   .then(() => {
-          //     this.$router.push("/");
-          //     this.$store.commit("SET_NOTIFICATION", {
-          //       display: true,
-          //       text: "Logged in!",
-          //       alertClass: "success"
-          //     });
-          //   })
-          //   .catch(() => {
-          //     this.error = true;
-          //   });
+          this.$store
+            .commit("SET_NOTIFICATION", {
+              display: true,
+              text: "Logged in!",
+              alertClass: "success"
+            })
+            .catch(() => {
+              this.error = true;
+            });
         })
         .catch(() => {
           this.error = true;
@@ -90,9 +88,5 @@ export default {
   width: 70%;
   margin-left: auto;
   margin-right: auto;
-}
-
-.v-text-field .v-icon {
-  color: var(--v-secondary-base);
 }
 </style>

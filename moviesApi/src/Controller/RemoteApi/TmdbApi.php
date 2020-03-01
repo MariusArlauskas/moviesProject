@@ -6,7 +6,7 @@
  * Time: 17:12
  */
 
-namespace App\Controller\RemoteApis;
+namespace App\Controller\RemoteApi;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpClient\HttpClient;
