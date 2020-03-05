@@ -1,5 +1,5 @@
 <template>
-  <v-footer height="auto" bottom dark color="var(--v-primary-base)">
+  <v-footer height="45px" bottom dark color="var(--v-primary-base)">
     <v-row justify="center">
       <p class="my-0 font-weight-light overline">&copy;2020 {{ GET_WEB_TITLE }}</p>
     </v-row>

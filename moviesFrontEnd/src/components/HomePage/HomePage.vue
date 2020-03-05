@@ -23,24 +23,24 @@ export default {
 
 <style scoped>
 .leftColumn {
-  width: 17%;
+  width: 20%;
   position: absolute;
   margin-left: 0;
   left: 0;
   right: 0;
 }
 .middleColumn {
-  width: 34%;
+  width: 48%;
   position: absolute;
-  margin-left: 18%;
+  margin-left: 21%;
   left: 0;
   right: 0;
   flex-wrap: wrap;
 }
 .rightColumn {
-  width: 24%;
+  width: 30%;
   position: absolute;
-  margin-left: 53%;
+  margin-left: 70%;
   left: 0;
   right: 0;
 }

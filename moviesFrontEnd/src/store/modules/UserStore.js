@@ -4,7 +4,7 @@ const state = {
   name: "",
   email: "",
   role: "ROLE_GUEST",
-  drawer: false
+  drawer: false         // Show profile bar 
 };
 
 const getters = {
@@ -69,24 +69,42 @@ const actions = {
         })
     })
   },
-  SET_USER: async ({ commit }) => {
-    await axios.get(`profile`)
+  SET_USER: ({ commit }) => {   // Get user profile and set its data
+    axios.get(`profile`)
       .then(({ data, status }) => {
         if (status === 200) {
-          commit("SET_USER", data)
+          commit("SET_USER_SESSION", data);
         }
       })
+  },
+  SET_USER_FROM_SESSION: ({ commit }) => {  // On refresh reload user
+    commit("SET_USER_FROM_SESSION");
   },
 };
 
 const mutations = {
-  SET_USER: (state, user) => {
+  SET_USER_SESSION: (state, user) => {  // Sets users data to local and session storage
+    // Session
+    sessionStorage.setItem('user_name', user.name);
+    sessionStorage.setItem('user_email', user.email);
+    sessionStorage.setItem('user_role', user.role);
+    // User
     state.name = user.name;
     state.email = user.email;
     state.role = user.role;
+    // Profile bar
     state.drawer = true;
   },
-  UNSET_USER: (state) => {
+  SET_USER_FROM_SESSION: (state) => {   // Sets users data from session to local
+    if (sessionStorage.getItem('user_name')) {
+      state.name = sessionStorage.getItem('user_name');
+      state.email = sessionStorage.getItem('user_email');
+      state.role = sessionStorage.getItem('user_role');
+      state.drawer = true;
+    }
+  },
+  UNSET_USER: (state) => {  // Unsets users data and session
+    sessionStorage.clear();
     state.name = "";
     state.email = "";
     state.role = "ROLE_GUEST";

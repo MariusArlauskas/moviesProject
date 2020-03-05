@@ -23,13 +23,8 @@ export default {
   components: { Header, Footer, ProfileBar, Notification },
   data: () => ({}),
   methods: {
-    setUser() {
-      this.$store
-        .dispatch("SET_USER")
-        .then(() => {})
-        .catch(() => {
-          this.error = true;
-        });
+    getUser() {
+      this.$store.commit("SET_USER_FROM_SESSION");
     }
   },
   computed: {
@@ -42,7 +37,11 @@ export default {
     }
   },
   beforeMount() {
-    this.setUser();
+    // Cookies do not get saved on localhost so redirect
+    if (window.location.href == "http://localhost:8080/") {
+      window.location.href = "http://127.0.0.1:8080/";
+    }
+    this.getUser();
   }
 };
 </script>
@@ -55,6 +54,7 @@ export default {
 .mainConteiner {
   margin-left: 12%;
   margin-right: 12%;
+  max-width: 76%;
 }
 
 /* .whiteTransparent {

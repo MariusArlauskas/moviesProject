@@ -24,11 +24,21 @@
         </v-list-item-content>
       </v-list-item>
 
-      <div class="text-center mb-3">
+      <!-- <div class="text-center mb-3">
         <v-btn @click.once="logout()" color="accent lighten-2" outlined>Logout</v-btn>
-      </div>
+      </div>-->
 
-      <v-divider></v-divider>
+      <v-list-item link @click.once="logout()">
+        <v-list-item-icon>
+          <v-icon class="accent--text text--lighten-2">exit_to_app</v-icon>
+        </v-list-item-icon>
+        <v-list-item-content
+          class="accent--text subtitle-2 text--lighten-2"
+          style="text-decoration: none;"
+        >Logout</v-list-item-content>
+      </v-list-item>
+
+      <v-divider class="mb-1"></v-divider>
 
       <v-list-item v-for="item in items" :key="item.title" link>
         <v-list-item-icon>
