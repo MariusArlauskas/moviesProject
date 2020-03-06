@@ -77,7 +77,7 @@ const actions = {
         }
       })
   },
-  SET_USER_FROM_SESSION: ({ commit }) => {  // On refresh reload user
+  SET_USER_FROM_SESSION: ({ commit }) => {  // On page refresh - reload user
     commit("SET_USER_FROM_SESSION");
   },
 };

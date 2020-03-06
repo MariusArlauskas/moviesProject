@@ -16,6 +16,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
  * Class MoviesController
@@ -24,29 +28,33 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class MoviesController extends AbstractController
 {
-    /**
-     * @param MoviesRepository $moviesRepository
-     * @return JsonResponse
-     * @Route("/movies", name="movies", methods={"GET"})
+    /** Get top rated movies
+     * @Route("/movies", name="movies_get", methods={"GET"})
+     * @return JsonResponse|Response
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
-    public function getMovies(MoviesRepository $moviesRepository){
-//        $data = $moviesRepository->findAll();
-        return $this->response(['data' => 'hellllo']);
+    public function getMovies(){
+        $movieApi = new TmdbApi();
+        $movies = $movieApi->getMovies();
+        return $this->response($movies);
     }
 
     /**
-     * @param MoviesRepository $moviesRepository
+     * @Route("/movie/{movieName}", name="movie_get", methods={"GET"})
+     * @param $movieName
      * @return JsonResponse|Response
-     * @Route("/movie/{movieName}", name="movie", methods={"GET"})
-     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
-    public function getMovie(MoviesRepository $moviesRepository, $movieName){
+    public function getMovie($movieName){
 //        $data = $moviesRepository->findAll();
-        $apiResult = new TmdbApi();
-        $movie = $apiResult->getMovie($movieName);
+        $movieApi = new TmdbApi();
+        $movie = $movieApi->getMovie($movieName);
         return $this->response($movie);
     }
 

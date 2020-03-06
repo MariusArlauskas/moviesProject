@@ -10,6 +10,10 @@ namespace App\Controller\RemoteApi;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
  * Class TmdbApi
@@ -24,14 +28,26 @@ class TmdbApi extends AbstractController
 
     /**
      * @param $movieName
-     * @return array|string
-     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
-     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     * @return mixed
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
      */
     public function getMovie($movieName) {
         $client = HttpClient::create();
         return json_decode($client->request('GET', 'https://api.themoviedb.org/3/search/movie?api_key='.$this->apiKey.'&query='.$movieName)->getContent());
+    }
+
+    /**
+     * @return mixed
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function getMovies() {
+        $client = HttpClient::create();
+        return json_decode($client->request('GET', 'https://api.themoviedb.org/3/movie/top_rated?api_key='.$this->apiKey.'&language=en-US&page=1')->getContent());
     }
 }
