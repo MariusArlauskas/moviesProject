@@ -29,16 +29,16 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 class MoviesController extends AbstractController
 {
     /** Get top rated movies
-     * @Route("/movies", name="movies_get", methods={"GET"})
+     * @Route("/movies/page/{pageNumber}", name="movies_get", methods={"GET"})
      * @return JsonResponse|Response
      * @throws ClientExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function getMovies(){
+    public function getMovies($pageNumber){
         $movieApi = new TmdbApi();
-        $movies = $movieApi->getMovies();
+        $movies = $movieApi->getMovies($pageNumber);
         return $this->response($movies);
     }
 

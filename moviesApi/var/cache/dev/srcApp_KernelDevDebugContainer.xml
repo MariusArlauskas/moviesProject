@@ -1123,14 +1123,6 @@
         <argument>2048</argument>
       </call>
       <call method="addListener">
-        <argument>console.command</argument>
-        <argument type="collection">
-          <argument type="service" id="debug.debug_handlers_listener"/>
-          <argument>configure</argument>
-        </argument>
-        <argument>2048</argument>
-      </call>
-      <call method="addListener">
         <argument>kernel.request</argument>
         <argument type="collection">
           <argument type="service" id="router_listener"/>
@@ -2112,6 +2104,7 @@
         <argument type="service" id="security.authentication.provider.guard.logout"/>
         <argument type="service" id="security.authentication.provider.anonymous.register"/>
         <argument type="service" id="security.authentication.provider.guard.api"/>
+        <argument type="service" id="security.authentication.provider.anonymous.api"/>
         <argument type="service" id="security.authentication.provider.anonymous.main"/>
       </argument>
       <argument>true</argument>
@@ -2270,30 +2263,16 @@
     </service>
     <service id="security.access_map" class="Symfony\Component\Security\Http\AccessMap" public="false">
       <call method="add">
-        <argument type="service" id=".security.request_matcher.iDtJtRX"/>
+        <argument type="service" id=".security.request_matcher.GtJ5Wza"/>
         <argument type="collection">
-          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
-        </argument>
-        <argument>null</argument>
-      </call>
-      <call method="add">
-        <argument type="service" id=".security.request_matcher.RHM.hIp"/>
-        <argument type="collection">
-          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
-        </argument>
-        <argument>null</argument>
-      </call>
-      <call method="add">
-        <argument type="service" id=".security.request_matcher.Ssctqa8"/>
-        <argument type="collection">
-          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+          <argument>ROLE_USER</argument>
         </argument>
         <argument>null</argument>
       </call>
       <call method="add">
         <argument type="service" id=".security.request_matcher.cRNYaJ1"/>
         <argument type="collection">
-          <argument>ROLE_USER</argument>
+          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
         </argument>
         <argument>null</argument>
       </call>
@@ -2853,6 +2832,7 @@
       <argument>null</argument>
       <argument type="collection">
         <argument>guard</argument>
+        <argument>anonymous</argument>
       </argument>
       <argument>null</argument>
     </service>
@@ -2878,6 +2858,15 @@
       </argument>
       <argument type="service" id="logger" on-invalid="null"/>
     </service>
+    <service id="security.authentication.listener.anonymous.api" class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
+      <argument type="service" id="security.untracked_token_storage"/>
+      <argument>%container.build_hash%</argument>
+      <argument type="service" id="logger" on-invalid="null"/>
+      <argument type="service" id="security.authentication.manager"/>
+    </service>
+    <service id="security.authentication.provider.anonymous.api" class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
+      <argument>%container.build_hash%</argument>
+    </service>
     <service id="security.exception_listener.api" class="Symfony\Component\Security\Http\Firewall\ExceptionListener" public="false">
       <argument type="service" id="security.token_storage"/>
       <argument type="service" id="security.authentication.trust_resolver"/>
@@ -2893,6 +2882,7 @@
       <argument type="iterator">
         <argument type="service" id="security.channel_listener"/>
         <argument type="service" id="security.authentication.listener.guard.api"/>
+        <argument type="service" id="security.authentication.listener.anonymous.api"/>
         <argument type="service" id="security.access_listener"/>
       </argument>
       <argument type="service" id="security.exception_listener.api"/>
@@ -2971,14 +2961,8 @@
         <argument key="security.firewall.map.context.register" type="service" id="security.firewall.map.context.register"/>
       </argument>
     </service>
-    <service id=".security.request_matcher.iDtJtRX" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-      <argument>^/api/login_check</argument>
-    </service>
-    <service id=".security.request_matcher.RHM.hIp" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-      <argument>^/api/register</argument>
-    </service>
-    <service id=".security.request_matcher.Ssctqa8" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
-      <argument>^/api/logout</argument>
+    <service id=".security.request_matcher.GtJ5Wza" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/api/users</argument>
     </service>
     <service id=".security.request_matcher.cRNYaJ1" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/api</argument>

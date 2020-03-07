@@ -12,10 +12,12 @@
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.preload.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.preload.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MovieCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MovieCard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainerCompiler.log" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainerCompiler.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MoviesPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MoviesPage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/store/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/UserStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/UserStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/MoviesStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/MoviesStore.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -49,8 +51,11 @@
       <file leaf-file-name="TmdbApi.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/RemoteApi/TmdbApi.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+            <state relative-caret-position="563">
+              <caret line="50" column="150" selection-start-line="50" selection-start-column="150" selection-end-line="50" selection-end-column="150" />
+              <folding>
+                <element signature="e#127#192#0#PHP" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -58,8 +63,8 @@
       <file leaf-file-name="MoviesController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Controller/EntityController/MoviesController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="48" column="39" selection-start-line="48" selection-start-column="39" selection-end-line="48" selection-end-column="39" />
+            <state relative-caret-position="289">
+              <caret line="42" column="5" lean-forward="true" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -67,8 +72,17 @@
       <file leaf-file-name="security.yaml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config/packages/security.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="36" column="36" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
+            <state relative-caret-position="577">
+              <caret line="60" column="52" selection-start-line="60" selection-start-column="52" selection-end-line="60" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/EntityController/UserController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1105">
+              <caret line="76" column="5" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -124,8 +138,8 @@
         <option value="$PROJECT_DIR$/config/routes.yaml" />
         <option value="$PROJECT_DIR$/src/Controller/ProfileController.php" />
         <option value="$PROJECT_DIR$/src/Listeners/AuthSuccessListener.php" />
-        <option value="$PROJECT_DIR$/src/Controller/RemoteApi/TmdbApi.php" />
         <option value="$PROJECT_DIR$/config/packages/security.yaml" />
+        <option value="$PROJECT_DIR$/src/Controller/RemoteApi/TmdbApi.php" />
         <option value="$PROJECT_DIR$/src/Controller/EntityController/MoviesController.php" />
       </list>
     </option>
@@ -215,8 +229,8 @@
       <path value="$PROJECT_DIR$/vendor/symfony/security-guard" />
     </include_path>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="-6" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-7" />
     <option name="width" value="1283" />
     <option name="height" value="1047" />
   </component>
@@ -359,15 +373,15 @@
       <workItem from="1583176053515" duration="678000" />
       <workItem from="1583177883164" duration="275000" />
       <workItem from="1583256649806" duration="4095000" />
-      <workItem from="1583529454671" duration="2635000" />
+      <workItem from="1583529454671" duration="4101000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50165000" />
+    <option name="totallyTimeSpent" value="51631000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="0" width="1283" height="1047" extended-state="1" />
+    <frame x="-7" y="0" width="1283" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -540,13 +554,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config/packages/prod/monolog.yaml" />
-    <entry file="file://$PROJECT_DIR$/src/Controller/EntityController/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1105">
-          <caret line="76" column="5" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Entity/User.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="850">
@@ -622,24 +629,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/RemoteApi/TmdbApi.php">
+    <entry file="file://$PROJECT_DIR$/src/Controller/EntityController/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+        <state relative-caret-position="1105">
+          <caret line="76" column="5" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config/packages/security.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="36" column="36" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
+        <state relative-caret-position="577">
+          <caret line="60" column="52" selection-start-line="60" selection-start-column="52" selection-end-line="60" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/RemoteApi/TmdbApi.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="563">
+          <caret line="50" column="150" selection-start-line="50" selection-start-column="150" selection-end-line="50" selection-end-column="150" />
+          <folding>
+            <element signature="e#127#192#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/EntityController/MoviesController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="48" column="39" selection-start-line="48" selection-start-column="39" selection-end-line="48" selection-end-column="39" />
+        <state relative-caret-position="289">
+          <caret line="42" column="5" lean-forward="true" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
         </state>
       </provider>
     </entry>

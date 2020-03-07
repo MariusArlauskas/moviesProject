@@ -1,6 +1,6 @@
 <template>
   <!-- <v-container v-bind:class="getClass"> -->
-  <v-container class="mainConteiner" style="position:absolute">
+  <v-container class="mainContainer" style="position:absolute">
     <v-container class="secondary lighten-1 white--text leftColumn">news</v-container>
     <v-container class="middleColumn secondary lighten-1 white--text">chat</v-container>
     <v-container class="secondary lighten-1 white--text hidden-xs-and-down rightColumn">mystuff</v-container>

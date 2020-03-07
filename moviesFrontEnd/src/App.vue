@@ -51,7 +51,7 @@ export default {
   background: var(--v-background-base);
   /* background-image: url("~@/assets/bgpic.jpg"); */
 }
-.mainConteiner {
+.mainContainer {
   margin-left: 12%;
   margin-right: 12%;
   max-width: 76%;
