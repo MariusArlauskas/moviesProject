@@ -4,10 +4,10 @@
 # frontEnd - Vuejs
 // npm run serve
 
-Planned TODOS:
+# Planned TODOS:
 WIP: Movie page >> Search module
 
-Movie society TODO list (fixes and small details):
+# Movie society TODO list (fixes and small details):
     Movies page:
         Show title hint only if title is long enaught;
         Author box fix
@@ -16,8 +16,8 @@ Movie society TODO list (fixes and small details):
     Login / signup:
         push forms further from the right
         
-Movie society TODO list:
-    Movies page:
+# Movie society TODO list:
+ *   Movies page:
         user can like movies
         user can ADD movies as watched,planning,dropped (probably in movie dialog)
         ADD filter
