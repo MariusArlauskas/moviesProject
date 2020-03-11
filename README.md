@@ -17,7 +17,7 @@ WIP: Movie page >> Search module
         push forms further from the right
         
 # Movie society TODO list:
- *   Movies page:
+    Movies page:
         user can like movies
         user can ADD movies as watched,planning,dropped (probably in movie dialog)
         ADD filter
