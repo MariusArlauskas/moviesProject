@@ -46,8 +46,20 @@ class TmdbApi extends AbstractController
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function getMovies($page) {
+    public function getPopularMovies($page) {
         $client = HttpClient::create();
         return json_decode($client->request('GET', 'https://api.themoviedb.org/3/movie/top_rated?api_key='.$this->apiKey.'&language=en-US&page='.$page)->getContent());
+    }
+
+    /**
+     * @return mixed
+     * @throws ClientExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws TransportExceptionInterface
+     */
+    public function getMovieGenres() {
+        $client = HttpClient::create();
+        return json_decode($client->request('GET', 'https://api.themoviedb.org/3/genre/movie/list?api_key='.$this->apiKey.'&language=en-US')->getContent());
     }
 }

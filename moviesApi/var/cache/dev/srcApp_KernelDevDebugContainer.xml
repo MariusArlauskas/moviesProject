@@ -2263,6 +2263,27 @@
     </service>
     <service id="security.access_map" class="Symfony\Component\Security\Http\AccessMap" public="false">
       <call method="add">
+        <argument type="service" id=".security.request_matcher.iDtJtRX"/>
+        <argument type="collection">
+          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.RHM.hIp"/>
+        <argument type="collection">
+          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
+        <argument type="service" id=".security.request_matcher.Ssctqa8"/>
+        <argument type="collection">
+          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
         <argument type="service" id=".security.request_matcher.GtJ5Wza"/>
         <argument type="collection">
           <argument>ROLE_USER</argument>
@@ -2960,6 +2981,15 @@
         <argument key="security.firewall.map.context.main" type="service" id="security.firewall.map.context.main"/>
         <argument key="security.firewall.map.context.register" type="service" id="security.firewall.map.context.register"/>
       </argument>
+    </service>
+    <service id=".security.request_matcher.iDtJtRX" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/api/login_check</argument>
+    </service>
+    <service id=".security.request_matcher.RHM.hIp" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/api/register</argument>
+    </service>
+    <service id=".security.request_matcher.Ssctqa8" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/api/logout</argument>
     </service>
     <service id=".security.request_matcher.GtJ5Wza" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/api/users</argument>

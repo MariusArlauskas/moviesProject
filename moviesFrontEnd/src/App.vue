@@ -2,7 +2,7 @@
   <v-app>
     <Header />
     <ProfileBar v-show="drawer" />
-    <v-content class="mainBackground">
+    <v-content class="mainBackground" style="padding-top: 60px">
       <!-- <router-link to="/">Home</router-link> -->
 
       <router-view />

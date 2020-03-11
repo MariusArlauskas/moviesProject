@@ -38,7 +38,26 @@ class MoviesController extends AbstractController
      */
     public function getMovies($pageNumber){
         $movieApi = new TmdbApi();
-        $movies = $movieApi->getMovies($pageNumber);
+        $movies = $movieApi->getPopularMovies($pageNumber);
+        $genres = $movieApi->getMovieGenres();
+
+        // Converting genre_ids to genre names
+        foreach ($movies->results as $movie) {
+            $tempGenres = [];
+            $count = count($movie->genre_ids);
+            $countStop = 0;
+            foreach ($genres->genres as $genre) {
+                if (in_array($genre->id, $movie->genre_ids)) {
+                    array_push($tempGenres, $genre->name);
+                    $countStop++;
+                    if ($countStop == $count) {
+                        break;
+                    }
+                }
+            }
+            $movie->genres = $tempGenres;
+            unset($movie->genre_ids);
+        }
         return $this->response($movies);
     }
 

@@ -3,13 +3,12 @@
     style="border-bottom-left-radius:15px"
     height="auto"
     width="183px"
-    v-model="drawer"
     color="primary"
     expand-on-hover
     :mini-variant="miniVariant"
     right
-    absolute
     dark
+    fixed
     permanent
   >
     <v-list dense nav class="pt-0 transparent">
@@ -61,7 +60,6 @@
 import { mapGetters } from "vuex";
 export default {
   data: () => ({
-    drawer: false,
     miniVariant: true
   }),
   computed: {

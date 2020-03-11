@@ -3,7 +3,7 @@ import VueRouter from "vue-router";
 import Homepage from "../components/HomePage/HomePage";
 import Login from "../components/Auth/Login";
 import SignUp from "../components/Auth/SignUp";
-import MoviesPage from "../components/MoviesPage/MoviesPage";
+import Movies from "../components/MoviesPage/Movies";
 
 Vue.use(VueRouter);
 
@@ -15,8 +15,8 @@ const routes = [
   },
   {
     path: "/movies",
-    name: "MoviesPage",
-    component: MoviesPage
+    name: "Movies",
+    component: Movies
   },
   {
     path: "/login",

@@ -9,26 +9,43 @@ const state = {
 
 const getters = {
   GET_MOVIES: state => {
-    return state.movies;
+    return state.movies
   },
   GET_TOTAL_PAGES: state => {
-    return state.totalPages;
+    return state.totalPages
   }
 };
 
 const actions = {
+  FIND_MOVIE: (commit, payload) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`movie/` + payload)
+        .then(({ data, status }) => {
+          if (status === 200) {
+            resolve(data)
+          }
+        })
+        .catch(error => {
+          reject(error)
+        })
+    });
+  },
   GET_MOVIES: ({ commit }, page) => {
+    if (page < 2) {
+      commit('RESET_MOVIES')
+    }
     return new Promise((resolve, reject) => {
       axios
         .get(`movies/page/` + page)
         .then(({ data, status }) => {
           if (status === 200) {
-            commit('ADD_MOVIES', data);
-            resolve(true);
+            commit('ADD_MOVIES', data)
+            resolve(true)
           }
         })
         .catch(error => {
-          reject(error);
+          reject(error)
         })
     });
   },
@@ -37,14 +54,17 @@ const actions = {
 const mutations = {
   ADD_MOVIES: (state, movies) => {
     if (state.totalPages == 0) {
-      state.totalPages = movies.total_pages;
-      state.movies = movies.results;
+      state.totalPages = movies.total_pages
+      state.movies = movies.results
     }
     let tempList = [...state.movies, ...state.leftOutMovies, ...movies.results];
     state.movies = tempList.filter(function (item, pos) {   // Removing duplicates
-      return tempList.indexOf(item) == pos;
+      return tempList.indexOf(item) == pos
     });
   },
+  RESET_MOVIES: (state) => {
+    state.movies = []
+  }
 };
 
 export default {

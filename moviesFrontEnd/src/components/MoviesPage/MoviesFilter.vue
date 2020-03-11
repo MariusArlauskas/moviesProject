@@ -1,15 +1,10 @@
 <template>
-  <v-navigation-drawer
-    color="transparent white--text"
-    style="max-width:12%"
-    left
-    absolute
-    permanent
-  >
-    <v-layout class="mainContainer mt-8 body-2 font-weight-light" wrap>
-      <v-flex>asdssssssssssssssssssssssssopop</v-flex>
+  <v-layout class="body-2 font-weight-light white--text" style="max-width:12%; position: fixed ">
+    <v-layout class="pl-10" wrap>
+      <v-flex class="oneRow">Filter options</v-flex>
+      <v-flex class="oneRow">asd</v-flex>
     </v-layout>
-  </v-navigation-drawer>
+  </v-layout>
 </template>
 
 <script>
@@ -17,4 +12,7 @@ export default {};
 </script>
 
 <style scoped>
+.oneRow {
+  width: 100%;
+}
 </style>

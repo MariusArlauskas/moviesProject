@@ -1,10 +1,11 @@
 <template>
   <div>
     <MoviesFilter />
-    <v-layout class="mainContainer mt-8" wrap justify-center>
+    <v-layout class="mainContainer mt-3" wrap justify-center>
       <MovieCard v-for="item in items" :key="item.id" :item="item" />
     </v-layout>
     <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+    <router-view name="MovieDialog"></router-view>
   </div>
 </template>
 
@@ -14,7 +15,7 @@ import MoviesFilter from "./MoviesFilter";
 import { mapGetters } from "vuex";
 import MovieCard from "./MovieCard";
 export default {
-  name: "MoviesPage",
+  name: "Movies",
   components: { MovieCard, InfiniteLoading, MoviesFilter },
   data: () => ({
     pagesLoaded: 0,
@@ -46,6 +47,7 @@ export default {
     }
   },
   beforeMount() {
+    this.pagesLoaded = 0;
     this.getMovies();
     this.totalPages = this.$store.getters.GET_TOTAL_PAGES;
   }
@@ -53,6 +55,4 @@ export default {
 </script>
 
 <style scoped>
-.mainContainer {
-}
 </style>
