@@ -3,11 +3,7 @@
     <v-card-title class="primary subtitle-1 py-0 text-no-wrap" style="height: 15%">
       <v-tooltip top>
         <template v-slot:activator="{ on }">
-          <span
-            style="overflow: hidden"
-            class="font-weight-light"
-            v-on="on"
-          >{{ item.title }} (TODO only show hint if title long)</span>
+          <span style="overflow: hidden" class="font-weight-light" v-on="on">{{ item.title }}</span>
         </template>
         <span>{{ item.title }}</span>
       </v-tooltip>
@@ -15,12 +11,12 @@
     <v-layout style="height:85%; width:100%">
       <MovieDialog :movie="item" />
       <v-flex outlined style="width:60%; height:100%">
-        <v-card outlined flat dark style="width:100%; height:36%; background:transparent">
+        <v-card flat dark style="width:100%; height:36%; background:transparent">
           <v-row class="mx-0 pt-3 pl-4">
             <v-col class="px-0 py-0 font-italic font-weight-light white--text">Author (TODO)</v-col>
             <v-col
               class="pl-0 py-0 font-italic font-weight-light white--text text-right"
-            >{{ item.release_date }}</v-col>
+            >{{ new Date (item.releaseDate.timestamp * 1000).toLocaleString().substring(0, 10) }}</v-col>
           </v-row>
           <v-row class="mx-0 pt-1 pl-4 caption">{{ item.genres.join(', ') }}</v-row>
         </v-card>

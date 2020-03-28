@@ -2,10 +2,7 @@
   <v-dialog v-model="dialog" max-width="600px">
     <template v-slot:activator="{ on }">
       <v-flex style="width:40%; cursor:pointer" v-ripple v-on="on">
-        <v-img
-          height="100%"
-          :src="'https://image.tmdb.org/t/p/w600_and_h900_bestv2/'+movie.poster_path"
-        ></v-img>
+        <v-img height="100%" :src="movie.posterPath"></v-img>
       </v-flex>
     </template>
     <v-container style="position:absolute; width: 13%; height:35.5%; left:24%; top: 12%">
@@ -26,14 +23,14 @@
       <v-card-title class="headline lighten-2" style="padding-left:15%" primary-title>
         {{ movie.title }}
         <v-spacer></v-spacer>
-        Score (TODO color): {{ movie.vote_average }}
+        Score (TODO color): {{ movie.voteAverage }}
       </v-card-title>
       <v-divider></v-divider>
 
       <v-layout column style="padding-left:15%; width: 90%">
         <v-flex class="pt-5">
           <strong>Original title:</strong>
-          {{ movie.original_title }}
+          {{ movie.originalTitle }}
         </v-flex>
         <v-flex class="font-weight-light">{{ movie.genres.join(', ') }}</v-flex>
         <v-flex></v-flex>
@@ -51,10 +48,7 @@
       </v-card-actions>
     </v-card>
     <v-container style="position:absolute; max-width: 10%; left:30%; top: 15%">
-      <v-img
-        style="position:relative; left: -50%"
-        :src="'https://image.tmdb.org/t/p/w600_and_h900_bestv2/'+movie.poster_path"
-      ></v-img>
+      <v-img style="position:relative; left: -50%" :src="movie.posterPath"></v-img>
     </v-container>
   </v-dialog>
 </template>

@@ -4,9 +4,15 @@
 
 return [
     '_preview_error' => [['code', '_format'], ['_controller' => 'error_controller::preview', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format'], ['variable', '/', '\\d+', 'code'], ['text', '/_error']], [], []],
-    'movies_apimovies' => [[], ['_controller' => 'App\\Controller\\MoviesController::getMovies'], [], [['text', '/api/movies']], [], []],
-    'movies_apimovie' => [['movieName'], ['_controller' => 'App\\Controller\\MoviesController::getMovie'], [], [['variable', '/', '[^/]++', 'movieName'], ['text', '/api/movie']], [], []],
-    'movies_apimovies_add' => [[], ['_controller' => 'App\\Controller\\MoviesController::addMovies'], [], [['text', '/api/movies']], [], []],
-    'movies_apimovies_put' => [['id'], ['_controller' => 'App\\Controller\\MoviesController::updateMovies'], [], [['variable', '/', '[^/]++', 'id'], ['text', '/api/movies']], [], []],
-    'movies_apimovies_delete' => [['id'], ['_controller' => 'App\\Controller\\MoviesController::deleteMovies'], [], [['variable', '/', '[^/]++', 'id'], ['text', '/api/movies']], [], []],
+    'api_login_check' => [[], [], [], [['text', '/api/login_check']], [], []],
+    'logout' => [[], ['_controller' => 'App\\Controller\\ProfileController::logout'], [], [['text', '/api/logout']], [], []],
+    'movies_apimovies_get' => [['pageNumber'], ['_controller' => 'App\\Controller\\EntityController\\MoviesController::getMovies'], [], [['variable', '/', '[^/]++', 'pageNumber'], ['text', '/api/movies/page']], [], []],
+    'movies_apimovie_get' => [['movieName'], ['_controller' => 'App\\Controller\\EntityController\\MoviesController::getMovie'], [], [['variable', '/', '[^/]++', 'movieName'], ['text', '/api/movie']], [], []],
+    'movies_apimovies_add' => [[], ['_controller' => 'App\\Controller\\EntityController\\MoviesController::addMovies'], [], [['text', '/api/movies']], [], []],
+    'movies_apimovies_put' => [['id'], ['_controller' => 'App\\Controller\\EntityController\\MoviesController::updateMovies'], [], [['variable', '/', '[^/]++', 'id'], ['text', '/api/movies']], [], []],
+    'movies_apimovies_delete' => [['id'], ['_controller' => 'App\\Controller\\EntityController\\MoviesController::deleteMovies'], [], [['variable', '/', '[^/]++', 'id'], ['text', '/api/movies']], [], []],
+    'user_create' => [[], ['_controller' => 'App\\Controller\\EntityController\\UserController::createAction'], [], [['text', '/api/users']], [], []],
+    'current_user_data' => [[], ['_controller' => 'App\\Controller\\ProfileController::getAction'], [], [['text', '/api/profile']], [], []],
+    'user_create_register_controller' => [[], ['_controller' => 'App\\Controller\\RegisterController::register'], [], [['text', '/api/register']], [], []],
+    'pageNotFound' => [['path'], ['_controller' => 'App\\Controller\\PageNotFoundController::pageNotFoundAction', 'path' => ''], ['path' => '.*'], [['variable', '/', '.*', 'path']], [], []],
 ];

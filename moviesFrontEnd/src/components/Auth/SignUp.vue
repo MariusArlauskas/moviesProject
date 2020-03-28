@@ -1,5 +1,5 @@
 <template>
-  <v-container class="mt-12 mr-13">
+  <v-container class="cont">
     <v-layout align-start justify-end>
       <v-flex xs12 sm8 md6 xl4>
         <v-form>
@@ -111,5 +111,10 @@ export default {
   width: 70%;
   margin-left: auto;
   margin-right: auto;
+}
+
+.cont {
+  margin-top: 3%;
+  margin-right: 6%;
 }
 </style>

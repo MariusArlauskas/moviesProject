@@ -34,7 +34,37 @@ class Movies
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private $overview;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $posterPath;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $originalTitle;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $rating;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $apiId;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $movieId;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $genres = [];
 
     public function getId(): ?int
     {
@@ -77,14 +107,86 @@ class Movies
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getOverview(): ?string
     {
-        return $this->description;
+        return $this->overview;
     }
 
-    public function setDescription(?string $description): self
+    public function setOverview(?string $overview): self
     {
-        $this->description = $description;
+        $this->overview = $overview;
+
+        return $this;
+    }
+
+    public function getPosterPath(): ?string
+    {
+        return $this->posterPath;
+    }
+
+    public function setPosterPath(?string $posterPath): self
+    {
+        $this->posterPath = $posterPath;
+
+        return $this;
+    }
+
+    public function getOriginalTitle(): ?string
+    {
+        return $this->originalTitle;
+    }
+
+    public function setOriginalTitle(string $originalTitle): self
+    {
+        $this->originalTitle = $originalTitle;
+
+        return $this;
+    }
+
+    public function getRating(): ?float
+    {
+        return $this->rating;
+    }
+
+    public function setRating(float $rating): self
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    public function getApiId(): ?int
+    {
+        return $this->apiId;
+    }
+
+    public function setApiId(int $apiId): self
+    {
+        $this->apiId = $apiId;
+
+        return $this;
+    }
+
+    public function getMovieId(): ?int
+    {
+        return $this->movieId;
+    }
+
+    public function setMovieId(int $movieId): self
+    {
+        $this->movieId = $movieId;
+
+        return $this;
+    }
+
+    public function getGenres(): ?array
+    {
+        return $this->genres;
+    }
+
+    public function setGenres(?array $genres): self
+    {
+        $this->genres = $genres;
 
         return $this;
     }

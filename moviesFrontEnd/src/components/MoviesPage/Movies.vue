@@ -18,8 +18,7 @@ export default {
   name: "Movies",
   components: { MovieCard, InfiniteLoading, MoviesFilter },
   data: () => ({
-    pagesLoaded: 0,
-    totalPages: 0
+    pagesLoaded: 0
   }),
   methods: {
     getMovies() {
@@ -28,7 +27,7 @@ export default {
     },
     infiniteHandler($state) {
       setTimeout(() => {
-        if (this.pagesLoaded == this.totalPages) {
+        if (this.pagesEnd) {
           $state.complete();
         } else {
           $state.loaded();
@@ -38,10 +37,16 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["GET_MOVIES"]),
+    ...mapGetters(["GET_MOVIES", "GET_PAGES_END"]),
     items: {
       get() {
         return this.$store.getters.GET_MOVIES;
+      },
+      set() {}
+    },
+    pagesEnd: {
+      get() {
+        return this.$store.getters.GET_PAGES_END;
       },
       set() {}
     }
@@ -49,7 +54,6 @@ export default {
   beforeMount() {
     this.pagesLoaded = 0;
     this.getMovies();
-    this.totalPages = this.$store.getters.GET_TOTAL_PAGES;
   }
 };
 </script>

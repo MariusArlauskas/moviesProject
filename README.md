@@ -7,16 +7,14 @@
 # Planned TODOS:
 WIP: Movie page >> Search module
 
-# Movie society TODO list (fixes and small details):
+# TODO list (fixes and small details):
     Movies page:
         Show title hint only if title is long enaught;
         Author box fix
         Movies dialog:
             ADD more data about movies
-    Login / signup:
-        push forms further from the right
         
-# Movie society TODO list:
+# TODO list:
     Movies page:
         user can like movies
         user can ADD movies as watched,planning,dropped (probably in movie dialog)
@@ -44,7 +42,3 @@ WIP: Movie page >> Search module
     ADD Forum (??)
 
 ?? - lowest priority, only if the idea seems to fit in or there is enaugh time.
-
-Change api data saving:
-    cache movies and genres for a day depending from the time that first user comes to movie list
-    
