@@ -54,10 +54,12 @@ const actions = {
 const mutations = {
   ADD_MOVIES: (state, movies) => {
     if (movies) {
-      let tempList = [...state.movies, ...state.leftOutMovies, ...movies];
-      state.movies = tempList.filter(function (item, pos) {   // Removing duplicates
-        return tempList.indexOf(item) == pos
-      });
+      state.movies = [...state.movies, ...state.leftOutMovies, ...movies];
+      // let tempList = [...state.movies, ...state.leftOutMovies, ...movies];
+
+      // state.movies = tempList.filter(function (item, pos) {   // Removing duplicates
+      //   return tempList.indexOf(item) == pos
+      // });
     } else {
       state.pagesEnd = true;
     }

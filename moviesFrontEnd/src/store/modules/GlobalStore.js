@@ -8,7 +8,7 @@ const state = {
   ],
   profileLinks: [
     { title: "Home", icon: "mdi-view-dashboard", href: "HomePage" },
-    { title: "Profile", icon: "person", href: "HomePage" },
+    { title: "Profile", icon: "person", href: "Profile" },
     { title: "My movies", icon: "list", href: "HomePage" },
     { title: "About", icon: "mdi-help-box", href: "HomePage" }
   ]

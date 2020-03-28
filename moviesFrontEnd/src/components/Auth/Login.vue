@@ -19,8 +19,9 @@
                 v-model="username"
                 prepend-inner-icon="person"
                 name="username"
-                label="Login"
+                label="E-mail"
                 type="text"
+                v-on:keyup.enter="login()"
               ></v-text-field>
 
               <v-text-field
@@ -29,12 +30,13 @@
                 name="password"
                 label="Password"
                 type="password"
+                v-on:keyup.enter="login()"
               ></v-text-field>
             </v-card-text>
             <v-card-actions class="mr-10 ml-10">
               <v-btn to="/signUp" depressed rounded color="transparent">Sign up</v-btn>
               <v-spacer></v-spacer>
-              <v-btn depressed rounded color="transparent" @click.once="login()">
+              <v-btn depressed rounded color="transparent" @click="login()">
                 Login
                 <v-icon>keyboard_arrow_right</v-icon>
               </v-btn>

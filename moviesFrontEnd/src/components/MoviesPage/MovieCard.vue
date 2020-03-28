@@ -13,7 +13,7 @@
       <v-flex outlined style="width:60%; height:100%">
         <v-card flat dark style="width:100%; height:36%; background:transparent">
           <v-row class="mx-0 pt-3 pl-4">
-            <v-col class="px-0 py-0 font-italic font-weight-light white--text">Author (TODO)</v-col>
+            <v-col class="px-0 py-0 font-italic font-weight-light white--text">{{ item.author }}</v-col>
             <v-col
               class="pl-0 py-0 font-italic font-weight-light white--text text-right"
             >{{ new Date (item.releaseDate.timestamp * 1000).toLocaleString().substring(0, 10) }}</v-col>
