@@ -1,9 +1,8 @@
 import axios from "axios";
 
 const state = {
-  name: "",
-  email: "",
-  role: "ROLE_GUEST",
+  id: "",
+  user: {},
   drawer: false         // Show profile bar 
 };
 
@@ -12,30 +11,33 @@ const getters = {
     return state.drawer;
   },
   GET_USER: state => {
-    let role = state.role
+    if (Object.keys(state.user).length < 2) {
+      return false;
+    }
+    let role = state.user.role
       .split("_")[1]
       .toLowerCase();
     role = role.charAt(0).toUpperCase() + role.slice(1)
-    return {
-      name: state.name,
-      email: state.email,
-      role: role
-    };
+    state.user.role = role;
+    return state.user;
   }
 };
 
 const actions = {
+  GET_USER_PROFILE: ({ commit }, payload) => {
+    axios.get(`profile/` + payload)
+      .then(({ data, status }) => {
+        if (status === 200) {
+          commit("SET_USER_SESSION", data);
+        }
+      })
+  },
   LOGOUT: ({ commit }) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       axios.post(`logout`)
-        .then(({ status }) => {
-          if (status === 200) {
-            commit("UNSET_USER");
-            resolve(true);
-          }
-        })
-        .catch(error => {
-          reject(error);
+        .then(() => {
+          commit("UNSET_USER");
+          resolve(true);
         })
     });
   },
@@ -85,29 +87,21 @@ const actions = {
 const mutations = {
   SET_USER_SESSION: (state, user) => {  // Sets users data to local and session storage
     // Session
-    sessionStorage.setItem('user_name', user.name);
-    sessionStorage.setItem('user_email', user.email);
-    sessionStorage.setItem('user_role', user.role);
+    sessionStorage.setItem('user', JSON.stringify(user));
     // User
-    state.name = user.name;
-    state.email = user.email;
-    state.role = user.role;
+    state.user = user;
     // Profile bar
     state.drawer = true;
   },
   SET_USER_FROM_SESSION: (state) => {   // Sets users data from session to local
-    if (sessionStorage.getItem('user_name')) {
-      state.name = sessionStorage.getItem('user_name');
-      state.email = sessionStorage.getItem('user_email');
-      state.role = sessionStorage.getItem('user_role');
+    if (sessionStorage.getItem('user')) {
+      state.user = JSON.parse(sessionStorage.getItem('user'));
       state.drawer = true;
     }
   },
   UNSET_USER: (state) => {  // Unsets users data and session
     sessionStorage.clear();
-    state.name = "";
-    state.email = "";
-    state.role = "ROLE_GUEST";
+    state.user = {};
     state.drawer = false;
   }
 };

@@ -5,16 +5,19 @@
 // npm run serve
 
 # Planned TODOS:
-WIP: Movie page >> Search module
+WIP: Profile page | almost done basic view with users info
 
 # TODO list (fixes and small details):
     Movies page:
-        Show title hint only if title is long enaught;
-        Author box fix
+        Show title hint only if title is long enaught (??)
         Movies dialog:
             ADD more data about movies
+    Register page:
+        add new fields for user
         
 # TODO list:
+    Need to think of a better way to save movies.
+
     Movies page:
         user can like movies
         user can ADD movies as watched,planning,dropped (probably in movie dialog)
@@ -25,7 +28,9 @@ WIP: Movie page >> Search module
             sharing message to twitter/fb
         
     Login / signup:
-        ADD background card with background pick on the left
+        ADD background card with picture if main page on the left
+        
+    Search module (now only showing search input)
             
     ADD Movie page:
         show full movie details
@@ -33,12 +38,35 @@ WIP: Movie page >> Search module
     ADD Search:
         show movies in list, open movie list on click
         
-    ADD Profile:
+    Profile:
+        ADD Edit profile
         ADD ability for a user to customize profile theme (??)
         ADD Various stats in graphs with ability to share
-        ADD my list
-        ADD Followed/Following me 
+        ADD My movie lists (completed, planning...)
+        ADD Followed/Following me users
         
     ADD Forum (??)
+    
+    Refresh token
 
-?? - lowest priority, only if the idea seems to fit in or there is enaugh time.
+    ?? - bonus ideas.
+
+# what is DONE (but might still be expanded):
+    Profile page
+        Showing basic users info
+
+    Movies page
+        Showing movies in cards
+        
+    Profile toolbar
+        Toolbar with easier navigation shows up when user is logged in
+        
+    Header with navigation for offline users
+    
+    Login page
+        BackEnd JWT authorization
+    
+    Register page
+        
+    BackEnd saves user seen movies for a day (since api does not let permanent saving)
+        Not saving movies until request for them is made.

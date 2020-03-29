@@ -2,7 +2,7 @@ const state = {
   notification: {
     display: false,
     text: "Notification placeholder text",
-    timeout: 3000,
+    timeout: 4000,
     class: 'success'
   },
 };

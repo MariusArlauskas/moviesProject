@@ -6,13 +6,7 @@
       </v-flex>
     </template>
     <v-container style="position:absolute; width: 13%; height:35.5%; left:24%; top: 12%">
-      <!-- <v-img
-        style="position:relative; left: -50%"
-        :src="'https://image.tmdb.org/t/p/w600_and_h900_bestv2/'+movie.poster_path"
-      ></v-img>-->
-      <v-card flat style="background-color:var(--v-secondary-base);  height:100%;">
-        <!-- <v-img contain width="100%" src="../../assets/bgpic.jpg"></v-img> -->
-      </v-card>
+      <v-card flat style="background-color:var(--v-secondary-base);  height:100%;"></v-card>
     </v-container>
     <v-card
       dark

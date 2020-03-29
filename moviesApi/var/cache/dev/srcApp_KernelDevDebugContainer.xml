@@ -2233,7 +2233,7 @@
       <argument type="iterator">
         <argument type="service" id="security.authentication.provider.dao.login"/>
         <argument type="service" id="security.authentication.provider.anonymous.login"/>
-        <argument type="service" id="security.authentication.provider.guard.logout"/>
+        <argument type="service" id="security.authentication.provider.anonymous.logout"/>
         <argument type="service" id="security.authentication.provider.anonymous.register"/>
         <argument type="service" id="security.authentication.provider.guard.api"/>
         <argument type="service" id="security.authentication.provider.anonymous.api"/>
@@ -2694,6 +2694,7 @@
       <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
       <argument type="collection">
         <argument>login</argument>
+        <argument>logout</argument>
         <argument>register</argument>
         <argument>api</argument>
       </argument>
@@ -2854,69 +2855,44 @@
       <argument>security.user_checker</argument>
       <argument>.security.request_matcher.VuT9.hS</argument>
       <argument>true</argument>
-      <argument>false</argument>
+      <argument>true</argument>
       <argument>security.user.provider.concrete.app_user_provider</argument>
-      <argument>logout</argument>
-      <argument>lexik_jwt_authentication.jwt_token_authenticator</argument>
+      <argument>null</argument>
+      <argument>null</argument>
       <argument>null</argument>
       <argument>null</argument>
       <argument type="collection">
-        <argument>guard</argument>
+        <argument>anonymous</argument>
       </argument>
       <argument>null</argument>
     </service>
     <service id=".security.request_matcher.VuT9.hS" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/api/logout</argument>
     </service>
-    <service id="security.context_listener.0" class="Symfony\Component\Security\Http\Firewall\ContextListener" public="false">
+    <service id="security.authentication.listener.anonymous.logout" class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
       <argument type="service" id="security.untracked_token_storage"/>
-      <argument type="iterator">
-        <argument type="service" id="security.user.provider.concrete.app_user_provider"/>
-      </argument>
-      <argument>logout</argument>
+      <argument>%container.build_hash%</argument>
       <argument type="service" id="logger" on-invalid="null"/>
-      <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
-      <argument type="service" id="security.authentication.trust_resolver"/>
-      <argument type="collection">
-        <argument type="service" id="security.token_storage"/>
-        <argument>enableUsageTracking</argument>
-      </argument>
-    </service>
-    <service id="security.authentication.provider.guard.logout" class="Symfony\Component\Security\Guard\Provider\GuardAuthenticationProvider" public="false">
-      <argument type="iterator">
-        <argument type="service" id="lexik_jwt_authentication.security.guard.jwt_token_authenticator"/>
-      </argument>
-      <argument type="service" id="security.user.provider.concrete.app_user_provider"/>
-      <argument>logout</argument>
-      <argument type="service" id="security.user_checker"/>
-      <argument type="service" id="security.user_password_encoder.generic"/>
-    </service>
-    <service id="security.authentication.listener.guard.logout" class="Symfony\Component\Security\Guard\Firewall\GuardAuthenticationListener" public="false">
-      <tag name="security.remember_me_aware" id="logout" provider="security.user.provider.concrete.app_user_provider"/>
-      <argument type="service" id="security.authentication.guard_handler"/>
       <argument type="service" id="security.authentication.manager"/>
-      <argument>logout</argument>
-      <argument type="iterator">
-        <argument type="service" id="lexik_jwt_authentication.security.guard.jwt_token_authenticator"/>
-      </argument>
-      <argument type="service" id="logger" on-invalid="null"/>
+    </service>
+    <service id="security.authentication.provider.anonymous.logout" class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
+      <argument>%container.build_hash%</argument>
     </service>
     <service id="security.exception_listener.logout" class="Symfony\Component\Security\Http\Firewall\ExceptionListener" public="false">
       <argument type="service" id="security.token_storage"/>
       <argument type="service" id="security.authentication.trust_resolver"/>
       <argument type="service" id="security.http_utils"/>
       <argument>logout</argument>
-      <argument type="service" id="lexik_jwt_authentication.security.guard.jwt_token_authenticator"/>
+      <argument>null</argument>
       <argument>null</argument>
       <argument>null</argument>
       <argument type="service" id="logger" on-invalid="null"/>
-      <argument>false</argument>
+      <argument>true</argument>
     </service>
     <service id="security.firewall.map.context.logout" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext" public="false">
       <argument type="iterator">
         <argument type="service" id="security.channel_listener"/>
-        <argument type="service" id="security.context_listener.0"/>
-        <argument type="service" id="security.authentication.listener.guard.logout"/>
+        <argument type="service" id="security.authentication.listener.anonymous.logout"/>
         <argument type="service" id="security.access_listener"/>
       </argument>
       <argument type="service" id="security.exception_listener.logout"/>
@@ -3058,7 +3034,7 @@
       </argument>
       <argument>null</argument>
     </service>
-    <service id="security.context_listener.1" class="Symfony\Component\Security\Http\Firewall\ContextListener" public="false">
+    <service id="security.context_listener.0" class="Symfony\Component\Security\Http\Firewall\ContextListener" public="false">
       <argument type="service" id="security.untracked_token_storage"/>
       <argument type="iterator">
         <argument type="service" id="security.user.provider.concrete.app_user_provider"/>
@@ -3095,7 +3071,7 @@
     <service id="security.firewall.map.context.main" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext" public="false">
       <argument type="iterator">
         <argument type="service" id="security.channel_listener"/>
-        <argument type="service" id="security.context_listener.1"/>
+        <argument type="service" id="security.context_listener.0"/>
         <argument type="service" id="security.authentication.listener.anonymous.main"/>
         <argument type="service" id="security.access_listener"/>
       </argument>
@@ -3948,7 +3924,7 @@
     <service id="Symfony\Component\Security\Core\User\UserProviderInterface" alias="security.user.provider.concrete.app_user_provider"/>
     <service id="security.authentication.session_strategy.login" alias="security.authentication.session_strategy_noop"/>
     <service id="security.user_checker.login" alias="security.user_checker" public="false"/>
-    <service id="security.authentication.session_strategy.logout" alias="security.authentication.session_strategy"/>
+    <service id="security.authentication.session_strategy.logout" alias="security.authentication.session_strategy_noop"/>
     <service id="security.user_checker.logout" alias="security.user_checker" public="false"/>
     <service id="security.authentication.session_strategy.register" alias="security.authentication.session_strategy_noop"/>
     <service id="security.user_checker.register" alias="security.user_checker" public="false"/>

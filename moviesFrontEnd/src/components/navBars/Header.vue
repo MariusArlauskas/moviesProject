@@ -65,7 +65,7 @@ export default {
     links: {
       get() {
         let array = this.$store.getters.GET_HEADER_LINKS;
-        if (this.$store.getters.GET_USER.name) {
+        if (this.$store.getters.GET_USER) {
           return array.filter(function(e) {
             return e.showWhenLoggedIn == true;
           });

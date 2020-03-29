@@ -14,7 +14,7 @@
     <v-list dense nav class="pt-0 transparent">
       <v-list-item two-line :class="miniVariant && 'px-0 mb-0'">
         <v-list-item-avatar>
-          <img src="https://randomuser.me/api/portraits/men/81.jpg" />
+          <img :src="getProfilePicture" />
         </v-list-item-avatar>
 
         <v-list-item-content>
@@ -27,7 +27,7 @@
         <v-btn @click.once="logout()" color="accent lighten-2" outlined>Logout</v-btn>
       </div>-->
 
-      <v-list-item link @click.once="logout()">
+      <v-list-item link @click="logout()">
         <v-list-item-icon>
           <v-icon class="accent--text text--lighten-2">exit_to_app</v-icon>
         </v-list-item-icon>
@@ -48,7 +48,7 @@
           <router-link
             class="white--text subtitle-2"
             style="text-decoration: none;"
-            :to="{ name: item.href }"
+            :to="{ name: item.href, params: item.params }"
           >{{ item.title }}</router-link>
         </v-list-item-content>
       </v-list-item>
@@ -60,18 +60,31 @@
 import { mapGetters } from "vuex";
 export default {
   data: () => ({
-    miniVariant: true
+    miniVariant: true,
+    items: [
+      { title: "Home", icon: "mdi-view-dashboard", href: "HomePage" },
+      { title: "Profile", icon: "person", href: "Profile" }
+    ]
   }),
   computed: {
     ...mapGetters(["GET_USER", "GET_PROFILE_LINKS"]),
-    items: {
-      get() {
-        return this.$store.getters.GET_PROFILE_LINKS;
-      },
-      set() {}
+    getProfilePicture() {
+      if (this.$store.getters.GET_USER) {
+        return this.$store.getters.GET_USER.profilePicture;
+      } else {
+        return this.$store.getters.GET_API_URL + "Files/defProfilePic.png";
+      }
     }
   },
   methods: {
+    getLinks() {
+      if (this.$store.getters.GET_USER) {
+        this.items[1].params = { id: this.$store.getters.GET_USER.id }; // Add user id to its profile link
+      } else {
+        this.items[1].params = { id: 0 };
+      }
+      this.items = [...this.items, ...this.$store.getters.GET_PROFILE_LINKS];
+    },
     logout() {
       this.$store
         .dispatch("LOGOUT")
@@ -87,6 +100,9 @@ export default {
         })
         .catch(() => {});
     }
+  },
+  beforeMount() {
+    this.getLinks();
   }
 };
 </script>

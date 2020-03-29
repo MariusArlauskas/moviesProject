@@ -38,6 +38,21 @@ class User implements UserInterface
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $profilePicture;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $birthDate;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -127,4 +142,49 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getProfilePicture(): ?string
+    {
+        return $this->profilePicture;
+    }
+
+    public function setProfilePicture(?string $profilePicture): self
+    {
+        $this->profilePicture = $profilePicture;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getBirthDate(): ?\DateTimeInterface
+    {
+        return $this->birthDate;
+    }
+
+    public function setBirthDate(\DateTimeInterface $birthDate): self
+    {
+        $this->birthDate = $birthDate;
+
+        return $this;
+    }
+
+	public function toArray() {
+		$vars = get_object_vars ( $this );
+		$array = array ();
+		foreach ( $vars as $key => $value ) {
+			$array [ltrim ( $key, '_' )] = $value;
+		}
+		return $array;
+	}
 }

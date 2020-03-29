@@ -7,8 +7,6 @@ const state = {
     { name: "SignUp", href: "SignUp", showWhenLoggedIn: false }
   ],
   profileLinks: [
-    { title: "Home", icon: "mdi-view-dashboard", href: "HomePage" },
-    { title: "Profile", icon: "person", href: "Profile" },
     { title: "My movies", icon: "list", href: "HomePage" },
     { title: "About", icon: "mdi-help-box", href: "HomePage" }
   ]
@@ -23,7 +21,7 @@ const getters = {
   },
   GET_PROFILE_LINKS: () => {
     return state.profileLinks
-  }
+  },
 };
 
 const actions = {};

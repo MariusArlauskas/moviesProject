@@ -15,6 +15,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 /**
  * Class ProfileController
@@ -23,31 +27,43 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class ProfileController extends AbstractController
 {
+	protected $serializer;
+
+	public function __construct()
+	{
+		$encoders = [new XmlEncoder(), new JsonEncoder()];
+		$normalizers = [new ObjectNormalizer()];
+
+		$this->serializer = new Serializer($normalizers, $encoders);
+	}
+
     /**
      * @IsGranted("ROLE_USER", statusCode=403, message="Access denied!!")
-     * @Route("", name="current_user_data", methods={"GET"})
-     * @return JsonResponse
+     * @Route("", name="current_user_profile_data", methods={"GET"})
+     * @return Response
      */
-    public function getAction()
+    public function getSelfAction()
     {
-        $user = $this->getUser();
+        $userId = $this->getUser()->getId();
 
-        $data = [
-//            'id' => $user->getId(),
-            'email' => $user->getEmail(),
-            'name' => $user->getName(),
-        ];
-
-        if ($this->isGranted("ROLE_ADMIN")) {
-            $data['role'] = "ROLE_ADMIN";
-        }elseif ($this->isGranted("ROLE_USER")){
-            $data['role'] = "ROLE_USER";
-        }else {
-            $data['role'] = "ROLE_GUEST";
-        }
-
-        return new JsonResponse($data, Response::HTTP_OK);
+        return $this->getAction($userId);
     }
+
+	/**
+	 * @IsGranted("ROLE_USER", statusCode=403, message="Access denied!!")
+	 * @Route("/{id}", name="user_profile_data", methods={"GET"})
+	 * @return Response
+	 */
+	public function getAction($id)
+	{
+		$user = $this->getUser();
+
+		$result = $this->forward('App\Controller\EntityController\UserController::getOneAction', [
+			'id' => $id,
+		]);
+
+		return $result;
+	}
 
     /**
      * @return JsonResponse
@@ -179,4 +195,34 @@ class ProfileController extends AbstractController
 //
 //        return $result;
 //    }
+
+	/**
+	 * Returns a JSON response
+	 *
+	 * @param array|string $data
+	 * @param int $status
+	 * @param array $headers
+	 * @param bool $serialize Need serializing?
+	 * @return JsonResponse|Response
+	 */
+	public function response($data, $status = 200, $headers = [], $serialize = false)
+	{
+		if ($serialize) {
+			return new Response($this->serializer->serialize($data, 'json'), $status, $headers);
+		}
+		return new JsonResponse($data, $status, $headers);
+	}
+
+	protected function transformJsonBody(Request $request)
+	{
+		$data = json_decode($request->getContent(), true);
+
+		if ($data === null) {
+			return $request;
+		}
+
+		$request->request->replace($data);
+
+		return $request;
+	}
 }

@@ -29,9 +29,8 @@ security:
 
         logout:
             pattern:  ^/api/logout
-            guard:
-              authenticators:
-                  - lexik_jwt_authentication.jwt_token_authenticator
+            stateless: true
+            anonymous: true
 
         register:
             pattern:  ^/api/register
