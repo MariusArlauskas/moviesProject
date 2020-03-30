@@ -2,30 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e74540c-884f-4b9c-907e-f04adeb4760b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/public/Files/5prof.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/Files/defProfilePic.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200329144054.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200329155235.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200330181948.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Movies.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Movies.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.preload.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.preload.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainerCompiler.log" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainerCompiler.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/navBars/Header.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/navBars/Header.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/navBars/ProfileBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/navBars/ProfileBar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/GlobalStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/GlobalStore.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/UserStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/UserStore.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,6 +157,9 @@
       <workItem from="1585390226543" duration="2439000" />
       <workItem from="1585432784435" duration="91000" />
       <workItem from="1585487599204" duration="14441000" />
+      <workItem from="1585544683602" duration="55000" />
+      <workItem from="1585576137373" duration="623000" />
+      <workItem from="1585585148896" duration="4878000" />
     </task>
     <servers />
   </component>
@@ -202,10 +185,11 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2715" y="443" key="NewPhpFileDialog/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1584906725989" />
-    <state x="503" y="133" width="1102" height="739" key="find.popup" timestamp="1585506654623">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="2423" y="133" width="1102" height="739" key="find.popup" timestamp="1585593685140">
+      <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="503" y="133" width="1102" height="739" key="find.popup/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1585506654623" />
+    <state x="2423" y="133" width="1102" height="739" key="find.popup/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1585593685140" />
     <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1585492849205">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

@@ -56,11 +56,14 @@ class UserController extends AbstractController
         // Check if none of the data is missing
         if (isset($parametersAsArray['password']) &&
             isset($parametersAsArray['name']) &&
+            isset($parametersAsArray['birthDate']) &&
             isset($parametersAsArray['email'])) {
             $email = htmlspecialchars($parametersAsArray['email']);
             $name = htmlspecialchars(trim($parametersAsArray['name']));
+            $birthDate = htmlspecialchars(trim($parametersAsArray['birthDate']));
             $password = htmlspecialchars(trim($parametersAsArray['password']));
         } else {
+        	var_dump($parametersAsArray);
             return new JsonResponse("Missing data!", Response::HTTP_BAD_REQUEST);
         }
 
@@ -75,6 +78,8 @@ class UserController extends AbstractController
         $user = new User();
         $user->setEmail($email);
         $user->setName($name);
+        $user->setRegisterDate(new \DateTime());
+        $user->setBirthDate(\DateTime::createFromFormat('Y-m-d', $birthDate));
         $user->setRoles(['ROLE_USER']);
         $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
 
@@ -114,7 +119,11 @@ class UserController extends AbstractController
 			$userArray['role'] = "ROLE_GUEST";
 		}
 		$userArray['birthDate'] = $user->getBirthDate()->format('Y-m-d');
-		$userArray['profilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/'.$userArray['profilePicture'];
+		if (empty($userArray['profilePicture'])) {
+			$userArray['profilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
+		} else {
+			$userArray['profilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/'.$userArray['profilePicture'];
+		}
 
 		// Unset important or unnecessary values
 		unset($userArray['password']);

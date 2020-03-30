@@ -14,7 +14,7 @@
     <v-list dense nav class="pt-0 transparent">
       <v-list-item two-line :class="miniVariant && 'px-0 mb-0'">
         <v-list-item-avatar>
-          <img :src="getProfilePicture" />
+          <img :src="GET_USER.profilePicture" />
         </v-list-item-avatar>
 
         <v-list-item-content>
@@ -22,10 +22,6 @@
           <v-list-item-subtitle>{{ GET_USER.role }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
-
-      <!-- <div class="text-center mb-3">
-        <v-btn @click.once="logout()" color="accent lighten-2" outlined>Logout</v-btn>
-      </div>-->
 
       <v-list-item link @click="logout()">
         <v-list-item-icon>
@@ -63,25 +59,16 @@ export default {
     miniVariant: true,
     items: [
       { title: "Home", icon: "mdi-view-dashboard", href: "HomePage" },
-      { title: "Profile", icon: "person", href: "Profile" }
+      { title: "Profile", icon: "person", href: "Profile", params: { id: 0 } }
     ]
   }),
   computed: {
-    ...mapGetters(["GET_USER", "GET_PROFILE_LINKS"]),
-    getProfilePicture() {
-      if (this.$store.getters.GET_USER) {
-        return this.$store.getters.GET_USER.profilePicture;
-      } else {
-        return this.$store.getters.GET_API_URL + "Files/defProfilePic.png";
-      }
-    }
+    ...mapGetters(["GET_USER", "GET_PROFILE_LINKS"])
   },
   methods: {
     getLinks() {
-      if (this.$store.getters.GET_USER) {
+      if (this.$store.getters.GET_USER.id) {
         this.items[1].params = { id: this.$store.getters.GET_USER.id }; // Add user id to its profile link
-      } else {
-        this.items[1].params = { id: 0 };
       }
       this.items = [...this.items, ...this.$store.getters.GET_PROFILE_LINKS];
     },
@@ -101,7 +88,7 @@ export default {
         .catch(() => {});
     }
   },
-  beforeMount() {
+  mounted() {
     this.getLinks();
   }
 };

@@ -53,6 +53,11 @@ class User implements UserInterface
      */
     private $birthDate;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $registerDate;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -180,11 +185,23 @@ class User implements UserInterface
     }
 
 	public function toArray() {
-		$vars = get_object_vars ( $this );
-		$array = array ();
-		foreach ( $vars as $key => $value ) {
-			$array [ltrim ( $key, '_' )] = $value;
-		}
-		return $array;
-	}
+         		$vars = get_object_vars ( $this );
+         		$array = array ();
+         		foreach ( $vars as $key => $value ) {
+         			$array [ltrim ( $key, '_' )] = $value;
+         		}
+         		return $array;
+         	}
+
+    public function getRegisterDate(): ?\DateTimeInterface
+    {
+        return $this->registerDate;
+    }
+
+    public function setRegisterDate(\DateTimeInterface $registerDate): self
+    {
+        $this->registerDate = $registerDate;
+
+        return $this;
+    }
 }

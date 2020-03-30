@@ -18,6 +18,36 @@
                 :rules="[rules.required]"
               ></v-text-field>
 
+              <v-menu
+                ref="menu"
+                v-model="menu"
+                :close-on-content-click="false"
+                transition="scale-transition"
+                offset-y
+                min-width="290px"
+              >
+                <template v-slot:activator="{ on }">
+                  <v-text-field
+                    name="birthDate"
+                    v-model="birthDate"
+                    label="Birthday date"
+                    prepend-inner-icon="event"
+                    readonly
+                    v-on="on"
+                    :rules="[rules.required]"
+                  ></v-text-field>
+                </template>
+                <v-date-picker
+                  ref="picker"
+                  no-title
+                  v-model="birthDate"
+                  :max="new Date().toISOString().substr(0, 10)"
+                  min="1950-01-01"
+                  @change="saveBirthDate"
+                  style="border-radius: 0px"
+                ></v-date-picker>
+              </v-menu>
+
               <v-text-field
                 prepend-inner-icon="email"
                 name="email"
@@ -48,7 +78,7 @@
             <v-card-actions class="mr-10 ml-10">
               <v-btn to="/login" depressed rounded color="transparent">Login</v-btn>
               <v-spacer></v-spacer>
-              <v-btn depressed rounded color="transparent" @click.once="register()">
+              <v-btn depressed rounded color="transparent" @click="register()">
                 Register
                 <v-icon>keyboard_arrow_right</v-icon>
               </v-btn>
@@ -64,9 +94,11 @@
 export default {
   name: "SignUp",
   data: () => ({
+    menu: false,
     userExists: false,
     email: "",
     name: "",
+    birthDate: null,
     password: "",
     confirm_password: "",
     rules: {
@@ -84,12 +116,13 @@ export default {
           .dispatch("REGISTER", {
             name: this.name,
             email: this.email,
-            password: this.password
+            password: this.password,
+            birthDate: this.birthDate
           })
           .then(() => {
             this.$store.commit("SET_NOTIFICATION", {
               display: true,
-              text: "Account created! you can now login.",
+              text: "Account created! You can now login.",
               alertClass: "success"
             });
             this.$router.push("/login");
@@ -101,6 +134,14 @@ export default {
     },
     valid() {
       return this.password === this.confirm_password;
+    },
+    saveBirthDate(date) {
+      this.$refs.menu.save(date);
+    }
+  },
+  watch: {
+    menu(val) {
+      val && setTimeout(() => (this.$refs.picker.activePicker = "YEAR"));
     }
   }
 };

@@ -17,7 +17,7 @@
       <v-card-title class="headline lighten-2" style="padding-left:15%" primary-title>
         {{ movie.title }}
         <v-spacer></v-spacer>
-        Score (TODO color): {{ movie.voteAverage }}
+        Score: {{ movie.rating }}
       </v-card-title>
       <v-divider></v-divider>
 

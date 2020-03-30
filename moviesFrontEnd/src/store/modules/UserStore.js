@@ -32,14 +32,19 @@ const actions = {
         }
       })
   },
+  GET_USER_PROFILE_BY_ID: (commit, payload) => {
+    return axios.get(`profile/` + payload.id)
+      .then(({ data, status }) => {
+        if (status === 200) {
+          return data;
+        }
+      })
+  },
   LOGOUT: ({ commit }) => {
-    return new Promise((resolve) => {
-      axios.post(`logout`)
-        .then(() => {
-          commit("UNSET_USER");
-          resolve(true);
-        })
-    });
+    axios.post(`logout`)
+      .then(() => {
+        commit("UNSET_USER");
+      })
   },
   LOGIN: ({ dispatch }, payload) => {
     return new Promise((resolve, reject) => {
@@ -56,10 +61,10 @@ const actions = {
         })
     });
   },
-  REGISTER: (commit, { email, password, name }) => {
+  REGISTER: (commit, { email, password, name, birthDate }) => {
     return new Promise((resolve, reject) => {
       axios.post(`register`, {
-        email, password, name
+        email, password, name, birthDate
       })
         .then(({ status }) => {
           if (status === 200) {

@@ -4,23 +4,25 @@
 # frontEnd - Vuejs
 // npm run serve
 
-# Planned TODOS:
-WIP: Profile page | almost done basic view with users info
-
-# TODO list (fixes and small details):
-    Movies page:
-        Show title hint only if title is long enaught (??)
-        Movies dialog:
-            ADD more data about movies
-    Register page:
-        add new fields for user
-        
-# TODO list:
+# In PROGRESS:
     Need to think of a better way to save movies.
-
+        Add movie ranking to db for each rank it has
     Movies page:
         user can like movies
         user can ADD movies as watched,planning,dropped (probably in movie dialog)
+        
+# TODO list (fixes or small details):
+    Login problem
+        when loggin in user links in profile bar does not set correctly (probably setting them before getting uid)
+    Movies page:
+        Show title hint only if title is long enaught (??)
+        Movies dialog:
+            add more data about movies (??)
+            add color based score indicator
+        
+# TODO list (new functions):
+
+    Movies page:
         ADD filter
         ADD suggest movie
         ADD show movies from profile 
@@ -30,7 +32,7 @@ WIP: Profile page | almost done basic view with users info
     Login / signup:
         ADD background card with picture if main page on the left
         
-    Search module (now only showing search input)
+    Search module (now only showing search input - form)
             
     ADD Movie page:
         show full movie details
@@ -57,6 +59,7 @@ WIP: Profile page | almost done basic view with users info
 
     Movies page
         Showing movies in cards
+        Showing movie module with more info about movie
         
     Profile toolbar
         Toolbar with easier navigation shows up when user is logged in
