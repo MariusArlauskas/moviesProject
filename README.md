@@ -5,23 +5,15 @@
 // npm run serve
 
 # In PROGRESS:
-    Need to think of a better way to save movies.
-        Add movie ranking to db for each rank it has
+    Need to think of a better way to save movies. \/
+        -? Add movie ranking to db for each rank it has
     Movies page:
         user can like movies
         user can ADD movies as watched,planning,dropped (probably in movie dialog)
         
 # TODO list (fixes or small details):
-    Login problem
-        when loggin in user links in profile bar does not set correctly (probably setting them before getting uid)
-    Movies page:
-        Show title hint only if title is long enaught (??)
-        Movies dialog:
-            add more data about movies (??)
-            add color based score indicator
         
 # TODO list (new functions):
-
     Movies page:
         ADD filter
         ADD suggest movie
@@ -54,17 +46,18 @@
     ?? - bonus ideas.
 
 # what is DONE (but might still be expanded):
-    Profile page
+    Profile pages
         Showing basic users info
 
     Movies page
         Showing movies in cards
-        Showing movie module with more info about movie
+        Movies Module with more info about movie
+            color indicating rating of the movie
         
     Profile toolbar
         Toolbar with easier navigation shows up when user is logged in
         
-    Header with navigation for offline users
+    Header with navigation for offline/online users
     
     Login page
         BackEnd JWT authorization

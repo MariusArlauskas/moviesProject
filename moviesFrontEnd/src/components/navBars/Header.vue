@@ -26,7 +26,7 @@
       :key="link.name"
       class="font-weight-light mr-3 header-href"
     >
-      <router-link class="white--text" :to="{ name: link.href }">{{ link.name }}</router-link>
+      <router-link :class="link.classes" :to="{ name: link.href }">{{ link.name }}</router-link>
     </v-toolbar-items>
 
     <SearchDialog />

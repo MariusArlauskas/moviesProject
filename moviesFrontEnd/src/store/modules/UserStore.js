@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const state = {
-  id: "",
   user: {},
   drawer: false         // Show profile bar 
 };

@@ -35,6 +35,21 @@
 
       <v-divider class="mb-1"></v-divider>
 
+      <!-- Hardcoded profile link -->
+      <v-list-item link>
+        <v-list-item-icon>
+          <v-icon>person</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <router-link
+            class="white--text subtitle-2"
+            style="text-decoration: none;"
+            :to="{ name: 'Profile', params: { id: getUserId } }"
+          >Profile</router-link>
+        </v-list-item-content>
+      </v-list-item>
+
       <v-list-item v-for="item in items" :key="item.title" link>
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
@@ -57,20 +72,20 @@ import { mapGetters } from "vuex";
 export default {
   data: () => ({
     miniVariant: true,
-    items: [
-      { title: "Home", icon: "mdi-view-dashboard", href: "HomePage" },
-      { title: "Profile", icon: "person", href: "Profile", params: { id: 0 } }
-    ]
+    items: []
   }),
   computed: {
-    ...mapGetters(["GET_USER", "GET_PROFILE_LINKS"])
+    ...mapGetters(["GET_USER", "GET_PROFILE_LINKS"]),
+    getUserId() {
+      if (this.$store.getters.GET_USER.id > 0) {
+        return this.$store.getters.GET_USER.id; // Add user id to its profile link
+      }
+      return 0;
+    }
   },
   methods: {
     getLinks() {
-      if (this.$store.getters.GET_USER.id) {
-        this.items[1].params = { id: this.$store.getters.GET_USER.id }; // Add user id to its profile link
-      }
-      this.items = [...this.items, ...this.$store.getters.GET_PROFILE_LINKS];
+      this.items = this.$store.getters.GET_PROFILE_LINKS;
     },
     logout() {
       this.$store

@@ -2,7 +2,7 @@
   <div>
     <MoviesFilter />
     <v-layout class="mainContainer mt-3" wrap justify-center>
-      <MovieCard v-for="item in items" :key="item.id" :item="item" />
+      <MovieCard v-for="item in this.movies" :key="item.id" :item="item" />
     </v-layout>
     <infinite-loading @infinite="infiniteHandler"></infinite-loading>
     <router-view name="MovieDialog"></router-view>
@@ -12,19 +12,26 @@
 <script>
 import InfiniteLoading from "vue-infinite-loading";
 import MoviesFilter from "./MoviesFilter";
-import { mapGetters } from "vuex";
 import MovieCard from "./MovieCard";
 export default {
   name: "Movies",
   components: { MovieCard, InfiniteLoading, MoviesFilter },
   data: () => ({
-    pagesLoaded: 1
+    pagesEnd: false,
+    pagesLoaded: 1,
+    movies: []
   }),
   methods: {
-    getMovies() {
-      this.$store.dispatch("GET_MOVIES", this.pagesLoaded).then(() => {
-        this.pagesLoaded += 1;
-      });
+    async getMovies() {
+      await this.$store
+        .dispatch("GET_MOVIES", this.pagesLoaded)
+        .then(data => {
+          this.pagesLoaded += 1;
+          this.movies = [...this.movies, ...data];
+        })
+        .catch(() => {
+          this.pagesEnd = true;
+        });
     },
     infiniteHandler($state) {
       setTimeout(() => {
@@ -34,24 +41,10 @@ export default {
           $state.loaded();
           this.getMovies();
         }
-      }, 1000);
+      }, 1500);
     }
   },
-  computed: {
-    ...mapGetters(["GET_MOVIES", "GET_PAGES_END"]),
-    items: {
-      get() {
-        return this.$store.getters.GET_MOVIES;
-      },
-      set() {}
-    },
-    pagesEnd: {
-      get() {
-        return this.$store.getters.GET_PAGES_END;
-      },
-      set() {}
-    }
-  },
+  computed: {},
   beforeMount() {
     this.pagesLoaded = 1;
     this.getMovies();

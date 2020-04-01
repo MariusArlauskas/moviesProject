@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e74540c-884f-4b9c-907e-f04adeb4760b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200330181948.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,6 +157,8 @@
       <workItem from="1585544683602" duration="55000" />
       <workItem from="1585576137373" duration="623000" />
       <workItem from="1585585148896" duration="4878000" />
+      <workItem from="1585630959881" duration="13000" />
+      <workItem from="1585762025592" duration="1201000" />
     </task>
     <servers />
   </component>
