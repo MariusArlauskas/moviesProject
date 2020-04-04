@@ -9,7 +9,9 @@
 namespace App\Controller\EntityController;
 
 
+use App\Entity\Movies;
 use App\Entity\User;
+use App\Entity\UserMovies;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,10 +40,11 @@ class UserController extends AbstractController
 		$this->serializer = new Serializer($normalizers, $encoders);
 	}
 
-    /**
-     * @Route("", name="user_create", methods={"POST"})
-     * @return JsonResponse
-     */
+	/**
+	 * @Route("", name="user_create", methods={"POST"})
+	 * @return JsonResponse
+	 * @throws \Exception
+	 */
     public function createAction(Request $request)
     {
         if ($this->isGranted("ROLE_USER")) {
@@ -130,6 +133,42 @@ class UserController extends AbstractController
 		unset($userArray['roles']);
 
 		return $this->response($userArray, 200, [], false, true);
+	}
+
+	/**
+	 * @Route("/{userId}/{apiId}/movies/{movieId}/status/{relationType}", name="user_add_movie", methods={"POST"}, requirements={"userId"="\d+", "apiId"="\d+", "movieId"="\d+", "relationType"="\d+"})
+	 * @return JsonResponse
+	 */
+	public function addMovieStatus($userId, $apiId, $movieId, $relationType) {
+		$repository = $this->getDoctrine()->getRepository(UserMovies::class);
+		$userMovies = $repository->findOneBy([
+			'userId' => $userId,
+			'apiId' => $apiId,
+			'movieId' => $movieId,
+		]);
+
+		if (empty($userMovies)) {
+			$userMovies = new UserMovies();
+		}
+		$userMovies->setUserId($userId);
+		$userMovies->setApiId($apiId);
+		$userMovies->setMovieId($movieId);
+		if ($relationType == 0) {
+			$userMovies->setIsFavorite(!$userMovies->getIsFavorite());
+		} else {
+			$userMovies->setRelationType($relationType);
+		}
+
+		// Get the Doctrine service and manager
+		$em = $this->getDoctrine()->getManager();
+
+		// Add user to Doctrine for saving
+		$em->persist($userMovies);
+
+		// Save user
+		$em->flush();
+
+		return $this->response('Added movie '.$movieId.' to user '.$userId);
 	}
 
 	/**

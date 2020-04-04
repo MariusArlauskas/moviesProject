@@ -29,7 +29,7 @@ use Symfony\Component\Serializer\Serializer;
 /**
  * Class MoviesController
  * @package App\Controller
- * @Route("", name="movies_api")
+ * @Route("/movies", name="movies_api")
  */
 class MoviesController extends AbstractController
 {
@@ -79,7 +79,7 @@ class MoviesController extends AbstractController
 //    }
 
 	/** Get top rated movies
-	 * @Route("/movies/page/{pageNumber}", name="movies_get", methods={"GET"})
+	 * @Route("/page/{pageNumber}", name="movies_get", methods={"GET"})
 	 * @return JsonResponse|Response
 	 * @throws ClientExceptionInterface
 	 * @throws RedirectionExceptionInterface
@@ -90,6 +90,10 @@ class MoviesController extends AbstractController
 		$apiId = 1;
 		$em = $this->getDoctrine()->getManager();
 		$repMovies = $em->getRepository(Movies::class);
+		$repMovies->findByWithStatuses($apiId);
+		var_dump($repMovies);
+
+
 		$movies = $repMovies->findBy(['apiId' => $apiId], null, 20, $pageNumber * 20 - 20);
 
 		if (!empty($movies)) {
@@ -107,21 +111,25 @@ class MoviesController extends AbstractController
 		return $this->response($movies, 200, [], true);
 	}
 
-//    /**
-//     * @Route("/movie/{movieName}", name="movie_get", methods={"GET"})
-//     * @param $movieName
-//     * @return JsonResponse|Response
-//     * @throws ClientExceptionInterface
-//     * @throws RedirectionExceptionInterface
-//     * @throws ServerExceptionInterface
-//     * @throws TransportExceptionInterface
-//     */
-//    public function getMovie($movieName){
-////        $data = $moviesRepository->findAll();
-//        $movieApi = new TmdbApi();
-//        $movie = $movieApi->getMovie($movieName);
-//        return $this->response($movie);
-//    }
+	/**
+	 * @Route("/{id}", name="movie_show_one", methods={"GET"}, requirements={"id"="\d+"})
+	 * @return JsonResponse
+	 */
+	public function getOneFromDbAction($id)
+	{
+		// Finding user
+		$repository = $this->getDoctrine()->getRepository(Movies::class);
+		$movie = $repository->find($id);
+		if (!$movie) {
+			return new JsonResponse('No movie found for id '.$id, Response::HTTP_NOT_FOUND);
+		}
+
+		$movieArray = $movie->toArray();
+		$movieArray['releaseDate'] = $movie->getReleaseDate()->format('Y-m-d');
+		unset($movieArray['usersList']);
+
+		return $this->response($movieArray, 200, [], true);
+	}
 //
 //    /**
 //     * @param Request $request

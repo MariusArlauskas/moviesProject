@@ -2,7 +2,12 @@
   <div>
     <MoviesFilter />
     <v-layout class="mainContainer mt-3" wrap justify-center>
-      <MovieCard v-for="item in this.movies" :key="item.id" :item="item" />
+      <MovieCard
+        v-for="item in this.movies"
+        :key="item.id"
+        :item="item"
+        :moviesAddTypes="moviesAddTypes"
+      />
     </v-layout>
     <infinite-loading @infinite="infiniteHandler"></infinite-loading>
     <router-view name="MovieDialog"></router-view>
@@ -19,11 +24,12 @@ export default {
   data: () => ({
     pagesEnd: false,
     pagesLoaded: 1,
-    movies: []
+    movies: [],
+    moviesAddTypes: {}
   }),
   methods: {
-    async getMovies() {
-      await this.$store
+    getMovies() {
+      this.$store
         .dispatch("GET_MOVIES", this.pagesLoaded)
         .then(data => {
           this.pagesLoaded += 1;
@@ -32,6 +38,11 @@ export default {
         .catch(() => {
           this.pagesEnd = true;
         });
+    },
+    getMovieAddTypes() {
+      this.$store.dispatch("GET_MOVIES_ADD_TYPES").then(data => {
+        this.moviesAddTypes = data;
+      });
     },
     infiniteHandler($state) {
       setTimeout(() => {
@@ -45,9 +56,10 @@ export default {
     }
   },
   computed: {},
-  beforeMount() {
+  mounted() {
     this.pagesLoaded = 1;
     this.getMovies();
+    this.getMovieAddTypes();
   }
 };
 </script>

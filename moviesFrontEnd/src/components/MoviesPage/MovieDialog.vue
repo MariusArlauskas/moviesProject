@@ -17,11 +17,11 @@
       style="position:absolute; left: 30%; top: 28.5%"
     >
       <v-card-title class="headline lighten-2" style="padding-left:15%" primary-title>
-        <span style="max-height:30px; max-width: 68%; overflow: hidden">{{ movie.title }}</span>
+        <span style="max-height:30px; max-width: 55%; overflow: hidden">{{ movie.title }}</span>
         <v-col
-          style="width:100px; max-width:150px; min-width:150px"
+          style="width:100px; max-width:170px; min-width:170px"
           class="py-0 pr-0 pl-10 ml-auto"
-        >Score: {{ movie.rating }}</v-col>
+        >Rating: {{ movie.rating }}</v-col>
         <v-col class="colorIndicator" :style="'background:' + getColor(movie.rating)"></v-col>
       </v-card-title>
       <v-divider></v-divider>
@@ -31,7 +31,7 @@
           <strong>Original title:</strong>
           {{ movie.originalTitle }}
         </v-flex>
-        <v-flex class="font-weight-light">{{ movie.genres.join(', ') }}</v-flex>
+        <v-flex class="font-italic font-weight-light">{{ movie.genres.join(', ') }}</v-flex>
         <v-flex></v-flex>
         <v-card-text>
           <v-row class="pb-1" style="font-family: 'Courgette', cursive;">{{ movie.overview }}</v-row>

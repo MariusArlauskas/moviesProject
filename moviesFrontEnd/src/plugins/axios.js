@@ -29,14 +29,28 @@ _axios.interceptors.request.use(
   }
 );
 
+import store from "../store/index";
+import router from '../router/index';
+
 // Add a response interceptor
-_axios.interceptors.response.use(
+axios.interceptors.response.use(
   function (response) {
     // Do something with response data
     return response;
   },
   function (error) {
-    // Do something with response error
+    if (error.response.status == 401) {
+      store.dispatch("LOGOUT").then(() => {   // Loggout user when session expires
+        if (router.path !== "/login") {
+          router.push("/login");
+        }
+        store.commit("SET_NOTIFICATION", {
+          display: true,
+          text: "Session expired!",
+          alertClass: "warning"
+        });
+      })
+    }
     return Promise.reject(error);
   }
 );

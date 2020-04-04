@@ -5,13 +5,22 @@
 // npm run serve
 
 # In PROGRESS:
-    Need to think of a better way to save movies. \/
-        -? Add movie ranking to db for each rank it has
+    Need to think of a better way to save movies:
+        -? Add movie ranking to db for each rank it has (popular:1, recent:10, ...)
     Movies page:
-        user can like movies
+        user can like movies (only visuals - need to connect to push to db)
         user can ADD movies as watched,planning,dropped (probably in movie dialog)
         
 # TODO list (fixes or small details):
+    Retrieving movies to users list:
+        only posible way to retrieve all one by one api call (from TMDB)
+    Movies page:
+        Show what type of status movie has (completed/watching) (??)
+
+    When session ends log user out
+    
+    Header:
+        fix animation when scrolling down and up
         
 # TODO list (new functions):
     Movies page:
@@ -38,6 +47,7 @@
         ADD Various stats in graphs with ability to share
         ADD My movie lists (completed, planning...)
         ADD Followed/Following me users
+        ADD my wall with all posts made by me
         
     ADD Forum (??)
     
@@ -50,6 +60,7 @@
         Showing basic users info
 
     Movies page
+        user can like movies by pressing heart icon
         Showing movies in cards
         Movies Module with more info about movie
             color indicating rating of the movie

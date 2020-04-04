@@ -50,7 +50,6 @@ class ProfileController extends AbstractController
     }
 
 	/**
-	 * @IsGranted("ROLE_USER", statusCode=403, message="Access denied!!")
 	 * @Route("/{id}", name="user_profile_data", methods={"GET"})
 	 * @return Response
 	 */

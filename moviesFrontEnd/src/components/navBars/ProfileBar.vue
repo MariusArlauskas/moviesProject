@@ -36,7 +36,7 @@
       <v-divider class="mb-1"></v-divider>
 
       <!-- Hardcoded profile link -->
-      <v-list-item link>
+      <v-list-item link @click="jump('Profile', { id: getUserId })">
         <v-list-item-icon>
           <v-icon>person</v-icon>
         </v-list-item-icon>
@@ -50,18 +50,12 @@
         </v-list-item-content>
       </v-list-item>
 
-      <v-list-item v-for="item in items" :key="item.title" link>
+      <v-list-item v-for="item in items" :key="item.title" @click="jump(item.href)">
         <v-list-item-icon>
           <v-icon>{{ item.icon }}</v-icon>
         </v-list-item-icon>
 
-        <v-list-item-content>
-          <router-link
-            class="white--text subtitle-2"
-            style="text-decoration: none;"
-            :to="{ name: item.href, params: item.params }"
-          >{{ item.title }}</router-link>
-        </v-list-item-content>
+        <v-list-item-content>{{ item.title }}</v-list-item-content>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
@@ -101,6 +95,11 @@ export default {
           });
         })
         .catch(() => {});
+    },
+    jump(routeName, ruoteParams) {
+      if (this.$route.name != routeName) {
+        this.$router.push({ name: routeName, params: ruoteParams });
+      }
     }
   },
   mounted() {

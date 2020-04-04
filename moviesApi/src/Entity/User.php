@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -57,6 +59,12 @@ class User implements UserInterface
      * @ORM\Column(type="date")
      */
     private $registerDate;
+
+    public function __construct()
+    {
+        $this->MoviesList = new ArrayCollection();
+        $this->UserMovies = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -185,13 +193,13 @@ class User implements UserInterface
     }
 
 	public function toArray() {
-         		$vars = get_object_vars ( $this );
-         		$array = array ();
-         		foreach ( $vars as $key => $value ) {
-         			$array [ltrim ( $key, '_' )] = $value;
-         		}
-         		return $array;
-         	}
+		$vars = get_object_vars ( $this );
+		$array = array ();
+		foreach ( $vars as $key => $value ) {
+			$array [ltrim ( $key, '_' )] = $value;
+		}
+		return $array;
+	}
 
     public function getRegisterDate(): ?\DateTimeInterface
     {
@@ -201,6 +209,37 @@ class User implements UserInterface
     public function setRegisterDate(\DateTimeInterface $registerDate): self
     {
         $this->registerDate = $registerDate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserMovies[]
+     */
+    public function getUserMovies(): Collection
+    {
+        return $this->UserMovies;
+    }
+
+    public function addUserMovie(UserMovies $userMovie): self
+    {
+        if (!$this->UserMovies->contains($userMovie)) {
+            $this->UserMovies[] = $userMovie;
+            $userMovie->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserMovie(UserMovies $userMovie): self
+    {
+        if ($this->UserMovies->contains($userMovie)) {
+            $this->UserMovies->removeElement($userMovie);
+            // set the owning side to null (unless already changed)
+            if ($userMovie->getUser() === $this) {
+                $userMovie->setUser(null);
+            }
+        }
 
         return $this;
     }

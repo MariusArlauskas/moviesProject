@@ -2,10 +2,15 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MoviesRepository")
+ * @ORM\Table(name="movies",
+ *     indexes={
+ *     		@ORM\Index(name="search_idx", columns={"movie_id"})})
  */
 class Movies
 {
@@ -65,6 +70,21 @@ class Movies
      * @ORM\Column(type="array", nullable=true)
      */
     private $genres = [];
+
+    public function __construct($object = [])
+    {
+    	if (!empty($object)) {
+			// Initializing class properties
+			foreach($object as $property => $value) {
+				if ($property == 'releaseDate') {
+
+					continue;
+				}
+				$this->$property = $value;
+			}
+		}
+        $this->UsersList = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -190,4 +210,13 @@ class Movies
 
         return $this;
     }
+
+	public function toArray() {
+		$vars = get_object_vars ( $this );
+		$array = array ();
+		foreach ( $vars as $key => $value ) {
+			$array [ltrim ( $key, '_' )] = $value;
+		}
+		return $array;
+	}
 }
