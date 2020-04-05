@@ -19,6 +19,19 @@ class MoviesRepository extends ServiceEntityRepository
         parent::__construct($registry, Movies::class);
     }
 
+//    public function findByApiIdWithUserStatuses($apiId) {
+//		$sql = '
+//			SELECT *,
+//		  	FROM movies m
+//			WHERE m.apiId = '.$apiId.'
+//    	';
+//
+//		$em = $this->getDoctrine()->getManager();
+//		$stmt = $em->getConnection()->prepare($sql);
+//		$stmt->execute();
+//		return $stmt->fetchAll();
+//	}
+
 //     /**
 //      * @return Movies[] Returns an array of Movies objects
 //      */

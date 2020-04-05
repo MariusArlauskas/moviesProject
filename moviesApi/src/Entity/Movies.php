@@ -8,9 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MoviesRepository")
- * @ORM\Table(name="movies",
- *     indexes={
- *     		@ORM\Index(name="search_idx", columns={"movie_id"})})
  */
 class Movies
 {
@@ -52,7 +49,7 @@ class Movies
     private $originalTitle;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $rating;
 

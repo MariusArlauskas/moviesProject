@@ -6,9 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserMoviesRepository")
- * @ORM\Table(name="user_movies",
- *     indexes={
- *     		@ORM\Index(name="search_idx", columns={"relation_type_id", "user_id", "movie_id"})})
  */
 class UserMovies
 {
