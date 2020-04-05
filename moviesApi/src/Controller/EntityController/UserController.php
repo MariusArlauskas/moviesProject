@@ -9,7 +9,7 @@
 namespace App\Controller\EntityController;
 
 
-use App\Entity\Movies;
+use App\Controller\InitSerializer;
 use App\Entity\User;
 use App\Entity\UserMovies;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,10 +18,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 /**
  * Class UserController
@@ -34,10 +30,7 @@ class UserController extends AbstractController
 
 	public function __construct()
 	{
-		$encoders = [new XmlEncoder(), new JsonEncoder()];
-		$normalizers = [new ObjectNormalizer()];
-
-		$this->serializer = new Serializer($normalizers, $encoders);
+		$this->serializer = new InitSerializer();
 	}
 
 	/**
@@ -67,14 +60,14 @@ class UserController extends AbstractController
             $password = htmlspecialchars(trim($parametersAsArray['password']));
         } else {
         	var_dump($parametersAsArray);
-            return new JsonResponse("Missing data!", Response::HTTP_BAD_REQUEST);
+            return $this->serializer->response("Missing data!");
         }
 
         // Validation
         $repository = $this->getDoctrine()->getRepository(User::class);
         $user = $repository->findBy(['email' => $email]);
         if ($user) {
-            return new JsonResponse('Email '.$email.' is already taken.', Response::HTTP_BAD_REQUEST);
+            return $this->serializer->response('Email '.$email.' is already taken.', Response::HTTP_BAD_REQUEST);
         }
 
         // Creating user object
@@ -95,7 +88,7 @@ class UserController extends AbstractController
         // Save user
         $em->flush();
 
-        return new JsonResponse('Saved new user with email - '.$user->getEmail(), Response::HTTP_OK);
+        return $this->serializer->response('Saved new user with email - '.$user->getEmail());
     }
 
 	/**
@@ -108,7 +101,7 @@ class UserController extends AbstractController
 		$repository = $this->getDoctrine()->getRepository(User::class);
 		$user = $repository->find($id);
 		if (!$user) {
-			return new JsonResponse('No user found for id '.$id, Response::HTTP_NOT_FOUND);
+			return $this->serializer->response('No user found for id '.$id, Response::HTTP_NOT_FOUND);
 		}
 
 		$userArray = $user->toArray();
@@ -132,7 +125,7 @@ class UserController extends AbstractController
 		unset($userArray['password']);
 		unset($userArray['roles']);
 
-		return $this->response($userArray, 200, [], false, true);
+		return $this->serializer->response($userArray, 200, [], false, true);
 	}
 
 	/**
@@ -156,7 +149,7 @@ class UserController extends AbstractController
 		if ($relationType == 0) {
 			$userMovies->setIsFavorite(!$userMovies->getIsFavorite());
 		} else {
-			$userMovies->setRelationType($relationType);
+			$userMovies->setRelationTypeId($relationType);
 		}
 
 		// Get the Doctrine service and manager
@@ -168,39 +161,6 @@ class UserController extends AbstractController
 		// Save user
 		$em->flush();
 
-		return $this->response('Added movie '.$movieId.' to user '.$userId);
-	}
-
-	/**
-	 * Returns a JSON response
-	 *
-	 * @param array|string $data
-	 * @param int $status
-	 * @param array $headers
-	 * @param bool $serialize Need serializing
-	 * @param bool $url Escape slashes
-	 * @return JsonResponse|Response
-	 */
-	public function response($data, $status = 200, $headers = [], $serialize = false, $url = false)
-	{
-		if ($serialize) {
-			return new Response($this->serializer->serialize($data, 'json'), $status, $headers);
-		} elseif ($url) {
-			return new Response(json_encode($data, JSON_UNESCAPED_SLASHES), $status, $headers);
-		}
-		return new JsonResponse($data, $status, $headers);
-	}
-
-	protected function transformJsonBody(Request $request)
-	{
-		$data = json_decode($request->getContent(), true);
-
-		if ($data === null) {
-			return $request;
-		}
-
-		$request->request->replace($data);
-
-		return $request;
+		return $this->serializer->response('Added movie '.$movieId.' to user '.$userId);
 	}
 }

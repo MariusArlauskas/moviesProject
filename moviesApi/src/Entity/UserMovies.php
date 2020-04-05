@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\UserMoviesRepository")
  * @ORM\Table(name="user_movies",
  *     indexes={
- *     		@ORM\Index(name="search_idx", columns={"relation_type", "user_id", "movie_id"})})
+ *     		@ORM\Index(name="search_idx", columns={"relation_type_id", "user_id", "movie_id"})})
  */
 class UserMovies
 {
@@ -22,7 +22,7 @@ class UserMovies
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $relationType;
+    private $relationTypeId;
 
     /**
 	 * @ORM\Column(type="integer")
@@ -51,14 +51,14 @@ class UserMovies
         return $this->id;
     }
 
-    public function getRelationType(): ?int
+    public function getRelationTypeId(): ?int
     {
-        return $this->relationType;
+        return $this->relationTypeId;
     }
 
-    public function setRelationType(int $relationType): self
+    public function setRelationTypeId(int $relationTypeId): self
     {
-        $this->relationType = $relationType;
+        $this->relationTypeId = $relationTypeId;
 
         return $this;
     }

@@ -2,30 +2,36 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e74540c-884f-4b9c-907e-f04adeb4760b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Controller/EntityController/UserMoviesRelationTypesController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/UserMovies.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/UserMoviesRelationTypes.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200402173843.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200402175647.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200402180000.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200402193849.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200402194746.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200402194836.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200402195009.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200404190801.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200404191246.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/UserMoviesRelationTypesRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/UserMoviesRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/InitSerializer.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200405150927.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/MoviesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/MoviesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Movies.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Movies.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/UserMoviesRelationTypesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/UserMoviesRelationTypesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/UserMovies.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/UserMovies.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200222120427.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200227190345.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200229112559.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200322122254.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200322122450.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200322122758.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200322175830.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200329144054.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200329155235.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200330181948.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200402173843.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200402175647.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200402180000.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200402193849.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200402194746.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200402194836.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200402195009.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Migrations/Version20200405151221.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200404190801.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Migrations/Version20200404191246.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/MoviesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/MoviesRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/cache/dev/annotations.map" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/annotations.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.preload.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.preload.php" afterDir="false" />
@@ -33,9 +39,6 @@
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainerCompiler.log" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainerCompiler.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MovieCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MovieCard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MovieDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MovieDialog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MoviesMain.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MoviesMain.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/MoviesPage/MoviesStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/MoviesPage/MoviesStore.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,21 +114,21 @@
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/symfony/maker-bundle" />
       <path value="$PROJECT_DIR$/vendor/nelmio/cors-bundle" />
-      <path value="$PROJECT_DIR$/vendor/symfony/web-server-bundle" />
-      <path value="$PROJECT_DIR$/vendor/symfony/process" />
-      <path value="$PROJECT_DIR$/vendor/symfony/http-client-contracts" />
-      <path value="$PROJECT_DIR$/vendor/symfony/http-client" />
       <path value="$PROJECT_DIR$/vendor/lcobucci/jwt" />
-      <path value="$PROJECT_DIR$/vendor/namshi/jose" />
       <path value="$PROJECT_DIR$/vendor/lexik/jwt-authentication-bundle" />
-      <path value="$PROJECT_DIR$/vendor/symfony/security-core" />
+      <path value="$PROJECT_DIR$/vendor/namshi/jose" />
+      <path value="$PROJECT_DIR$/vendor/symfony/process" />
       <path value="$PROJECT_DIR$/vendor/symfony/inflector" />
+      <path value="$PROJECT_DIR$/vendor/symfony/serializer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-client" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-core" />
       <path value="$PROJECT_DIR$/vendor/symfony/security-csrf" />
-      <path value="$PROJECT_DIR$/vendor/symfony/security-bundle" />
-      <path value="$PROJECT_DIR$/vendor/symfony/property-access" />
       <path value="$PROJECT_DIR$/vendor/symfony/security-http" />
       <path value="$PROJECT_DIR$/vendor/symfony/security-guard" />
-      <path value="$PROJECT_DIR$/vendor/symfony/serializer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/property-access" />
+      <path value="$PROJECT_DIR$/vendor/symfony/security-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/web-server-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-client-contracts" />
     </include_path>
   </component>
   <component name="ProjectId" id="1ZTsO49DoHQoA9o9H2FSlP91CBQ" />
@@ -140,25 +143,25 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/Files" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/Controller" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php.debug" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\OneDrive - Kaunas University of Technology\Paskaitos\4 metai\2 psm\Bak projektas\moviesApi\public\Files" />
-      <recent name="D:\OneDrive - Kaunas University of Technology\Paskaitos\4 metai\2 psm\Bak projektas\moviesApi\src\Controller" />
-      <recent name="D:\OneDrive - Kaunas University of Technology\Paskaitos\4 metai\2 psm\Bak projektas\moviesApi\src\Files" />
-      <recent name="D:\OneDrive - Kaunas University of Technology\Paskaitos\4 metai\2 psm\Bak projektas\moviesApi\src\Controller\Adapters" />
-      <recent name="D:\OneDrive - Kaunas University of Technology\Paskaitos\4 metai\2 psm\Bak projektas\moviesApi\src" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\OneDrive - Kaunas University of Technology\Paskaitos\4 metai\2 psm\Bak projektas\moviesApi\public" />
       <recent name="D:\OneDrive - Kaunas University of Technology\Paskaitos\4 metai\2 psm\Bak projektas\moviesApi\src" />
       <recent name="D:\OneDrive - Kaunas University of Technology\Paskaitos\4 metai\2 psm\Bak projektas\moviesApi" />
       <recent name="D:\OneDrive - Kaunas University of Technology\Paskaitos\4 metai\2 psm\Bak projektas\moviesApi\src\Controller\EntityController" />
       <recent name="D:\OneDrive - Kaunas University of Technology\Paskaitos\4 metai\2 psm\Bak projektas\moviesApi\src\Controller" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\OneDrive - Kaunas University of Technology\Paskaitos\4 metai\2 psm\Bak projektas\moviesApi\src\Controller" />
+      <recent name="D:\OneDrive - Kaunas University of Technology\Paskaitos\4 metai\2 psm\Bak projektas\moviesApi\vendor" />
+      <recent name="D:\OneDrive - Kaunas University of Technology\Paskaitos\4 metai\2 psm\Bak projektas\moviesApi\config" />
+      <recent name="D:\OneDrive - Kaunas University of Technology\Paskaitos\4 metai\2 psm\Bak projektas\moviesApi\public\Files" />
+      <recent name="D:\OneDrive - Kaunas University of Technology\Paskaitos\4 metai\2 psm\Bak projektas\moviesApi\src\Files" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -196,6 +199,7 @@
       <workItem from="1585847312643" duration="11422000" />
       <workItem from="1585890283424" duration="25000" />
       <workItem from="1586014701186" duration="9336000" />
+      <workItem from="1586098702504" duration="1701000" />
     </task>
     <servers />
   </component>
@@ -217,10 +221,10 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2610" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1586018474023" />
-    <state x="2660" y="274" key="FileChooserDialogImpl" timestamp="1584882877449">
+    <state x="2660" y="274" key="FileChooserDialogImpl" timestamp="1586098726027">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2660" y="274" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1584882877449" />
+    <state x="2660" y="274" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1586098726027" />
     <state x="2417" y="334" key="NewPhpClassDialog" timestamp="1586018383787">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

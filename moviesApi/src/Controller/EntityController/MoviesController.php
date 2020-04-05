@@ -8,23 +8,17 @@
 
 namespace App\Controller\EntityController;
 
+use App\Controller\InitSerializer;
 use App\Controller\RemoteApi\TmdbApi;
 use App\Entity\Movies;
-use App\Repository\MoviesRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\Encoder\XmlEncoder;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
-use Symfony\Component\Serializer\Serializer;
 
 /**
  * Class MoviesController
@@ -37,46 +31,8 @@ class MoviesController extends AbstractController
 
 	public function __construct()
 	{
-		$encoders = [new XmlEncoder(), new JsonEncoder()];
-		$normalizers = [new ObjectNormalizer()];
-
-		$this->serializer = new Serializer($normalizers, $encoders);
+		$this->serializer = new InitSerializer();
 	}
-
-
-
-//    /** Get top rated movies
-//     * @Route("/movies/page/{pageNumber}", name="movies_get", methods={"GET"})
-//     * @return JsonResponse|Response
-//     * @throws ClientExceptionInterface
-//     * @throws RedirectionExceptionInterface
-//     * @throws ServerExceptionInterface
-//     * @throws TransportExceptionInterface
-//     */
-//    public function getMovies($pageNumber){
-//        $movieApi = new TmdbApi();
-//        $movies = $movieApi->getPopularMovies($pageNumber);
-//        $genres = $movieApi->getMovieGenres();
-//
-//        // Converting genre_ids to genre names
-//        foreach ($movies->results as $movie) {
-//            $tempGenres = [];
-//            $count = count($movie->genre_ids);
-//            $countStop = 0;
-//            foreach ($genres->genres as $genre) {
-//                if (in_array($genre->id, $movie->genre_ids)) {
-//                    array_push($tempGenres, $genre->name);
-//                    $countStop++;
-//                    if ($countStop == $count) {
-//                        break;
-//                    }
-//                }
-//            }
-//            $movie->genres = $tempGenres;
-//            unset($movie->genre_ids);
-//        }
-//        return $this->response($movies);
-//    }
 
 	/** Get top rated movies
 	 * @Route("/page/{pageNumber}", name="movies_get", methods={"GET"})
@@ -90,14 +46,10 @@ class MoviesController extends AbstractController
 		$apiId = 1;
 		$em = $this->getDoctrine()->getManager();
 		$repMovies = $em->getRepository(Movies::class);
-		$repMovies->findByWithStatuses($apiId);
-		var_dump($repMovies);
-
-
 		$movies = $repMovies->findBy(['apiId' => $apiId], null, 20, $pageNumber * 20 - 20);
 
 		if (!empty($movies)) {
-			return $this->response($movies, 200, [], true);
+			return $this->serializer->response($movies, 200, [], true);
 		}
 
 		$movieApi = new TmdbApi($em);
@@ -108,7 +60,7 @@ class MoviesController extends AbstractController
 		}
 		// Save movies
 		$em->flush();
-		return $this->response($movies, 200, [], true);
+		return $this->serializer->response($movies, 200, [], true);
 	}
 
 	/**
@@ -128,7 +80,7 @@ class MoviesController extends AbstractController
 		$movieArray['releaseDate'] = $movie->getReleaseDate()->format('Y-m-d');
 		unset($movieArray['usersList']);
 
-		return $this->response($movieArray, 200, [], true);
+		return $this->serializer->response($movieArray, 200, [], true);
 	}
 //
 //    /**
@@ -230,35 +182,4 @@ class MoviesController extends AbstractController
 //
 //        return $this->response('Movies deleted successfully', Response::HTTP_OK);
 //    }
-
-
-	/**
-	 * Returns a JSON response
-	 *
-	 * @param array|string $data
-	 * @param int $status
-	 * @param array $headers
-	 * @param bool $serialize Need serializing?
-	 * @return JsonResponse|Response
-	 */
-    public function response($data, $status = 200, $headers = [], $serialize = false)
-    {
-    	if ($serialize) {
-    		return new Response($this->serializer->serialize($data, 'json'), $status, $headers);
-		}
-        return new JsonResponse($data, $status, $headers);
-    }
-
-    protected function transformJsonBody(Request $request)
-    {
-        $data = json_decode($request->getContent(), true);
-
-        if ($data === null) {
-            return $request;
-        }
-
-        $request->request->replace($data);
-
-        return $request;
-    }
 }

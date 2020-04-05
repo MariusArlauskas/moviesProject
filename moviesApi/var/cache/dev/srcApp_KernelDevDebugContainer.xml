@@ -247,6 +247,9 @@
         <argument type="service" id=".service_locator.vdmMuyE.App\Controller\EntityController\UserMoviesRelationTypesController"/>
       </call>
     </service>
+    <service id="App\Controller\InitSerializer" class="App\Controller\InitSerializer" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+    </service>
     <service id="App\Controller\PageNotFoundController" class="App\Controller\PageNotFoundController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>

@@ -52,7 +52,7 @@
             >{{ new Date (item.releaseDate.timestamp * 1000).toLocaleString().substring(0, 10) }}</v-col>-->
             <v-col
               class="pl-0 py-0 font-italic font-weight-light white--text text-right"
-            >{{ item.releaseDate }}</v-col>
+            >{{ new Date (item.releaseDate.timestamp * 1000).toLocaleString().substring(0, 10) }}</v-col>
           </v-row>
           <v-row class="mx-0 pt-1 pl-4 caption">{{ item.genres.join(', ') }}</v-row>
         </v-card>
@@ -91,7 +91,9 @@ export default {
           relationType: statusId
         })
         .then(() => {
-          this.changeLikeIcon();
+          if (statusId == 0) {
+            this.changeLikeIcon();
+          }
           this.$store
             .commit("SET_NOTIFICATION", {
               display: true,
