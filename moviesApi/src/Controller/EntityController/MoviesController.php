@@ -48,10 +48,8 @@ class MoviesController extends AbstractController
 		$repMovies = $em->getRepository(Movies::class);
 		$movies = $repMovies->findBy(['apiId' => $apiId], null, 20, $pageNumber * 20 - 20);
 
-//		var_dump($repMovies->findByApiIdWithUserStatuses($apiId));
-//		return;
 		if (!empty($movies)) {
-			return $this->serializer->response($movies, 200, [], true);
+			return $this->serializer->response($movies, 200, [], true, false, true);
 		}
 
 		$movieApi = new TmdbApi($em);
@@ -62,7 +60,7 @@ class MoviesController extends AbstractController
 		}
 		// Save movies
 		$em->flush();
-		return $this->serializer->response($movies, 200, [], true);
+		return $this->serializer->response($movies, 200, [], true, false, true);
 	}
 
 	/**

@@ -13,7 +13,6 @@ class Movies
 {
     /**
      * @ORM\Id()
-     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -59,14 +58,14 @@ class Movies
     private $apiId;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $movieId;
-
-    /**
      * @ORM\Column(type="array", nullable=true)
      */
     private $genres = [];
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $mostPopular;
 
     public function __construct($object = [])
     {
@@ -83,10 +82,10 @@ class Movies
         $this->UsersList = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+//    public function getId(): ?int
+//    {
+//        return $this->id;
+//    }
 
     public function getTitle(): ?string
     {
@@ -184,14 +183,14 @@ class Movies
         return $this;
     }
 
-    public function getMovieId(): ?int
+    public function getId(): ?int
     {
-        return $this->movieId;
+        return $this->id;
     }
 
-    public function setMovieId(int $movieId): self
+    public function setId(int $id): self
     {
-        $this->movieId = $movieId;
+        $this->id = $id;
 
         return $this;
     }
@@ -212,8 +211,29 @@ class Movies
 		$vars = get_object_vars ( $this );
 		$array = array ();
 		foreach ( $vars as $key => $value ) {
+			$skip = false;
+			switch ($key) {
+				case 'releaseDate':
+					$value = $value->format('Y-m-d');
+					break;
+			}
+			if ($skip) {
+				continue;
+			}
 			$array [ltrim ( $key, '_' )] = $value;
 		}
 		return $array;
 	}
+
+    public function getMostPopular(): ?int
+    {
+        return $this->mostPopular;
+    }
+
+    public function setMostPopular(?int $mostPopular): self
+    {
+        $this->mostPopular = $mostPopular;
+
+        return $this;
+    }
 }

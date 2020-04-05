@@ -63,7 +63,7 @@ class TmdbApi extends AbstractController
      */
     public function getPopularMovies($page) {
         $client = HttpClient::create();
-        return $this->returnMovies($client->request('GET', 'https://api.themoviedb.org/3/movie/popular?api_key='.$this->apiKey.'&language=en-US&page='.$page)->getContent());
+        return $this->returnMovies($client->request('GET', 'https://api.themoviedb.org/3/movie/popular?api_key='.$this->apiKey.'&language=en-US&page='.$page)->getContent(), 'mostPopular');
     }
 
     /**
@@ -78,9 +78,15 @@ class TmdbApi extends AbstractController
         return json_decode($client->request('GET', 'https://api.themoviedb.org/3/genre/movie/list?api_key='.$this->apiKey.'&language=en-US')->getContent());
     }
 
-    protected function returnMovies($movies) {
+    protected function returnMovies($movies, $type) {
 		$movies = json_decode($movies);
-		$genres = $this->getMovieGenres();
+		try {
+			$genres = $this->getMovieGenres();
+		} catch (ClientExceptionInterface $e) {		// ??
+		} catch (RedirectionExceptionInterface $e) {
+		} catch (ServerExceptionInterface $e) {
+		} catch (TransportExceptionInterface $e) {
+		}
 		$tmp = [];
 		foreach ($genres->genres as $genre) {
 			$tmp[$genre->id] = $genre->name;
@@ -94,7 +100,7 @@ class TmdbApi extends AbstractController
 			// Data to movie object for saving
 			$temp = new Movies();
 			$temp->setApiId($this->apiId);
-			$temp->setMovieId($movie->id);
+			$temp->setId($movie->id);
 			$temp->setRating($movie->vote_average);
 			$temp->setOriginalTitle($movie->original_title);
 			$temp->setPosterPath('https://image.tmdb.org/t/p/w600_and_h900_bestv2'.$movie->poster_path);
