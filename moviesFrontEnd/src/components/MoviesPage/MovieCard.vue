@@ -5,7 +5,7 @@
         x-small
         class="ml-0 mr-3"
         color="accent lighten-2"
-        @click="addUserMovie(0, 'Favorite')"
+        @click="addUserMovie(-1, 'Favorite')"
         :ripple="false"
         icon
       >
@@ -14,7 +14,7 @@
       <v-tooltip top>
         <template v-slot:activator="{ on }">
           <span
-            style="max-width: 75%; overflow: hidden"
+            style="max-width: 55%; overflow: hidden"
             class="font-weight-light"
             v-on="on"
           >{{ item.title }}</span>
@@ -22,20 +22,25 @@
         <span style="overflow: hidden">{{ item.title }}</span>
       </v-tooltip>
 
+      <v-flex
+        class="py-0 px-0 mr-0 ml-auto caption font-weight-thin accent--text text--lighten-2"
+        style="max-width: 17%; width: auto"
+      >{{ moviesAddTypes[this.item.relation_type_id] }}</v-flex>
+
       <v-menu transition="slide-y-transition" bottom close-on-click offset-x>
         <template v-slot:activator="{ on }">
-          <v-btn small class="ml-auto mr-4" color="accent lighten-2" :ripple="false" icon v-on="on">
+          <v-btn small class="ml-1 mr-4" color="accent lighten-2" :ripple="false" icon v-on="on">
             <v-icon size="23">{{ listIcon }}</v-icon>
           </v-btn>
         </template>
 
         <v-list style="background: var(--v-primary-lighten1)" dark>
           <v-list-item
-            v-for="moviesAddType in this.moviesAddTypes"
-            :key="moviesAddType.id"
-            @click="addUserMovie(moviesAddType.id, moviesAddType.name)"
+            v-for="(moviesAddTypeName, moviesAddTypeId) in this.moviesAddTypes"
+            :key="moviesAddTypeId"
+            @click="addUserMovie(moviesAddTypeId, moviesAddTypeName)"
           >
-            <v-list-item-title>{{ moviesAddType.name }}</v-list-item-title>
+            <v-list-item-title>{{ moviesAddTypeName }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -52,9 +57,9 @@
             >{{ new Date (item.releaseDate.timestamp * 1000).toLocaleString().substring(0, 10) }}</v-col>-->
             <v-col
               class="pl-0 py-0 font-italic font-weight-light white--text text-right"
-            >{{ item.releaseDate }}</v-col>
+            >{{ item.release_date }}</v-col>
           </v-row>
-          <v-row class="mx-0 pt-1 pl-4 caption">{{ item.genres.join(', ') }}</v-row>
+          <v-row class="mx-0 pt-1 pl-4 caption">{{ item.genres }}</v-row>
         </v-card>
 
         <v-card-text
@@ -84,15 +89,27 @@ export default {
   },
   methods: {
     addUserMovie(statusId, statusName) {
+      statusId += 1;
+      if (this.item.relation_type_id + 1 == statusId) {
+        this.$store.commit("SET_NOTIFICATION", {
+          display: true,
+          text: this.item.title + " is already " + statusName + "!",
+          alertClass: "warning"
+        });
+        return;
+      }
       this.$store
         .dispatch("ADD_MOVIE_STATUS", {
           userId: this.$store.getters.GET_USER.id,
-          movieId: this.item.movieId,
+          movieId: this.item.movie_id,
           relationType: statusId
         })
         .then(() => {
           if (statusId == 0) {
             this.changeLikeIcon();
+          } else {
+            this.changeListIcon();
+            this.item.relation_type_id = statusId - 1;
           }
           this.$store
             .commit("SET_NOTIFICATION", {
@@ -129,12 +146,28 @@ export default {
         this.likeIcon = "mdi-heart-outline";
       }
     },
-    getListIcon() {
+    changeListIcon() {
       if (this.listIcon == "add") {
         this.listIcon = "done";
       } else {
         this.listIcon = "add";
       }
+    }
+  },
+  created() {
+    if (
+      this.item.is_favorite !== null &&
+      this.item.is_favorite !== "" &&
+      this.item.is_favorite !== undefined
+    ) {
+      this.likeIcon = "mdi-heart";
+    }
+    if (
+      this.item.relation_type_id !== null &&
+      this.item.relation_type_id !== "" &&
+      this.item.relation_type_id !== undefined
+    ) {
+      this.listIcon = "done";
     }
   }
 };

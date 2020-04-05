@@ -16,6 +16,6 @@ if (!\class_exists(srcApp_KernelDevDebugContainer::class, false)) {
 
 return new \ContainerPgyXxRa\srcApp_KernelDevDebugContainer([
     'container.build_hash' => 'PgyXxRa',
-    'container.build_id' => 'b6882ef2',
-    'container.build_time' => 1586108451,
+    'container.build_id' => '9d8ff688',
+    'container.build_time' => 1586114976,
 ], __DIR__.\DIRECTORY_SEPARATOR.'ContainerPgyXxRa');

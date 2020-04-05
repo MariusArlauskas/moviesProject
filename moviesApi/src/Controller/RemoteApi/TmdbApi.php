@@ -61,9 +61,9 @@ class TmdbApi extends AbstractController
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function getPopularMovies($page) {
+    public function getPopularMovies($page, $nr) {
         $client = HttpClient::create();
-        return $this->returnMovies($client->request('GET', 'https://api.themoviedb.org/3/movie/popular?api_key='.$this->apiKey.'&language=en-US&page='.$page)->getContent(), 'mostPopular');
+        return $this->returnMovies($client->request('GET', 'https://api.themoviedb.org/3/movie/popular?api_key='.$this->apiKey.'&language=en-US&page='.$page)->getContent(), 'MostPopular', $nr);
     }
 
     /**
@@ -78,7 +78,7 @@ class TmdbApi extends AbstractController
         return json_decode($client->request('GET', 'https://api.themoviedb.org/3/genre/movie/list?api_key='.$this->apiKey.'&language=en-US')->getContent());
     }
 
-    protected function returnMovies($movies, $type) {
+    protected function returnMovies($movies, $type, $nr) {
 		$movies = json_decode($movies);
 		try {
 			$genres = $this->getMovieGenres();
@@ -96,17 +96,20 @@ class TmdbApi extends AbstractController
 
 		// Converting genre_ids to genre names and adding for saving
 		$moviesReturn = [];
-		foreach ($movies->results as $movie) {
+		foreach ($movies->results as $id => $movie) {
 			// Data to movie object for saving
 			$temp = new Movies();
 			$temp->setApiId($this->apiId);
-			$temp->setId($movie->id);
+			$temp->setMovieId($movie->id);
 			$temp->setRating($movie->vote_average);
 			$temp->setOriginalTitle($movie->original_title);
 			$temp->setPosterPath('https://image.tmdb.org/t/p/w600_and_h900_bestv2'.$movie->poster_path);
 			$temp->setOverview($movie->overview);
 			$temp->setReleaseDate(\DateTime::createFromFormat('Y-m-d', $movie->release_date));
 			$temp->setTitle($movie->title);
+			if (!empty($type)) {
+				$temp->{'set'.$type}($nr + $id + 1);
+			}
 			// From genres_ids to names
 			$tmpArr = [];
 			foreach ($movie->genre_ids as $genre_id) {

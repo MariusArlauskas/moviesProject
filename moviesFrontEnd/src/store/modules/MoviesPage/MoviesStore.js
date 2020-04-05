@@ -21,24 +21,24 @@ const actions = {
         })
     });
   },
-  FIND_MOVIE: (commit, payload) => {
+  // FIND_MOVIE: (commit, payload) => {
+  // return new Promise((resolve, reject) => {
+  //   axios
+  //     .get(`movie/` + payload)
+  //     .then(({ data, status }) => {
+  //       if (status === 200) {
+  //         resolve(data)
+  //       }
+  //     })
+  //     .catch(error => {
+  //       reject(error)
+  //     })
+  // });
+  // },
+  GET_MOVIES: (commit, { page, userId }) => {
     return new Promise((resolve, reject) => {
       axios
-        .get(`movie/` + payload)
-        .then(({ data, status }) => {
-          if (status === 200) {
-            resolve(data)
-          }
-        })
-        .catch(error => {
-          reject(error)
-        })
-    });
-  },
-  GET_MOVIES: (commit, page) => {
-    return new Promise((resolve, reject) => {
-      axios
-        .get(`movies/page/` + page)
+        .get(`movies/page/` + page + '/user/' + userId)
         .then(({ data, status }) => {
           if (status === 200) {
             resolve(data);

@@ -13,6 +13,7 @@ class Movies
 {
     /**
      * @ORM\Id()
+	 * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
@@ -57,6 +58,11 @@ class Movies
      */
     private $apiId;
 
+	/**
+	 * @ORM\Column(type="integer")
+	 */
+	private $movieId;
+
     /**
      * @ORM\Column(type="array", nullable=true)
      */
@@ -82,10 +88,10 @@ class Movies
         $this->UsersList = new ArrayCollection();
     }
 
-//    public function getId(): ?int
-//    {
-//        return $this->id;
-//    }
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getTitle(): ?string
     {
@@ -183,14 +189,14 @@ class Movies
         return $this;
     }
 
-    public function getId(): ?int
+	public function getMovieId(): ?int
     {
-        return $this->id;
+        return $this->movieId;
     }
 
-    public function setId(int $id): self
+    public function setMovieId(int $movieId): self
     {
-        $this->id = $id;
+        $this->movieId = $movieId;
 
         return $this;
     }

@@ -30,7 +30,10 @@ export default {
   methods: {
     getMovies() {
       this.$store
-        .dispatch("GET_MOVIES", this.pagesLoaded)
+        .dispatch("GET_MOVIES", {
+          page: this.pagesLoaded,
+          userId: this.$store.getters.GET_USER.id
+        })
         .then(data => {
           this.pagesLoaded += 1;
           this.movies = [...this.movies, ...data];
@@ -41,7 +44,12 @@ export default {
     },
     getMovieAddTypes() {
       this.$store.dispatch("GET_MOVIES_ADD_TYPES").then(data => {
-        this.moviesAddTypes = data;
+        var moviesAddTypesArray = [];
+        data.forEach(element => {
+          moviesAddTypesArray[element.id] = element.name;
+        });
+        moviesAddTypesArray.shift();
+        this.moviesAddTypes = moviesAddTypesArray;
       });
     },
     infiniteHandler($state) {
