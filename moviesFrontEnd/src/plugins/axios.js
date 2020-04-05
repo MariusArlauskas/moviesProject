@@ -43,12 +43,13 @@ axios.interceptors.response.use(
       store.dispatch("LOGOUT").then(() => {   // Loggout user when session expires
         if (router.path !== "/login") {
           router.push("/login");
+          store.commit("SET_NOTIFICATION", {
+            display: true,
+            text: "Session expired!",
+            alertClass: "warning"
+          });
         }
-        store.commit("SET_NOTIFICATION", {
-          display: true,
-          text: "Session expired!",
-          alertClass: "warning"
-        });
+
       })
     }
     return Promise.reject(error);

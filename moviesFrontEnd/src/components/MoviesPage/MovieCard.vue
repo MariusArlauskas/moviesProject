@@ -5,7 +5,7 @@
         x-small
         class="ml-0 mr-3"
         color="accent lighten-2"
-        @click="getLikeIcon()"
+        @click="addUserMovie(0, 'Favorite')"
         :ripple="false"
         icon
       >
@@ -47,9 +47,12 @@
         <v-card flat dark style="width:100%; height:36%; background:transparent">
           <v-row class="mx-0 pt-3 pl-4">
             <v-col class="px-0 py-0 font-italic font-weight-light white--text">{{ item.author }}</v-col>
+            <!-- <v-col
+              class="pl-0 py-0 font-italic font-weight-light white--text text-right"
+            >{{ new Date (item.releaseDate.timestamp * 1000).toLocaleString().substring(0, 10) }}</v-col>-->
             <v-col
               class="pl-0 py-0 font-italic font-weight-light white--text text-right"
-            >{{ new Date (item.releaseDate.timestamp * 1000).toLocaleString().substring(0, 10) }}</v-col>
+            >{{ item.releaseDate }}</v-col>
           </v-row>
           <v-row class="mx-0 pt-1 pl-4 caption">{{ item.genres.join(', ') }}</v-row>
         </v-card>
@@ -88,6 +91,7 @@ export default {
           relationType: statusId
         })
         .then(() => {
+          this.changeLikeIcon();
           this.$store
             .commit("SET_NOTIFICATION", {
               display: true,
@@ -116,7 +120,7 @@ export default {
       var hue = ((0 + (value - 1) / 10) * 100).toString(10);
       return ["hsl(", hue, ",80%,40%)"].join("");
     },
-    getLikeIcon() {
+    changeLikeIcon() {
       if (this.likeIcon == "mdi-heart-outline") {
         this.likeIcon = "mdi-heart";
       } else {
