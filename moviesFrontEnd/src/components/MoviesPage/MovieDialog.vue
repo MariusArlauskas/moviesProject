@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" max-width="600px">
     <template v-slot:activator="{ on }">
       <v-flex style="width:40%; cursor:pointer" v-ripple v-on="on">
-        <v-img height="100%" :src="movie.poster_path"></v-img>
+        <v-img height="100%" :src="movie.posterPath"></v-img>
       </v-flex>
     </template>
     <v-container
@@ -50,7 +50,7 @@
       <v-img
         id="pic"
         style="position:relative; min-width:114px; left: -50%"
-        :src="movie.poster_path"
+        :src="movie.posterPath"
       ></v-img>
     </v-container>
   </v-dialog>

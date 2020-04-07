@@ -33,6 +33,7 @@ class InitSerializer {
 	 * @param bool $serialize Need serializing
 	 * @param bool $url Escape slashes
 	 * @param bool $toArray Init objects toArray before serialize
+	 * @param bool $normalizeKeys Key name from name_id to nameId
 	 * @return JsonResponse|Response
 	 */
 	public function response($data, $status = 200, $headers = [], $serialize = false, $url = false, $toArray = false)
@@ -47,10 +48,10 @@ class InitSerializer {
 				$data = $data->toArray();
 			}
 		}
-		if ($serialize) {
-			return new Response($this->serializer->serialize($data, 'json'), $status, $headers);
-		} elseif ($url) {
+		if ($url) {
 			return new Response(json_encode($data, JSON_UNESCAPED_SLASHES), $status, $headers);
+		} elseif ($serialize) {
+			return new Response($this->serializer->serialize($data, 'json'), $status, $headers);
 		}
 		return new JsonResponse($data, $status, $headers);
 	}

@@ -22,9 +22,20 @@ class MoviesRepository extends ServiceEntityRepository
     public function findByApiIdWithUserStatuses($apiId, $userId, $limit, $offset) {
 		$sql = '
 			SELECT
-				m.*,
-			   	umm.is_favorite,
-			   	umm.relation_type_id
+				m.id,
+				m.title,
+				m.author,
+				m.release_date as releaseDate,
+				m.overview,
+				m.poster_path as posterPath,
+				m.original_title as originalTitle,
+				m.rating,
+				m.api_id as apiId,
+				m.genres,
+				m.most_popular as mostPopular,
+				m.movie_id as movieId,
+			   	umm.is_favorite as isFavorite,
+			   	umm.relation_type_id as relationTypeId
 			FROM
 				movies m
 			LEFT JOIN(
@@ -48,7 +59,13 @@ class MoviesRepository extends ServiceEntityRepository
 			->getConnection();
 		$stmt = $conn->prepare($sql);
 		$stmt->execute();
-		return $stmt->fetchAll();
+
+		$ojbArr = [];
+		foreach ($stmt->fetchAll() as $movie) {
+			$ojbArr[] = new Movies($movie);
+		}
+
+		return $ojbArr;
 	}
 
 //     /**

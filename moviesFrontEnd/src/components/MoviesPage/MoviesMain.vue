@@ -45,10 +45,10 @@ export default {
     getMovieAddTypes() {
       this.$store.dispatch("GET_MOVIES_ADD_TYPES").then(data => {
         var moviesAddTypesArray = [];
+        moviesAddTypesArray[0] = "Remove";
         data.forEach(element => {
           moviesAddTypesArray[element.id] = element.name;
         });
-        moviesAddTypesArray.shift();
         this.moviesAddTypes = moviesAddTypesArray;
       });
     },

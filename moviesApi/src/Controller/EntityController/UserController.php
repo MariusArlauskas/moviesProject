@@ -129,16 +129,25 @@ class UserController extends AbstractController
 	}
 
 	/**
-	 * @Route("/{userId}/{apiId}/movies/{movieId}/status/{relationType}", name="user_add_movie", methods={"POST"}, requirements={"userId"="\d+", "apiId"="\d+", "movieId"="\d+", "relationType"="\d+"})
+	 * @Route("/{userId}/apis/{apiId}/movies/{movieId}/status/{relationType}", name="user_add_movie", methods={"POST"}, requirements={"userId"="\d+", "apiId"="\d+", "movieId"="\d+", "relationType"="\d+"})
 	 * @return JsonResponse
 	 */
 	public function addMovieStatus($userId, $apiId, $movieId, $relationType) {
-		$repository = $this->getDoctrine()->getRepository(UserMovies::class);
+		$em = $this->getDoctrine()->getManager();
+		$repository = $em->getRepository(UserMovies::class);
 		$userMovies = $repository->findOneBy([
 			'userId' => $userId,
 			'apiId' => $apiId,
 			'movieId' => $movieId,
 		]);
+
+		// if not liked and remove from list or if only liked and remove like - remove from db aswell
+		if ((!empty($userMovies) && $userMovies->getIsFavorite() == 0 && $userMovies->getRelationTypeId() == $relationType)
+			|| (!empty($userMovies) && $userMovies->getIsFavorite() == 1 && empty($userMovies->getRelationTypeId()) && $relationType == 0)) {
+			$em->remove($userMovies);
+			$em->flush();
+			return $this->serializer->response('Removed movie '.$movieId.' from user '.$userId);
+		}
 
 		if (empty($userMovies)) {
 			$userMovies = new UserMovies();
@@ -149,7 +158,11 @@ class UserController extends AbstractController
 		if ($relationType == 0) {
 			$userMovies->setIsFavorite(!$userMovies->getIsFavorite());
 		} else {
-			$userMovies->setRelationTypeId($relationType);
+			if ($userMovies->getRelationTypeId() == $relationType) {
+				$userMovies->setRelationTypeId(0);
+			} else {
+				$userMovies->setRelationTypeId($relationType);
+			}
 		}
 
 		// Get the Doctrine service and manager
@@ -161,6 +174,6 @@ class UserController extends AbstractController
 		// Save user
 		$em->flush();
 
-		return $this->serializer->response('Added movie '.$movieId.' to user '.$userId);
+		return $this->serializer->response('Set users '.$userId.' movie '.$movieId.' in list with status id '.$relationType);
 	}
 }

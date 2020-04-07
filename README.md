@@ -5,10 +5,10 @@
 // npm run serve
 
 # In PROGRESS:
-    Profile:
+    1. Profile:
         ADD My movie lists (completed, planning...)
         
-    Feed:
+    2. Feed:
         user can post messages
         show messagess probably one every xx secs
         allow some html tags
@@ -16,10 +16,9 @@
         
 # TODO list (fixes or small details):
     Retrieving movies to users list:
-        only posible way to retrieve all one by one api call (from TMDB)
+        only posible way to retrieve all - one with one api call (from TMDB)
         
     Movies page:
-        add a way to remove movie from a list
         Movie dialog:
             ADD like movies and add to list buttons (??)
             ADD link to movie page
@@ -36,7 +35,7 @@
             sharing message to twitter/fb
         
     Login / signup:
-        ADD background card with picture if main page on the left
+        ADD background card with picture of main page on the left (after main page is done)
         
     Search module (now only showing search input - form)
             
@@ -64,11 +63,12 @@
         Showing basic users info
 
     Movies page
-        showing liked and added to list movies (type is shown near button - completed, paused..)
-        user can like or add movies to list by pressing icons near movie title
-        Showing movies in cards
+        Showing all movies in cards
+        showing if a movie is liked or added to list (type is shown near button - completed, paused..)
+        user can like or add movies to list by pressing icons near movie title, 
+          also posible to remove item from list by choosing status - removed
         color indicating rating of the movie
-        Movies Module with more info about movie
+        Movies dialog with more info about movie
         
     Profile toolbar
         Toolbar with easier navigation shows up when user is logged in
@@ -76,11 +76,13 @@
     Header with navigation for offline/online users
     
     Login page
+        User can login with email and password
         BackEnd JWT authorization
     
     Register page
+        User can register
         
-    BackEnd saves user seen movies for a day (since api does not let permanent saving)
+    BackEnd saves users checked out in site movies for a day (since api does not let permanent saving)
         Not saving movies until request for them is made.
         
     Logging user out if his session end and he tried to do someething without access (will be changed to refresh token in the future)

@@ -10,7 +10,7 @@ const actions = {
   ADD_MOVIE_STATUS: (commit, { userId, movieId, relationType }) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(`users/` + userId + `/1/movies/` + movieId + `/status/` + relationType)
+        .post(`users/` + userId + `/apis/1/movies/` + movieId + `/status/` + relationType)
         .then(({ status }) => {
           if (status === 200) {
             resolve(true);
@@ -36,9 +36,15 @@ const actions = {
   // });
   // },
   GET_MOVIES: (commit, { page, userId }) => {
+    var req;
+    if (typeof userId === 'undefined' || userId === null) {
+      req = `movies/page/` + page;
+    } else {
+      req = `movies/page/` + page + '/user/' + userId;
+    }
     return new Promise((resolve, reject) => {
       axios
-        .get(`movies/page/` + page + '/user/' + userId)
+        .get(req)
         .then(({ data, status }) => {
           if (status === 200) {
             resolve(data);

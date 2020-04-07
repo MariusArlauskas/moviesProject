@@ -2434,6 +2434,13 @@
         <argument>null</argument>
       </call>
       <call method="add">
+        <argument type="service" id=".security.request_matcher.4J9BxqW"/>
+        <argument type="collection">
+          <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
         <argument type="service" id=".security.request_matcher.GtJ5Wza"/>
         <argument type="collection">
           <argument>ROLE_USER</argument>
@@ -3116,6 +3123,9 @@
     </service>
     <service id=".security.request_matcher.Ssctqa8" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/api/logout</argument>
+    </service>
+    <service id=".security.request_matcher.4J9BxqW" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+      <argument>^/api/movies</argument>
     </service>
     <service id=".security.request_matcher.GtJ5Wza" class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
       <argument>^/api/users</argument>

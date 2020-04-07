@@ -1,7 +1,7 @@
 <template>
-  <v-flex class="mx-0 px-0" style="margin-top: -9px; height: 100%">
+  <v-flex class="mx-0 px-0" style="margin-top: -9px; width:100; height:100%">
     <v-card class="topContainer secondary" dark flat>
-      <v-layout row style="padding: 20px 120px 20px 7%; height:100%">
+      <v-layout row style="padding: 20px 120px 20px 7%; height:100%; width:100%">
         <v-card class="py-0 transparent" style="min-width:553px; width: 55%; height: 100%" flat>
           <v-card-title
             class="font-italic font-weight-thin pb-4 pt-0 justify-center"
@@ -10,7 +10,7 @@
             <div>{{ this.user.description }}</div>
           </v-card-text>
         </v-card>
-        <v-col style="min-width:300px;"></v-col>
+        <v-col style="min-width:100px; width: 5%"></v-col>
         <v-card class="transparent" style="width: 15%" flat>
           <v-card-title class="font-weight-thin pb-0 px-0">Users name</v-card-title>
           <v-row class="mx-0">{{ this.user.name }}</v-row>
@@ -24,7 +24,7 @@
         <v-card
           img
           class="transparentt"
-          style="max-width:12%; width:12%; min-width:178px; position: absolute; left: 61%"
+          style="max-width:12%; width:12%; min-width:178px; position: absolute; left: 58%"
         >
           <v-img width="100%" :src="this.user.profilePicture"></v-img>
         </v-card>

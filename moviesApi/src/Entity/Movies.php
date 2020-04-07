@@ -73,14 +73,13 @@ class Movies
      */
     private $mostPopular;
 
-    public function __construct($object = [])
+    public function __construct($arr = [])
     {
-    	if (!empty($object)) {
+    	if (!empty($arr)) {
 			// Initializing class properties
-			foreach($object as $property => $value) {
+			foreach($arr as $property => $value) {
 				if ($property == 'releaseDate') {
-
-					continue;
+					$value = \DateTime::createFromFormat('Y-m-d', $value);
 				}
 				$this->$property = $value;
 			}
@@ -222,10 +221,19 @@ class Movies
 				case 'releaseDate':
 					$value = $value->format('Y-m-d');
 					break;
+				case 'genres':
+					if (is_array($value)) {
+						$value = implode(', ', $value);
+					} else {
+						preg_match_all('/"(.*?)"/', $value, $temp);
+						array_shift($temp);
+						$value = join(', ', $temp[0]);
+					}
 			}
 			if ($skip) {
 				continue;
 			}
+
 			$array [ltrim ( $key, '_' )] = $value;
 		}
 		return $array;

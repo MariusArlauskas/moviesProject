@@ -9,7 +9,8 @@
         :ripple="false"
         icon
       >
-        <v-icon size="23">{{ this.likeIcon }}</v-icon>
+        <v-icon size="23" v-if="this.item.isFavorite == 1">{{ this.likeIcon }}</v-icon>
+        <v-icon size="23" v-else>{{ this.nolikeIcon }}</v-icon>
       </v-btn>
       <v-tooltip top>
         <template v-slot:activator="{ on }">
@@ -23,14 +24,18 @@
       </v-tooltip>
 
       <v-flex
-        class="py-0 px-0 mr-0 ml-auto caption font-weight-thin accent--text text--lighten-2"
+        v-if="this.item.relationTypeId > 0"
+        class="'py-0 px-0 mr-0 ml-auto caption font-weight-thin accent--text text--lighten-2 d-none'"
         style="max-width: 17%; width: auto"
-      >{{ moviesAddTypes[this.item.relation_type_id] }}</v-flex>
+      >{{ moviesAddTypes[this.item.relationTypeId] }}</v-flex>
+
+      <v-flex v-else class="'py-0 px-0 mr-0 ml-auto"></v-flex>
 
       <v-menu transition="slide-y-transition" bottom close-on-click offset-x>
         <template v-slot:activator="{ on }">
           <v-btn small class="ml-1 mr-4" color="accent lighten-2" :ripple="false" icon v-on="on">
-            <v-icon size="23">{{ listIcon }}</v-icon>
+            <v-icon size="23" v-if="item.relationTypeId > 0">{{ listIcon }}</v-icon>
+            <v-icon size="23" v-else>{{ nolistIcon }}</v-icon>
           </v-btn>
         </template>
 
@@ -40,7 +45,9 @@
             :key="moviesAddTypeId"
             @click="addUserMovie(moviesAddTypeId, moviesAddTypeName)"
           >
-            <v-list-item-title>{{ moviesAddTypeName }}</v-list-item-title>
+            <v-list-item-title
+              :class="[moviesAddTypeId == 0 ? 'accent--text text--lighten-2' : '']"
+            >{{ moviesAddTypeName }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -57,7 +64,7 @@
             >{{ new Date (item.releaseDate.timestamp * 1000).toLocaleString().substring(0, 10) }}</v-col>-->
             <v-col
               class="pl-0 py-0 font-italic font-weight-light white--text text-right"
-            >{{ item.release_date }}</v-col>
+            >{{ item.releaseDate }}</v-col>
           </v-row>
           <v-row class="mx-0 pt-1 pl-4 caption">{{ item.genres }}</v-row>
         </v-card>
@@ -80,46 +87,84 @@ export default {
   components: { MovieDialog },
   data: () => ({
     isActive: false,
-    likeIcon: "mdi-heart-outline",
-    listIcon: "add"
+    nolikeIcon: "mdi-heart-outline",
+    likeIcon: "mdi-heart",
+    nolistIcon: "add",
+    listIcon: "done"
   }),
   props: {
     item: Object,
     moviesAddTypes: null
   },
   methods: {
-    addUserMovie(statusId, statusName) {
-      statusId += 1;
-      if (this.item.relation_type_id + 1 == statusId) {
-        this.$store.commit("SET_NOTIFICATION", {
-          display: true,
-          text: this.item.title + " is already " + statusName + "!",
-          alertClass: "warning"
-        });
-        return;
-      }
+    removeUserMovie() {
       this.$store
         .dispatch("ADD_MOVIE_STATUS", {
           userId: this.$store.getters.GET_USER.id,
-          movieId: this.item.movie_id,
-          relationType: statusId
+          movieId: this.item.movieId,
+          relationType: this.item.relationTypeId
         })
         .then(() => {
-          if (statusId == 0) {
-            this.changeLikeIcon();
-          } else {
-            this.changeListIcon();
-            this.item.relation_type_id = statusId - 1;
-          }
+          this.item.relationTypeId = 0;
           this.$store
             .commit("SET_NOTIFICATION", {
               display: true,
-              text: this.item.title + " added as " + statusName + "!",
-              alertClass: "success"
+              text: this.item.title + " removed from list!",
+              alertClass: "warning"
             })
             .catch(() => {
               this.error = true;
             });
+        })
+        .catch(() => {
+          this.error = true;
+        });
+    },
+    addUserMovie(statusId, statusName) {
+      if (statusId == 0) {
+        this.removeUserMovie();
+        return;
+      }
+      if (this.item.relationTypeId == statusId) {
+        let msg = this.item.title + " is already " + statusName + "!";
+        var color = "warning";
+        this.notify(msg, color);
+        return;
+      }
+      if (statusId == -1) {
+        statusId += 1;
+      }
+      this.$store
+        .dispatch("ADD_MOVIE_STATUS", {
+          userId: this.$store.getters.GET_USER.id,
+          movieId: this.item.movieId,
+          relationType: statusId
+        })
+        .then(() => {
+          var msg = this.item.title + " added as " + statusName + "!";
+          var color = "success";
+          if (statusId == 0) {
+            if (this.item.isFavorite == 1) {
+              msg = this.item.title + " is not favorite anymore!";
+              this.item.isFavorite = 0;
+            } else {
+              this.item.isFavorite = 1;
+            }
+          } else {
+            this.item.relationTypeId = statusId;
+          }
+          this.notify(msg, color);
+        })
+        .catch(() => {
+          this.error = true;
+        });
+    },
+    notify(msg, color) {
+      this.$store
+        .commit("SET_NOTIFICATION", {
+          display: true,
+          text: msg,
+          alertClass: color
         })
         .catch(() => {
           this.error = true;
@@ -152,22 +197,6 @@ export default {
       } else {
         this.listIcon = "add";
       }
-    }
-  },
-  created() {
-    if (
-      this.item.is_favorite !== null &&
-      this.item.is_favorite !== "" &&
-      this.item.is_favorite !== undefined
-    ) {
-      this.likeIcon = "mdi-heart";
-    }
-    if (
-      this.item.relation_type_id !== null &&
-      this.item.relation_type_id !== "" &&
-      this.item.relation_type_id !== undefined
-    ) {
-      this.listIcon = "done";
     }
   }
 };

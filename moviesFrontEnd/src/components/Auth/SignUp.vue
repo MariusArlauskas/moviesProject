@@ -155,7 +155,7 @@ export default {
 }
 
 .cont {
-  margin-top: 3%;
+  margin-top: 2%;
   margin-right: 6%;
 }
 </style>

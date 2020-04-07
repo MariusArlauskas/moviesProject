@@ -35,14 +35,14 @@ class MoviesController extends AbstractController
 	}
 
 	/** Get top rated movies
-	 * @Route("/page/{pageNumber}/user/{userId}", name="movies_get", methods={"GET"}, requirements={"userId"="\d+", "pageNumber"="\d+"})
+	 * @Route("/page/{pageNumber}/user/{userId}", name="movies_with_favorites_get", methods={"GET"}, requirements={"userId"="\d+", "pageNumber"="\d+"})
 	 * @return JsonResponse|Response
 	 * @throws ClientExceptionInterface
 	 * @throws RedirectionExceptionInterface
 	 * @throws ServerExceptionInterface
 	 * @throws TransportExceptionInterface
 	 */
-	public function getMovies($pageNumber, $userId){
+	public function getMoviesWithFavorites($pageNumber, $userId){
 		$apiId = 1;
 		$em = $this->getDoctrine()->getManager();
 		$repMovies = $em->getRepository(Movies::class);
@@ -61,13 +61,38 @@ class MoviesController extends AbstractController
 			// Now check again to join with users liked movies list
 			$movies = $repMovies->findByApiIdWithUserStatuses($apiId, $userId, 20, $pageNumber * 20 - 20 );
 		}
+		return $this->serializer->response($movies, 200, [], false, true, true);
+	}
 
-		foreach ($movies as $key => $movie) {	// Change genres to string
-			preg_match_all('/"(.*?)"/', $movie['genres'], $temp);
-			array_shift($temp);
-			$movies[$key]['genres'] = join(', ', $temp[0]);
+	/** Get top rated movies
+	 * @Route("/page/{pageNumber}", name="movies_get", methods={"GET"}, requirements={"pageNumber"="\d+"})
+	 * @return JsonResponse|Response
+	 * @throws ClientExceptionInterface
+	 * @throws RedirectionExceptionInterface
+	 * @throws ServerExceptionInterface
+	 * @throws TransportExceptionInterface
+	 */
+	public function getMovies($pageNumber){
+		$apiId = 1;
+		$em = $this->getDoctrine()->getManager();
+		$repMovies = $em->getRepository(Movies::class);
+		$movies = $repMovies->findBy(['apiId' => $apiId], null, 20, $pageNumber * 20 - 20);
+
+		if (empty($movies)) { 	// Fetch from remote api
+			$movieApi = new TmdbApi($em);
+			$movies = $movieApi->getPopularMovies($pageNumber, $pageNumber * 20 - 20);
+			foreach ($movies as $movie) {
+				// Add movie to Doctrine so that it can be saved
+				$em->persist($movie);
+			}
+			// Save movies
+			$em->flush();
+
+			// Now check again to join with users liked movies list
+			$movies = $repMovies->findBy(['apiId' => $apiId], null, 20, $pageNumber * 20 - 20);
 		}
-		return $this->serializer->response($movies, 200, [], true);
+
+		return $this->serializer->response($movies, 200, [], true, true, true);
 	}
 
 	/**
