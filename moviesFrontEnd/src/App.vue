@@ -53,9 +53,9 @@ export default {
   /* background-image: url("~@/assets/bgpic.jpg"); */
 }
 .mainContainer {
-  margin-left: 12%;
-  margin-right: 12%;
-  max-width: 76%;
+  margin-left: 10.5%;
+  margin-right: 10.5%;
+  max-width: 79%;
 }
 
 html::-webkit-scrollbar {

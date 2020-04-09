@@ -1,11 +1,19 @@
 import axios from "axios";
 
 const state = {
+  profileInfoLinks: [
+    { title: "Activities", icon: "mdi-view-dashboard", href: "HomePage" },
+    { title: "Movies", icon: "list", href: "HomePage" },
+    { title: "Social", icon: "mdi-help-box", href: "HomePage" }
+  ],
   user: {},
   drawer: false         // Show profile bar 
 };
 
 const getters = {
+  GET_PROFILE_INFO_LINKS: state => {
+    return state.profileInfoLinks;
+  },
   GET_USER_DRAWER: state => {
     return state.drawer;
   },
