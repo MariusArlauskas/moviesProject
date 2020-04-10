@@ -57,7 +57,7 @@ class ProfileController extends AbstractController
 	{
 		$user = $this->getUser();
 
-		$result = $this->forward('App\Controller\EntityController\UserController::getOneAction', [
+		$result = $this->forward('App\Controller\EntityController\UsersController::getOneAction', [
 			'id' => $id,
 		]);
 

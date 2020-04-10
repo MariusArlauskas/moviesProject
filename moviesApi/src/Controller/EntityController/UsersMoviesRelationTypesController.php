@@ -3,7 +3,7 @@
 namespace App\Controller\EntityController;
 
 use App\Controller\InitSerializer;
-use App\Entity\UserMoviesRelationTypes;
+use App\Entity\UsersMoviesRelationTypes;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @package App\Controller
  * @Route("/lists/types")
  */
-class UserMoviesRelationTypesController extends AbstractController
+class UsersMoviesRelationTypesController extends AbstractController
 {
 	protected $serializer;
 
@@ -26,7 +26,7 @@ class UserMoviesRelationTypesController extends AbstractController
 	 */
 	public function getAllAction() {
 		$em = $this->getDoctrine()->getManager();
-		$repMoviesAddTypes = $em->getRepository(UserMoviesRelationTypes::class);
+		$repMoviesAddTypes = $em->getRepository(UsersMoviesRelationTypes::class);
 		$moviesAddTypes = $repMoviesAddTypes->findAll();
 
 		return $this->serializer->response($moviesAddTypes, 200, [], true);

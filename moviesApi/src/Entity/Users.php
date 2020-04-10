@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
  */
-class User implements UserInterface
+class Users implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -214,14 +214,14 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|UserMovies[]
+     * @return Collection|UsersMovies[]
      */
     public function getUserMovies(): Collection
     {
         return $this->UserMovies;
     }
 
-    public function addUserMovie(UserMovies $userMovie): self
+    public function addUserMovie(UsersMovies $userMovie): self
     {
         if (!$this->UserMovies->contains($userMovie)) {
             $this->UserMovies[] = $userMovie;
@@ -231,7 +231,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeUserMovie(UserMovies $userMovie): self
+    public function removeUserMovie(UsersMovies $userMovie): self
     {
         if ($this->UserMovies->contains($userMovie)) {
             $this->UserMovies->removeElement($userMovie);

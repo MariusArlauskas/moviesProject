@@ -8,7 +8,7 @@
 
 namespace App\Controller\RemoteApi;
 
-use App\Entity\ApiKeys;
+use App\Entity\Apis;
 use App\Entity\Movies;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,7 +37,7 @@ class TmdbApi extends AbstractController
 
 	public function __construct(EntityManagerInterface $em)
 	{
-		$api = $em->getRepository(ApiKeys::class);
+		$api = $em->getRepository(Apis::class);
 		$this->apiKey = $api->find($this->apiId)->getApiKey();
 	}
 
@@ -105,7 +105,9 @@ class TmdbApi extends AbstractController
 			$temp->setOriginalTitle($movie->original_title);
 			$temp->setPosterPath('https://image.tmdb.org/t/p/w600_and_h900_bestv2'.$movie->poster_path);
 			$temp->setOverview($movie->overview);
-			$temp->setReleaseDate(\DateTime::createFromFormat('Y-m-d', $movie->release_date));
+			if (!empty($movie->release_date)) {
+				$temp->setReleaseDate(\DateTime::createFromFormat('Y-m-d', $movie->release_date));
+			}
 			$temp->setTitle($movie->title);
 			if (!empty($type)) {
 				$temp->{'set'.$type}($nr + $id + 1);

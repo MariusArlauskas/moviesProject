@@ -233,18 +233,18 @@
         <argument type="service" id=".service_locator.vdmMuyE.App\Controller\EntityController\MoviesController"/>
       </call>
     </service>
-    <service id="App\Controller\EntityController\UserController" class="App\Controller\EntityController\UserController" public="true" autowire="true" autoconfigure="true">
+    <service id="App\Controller\EntityController\UsersController" class="App\Controller\EntityController\UsersController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
-        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\EntityController\UserController"/>
+        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\EntityController\UsersController"/>
       </call>
     </service>
-    <service id="App\Controller\EntityController\UserMoviesRelationTypesController" class="App\Controller\EntityController\UserMoviesRelationTypesController" public="true" autowire="true" autoconfigure="true">
+    <service id="App\Controller\EntityController\UsersMoviesRelationTypesController" class="App\Controller\EntityController\UsersMoviesRelationTypesController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
-        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\EntityController\UserMoviesRelationTypesController"/>
+        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\EntityController\UsersMoviesRelationTypesController"/>
       </call>
     </service>
     <service id="App\Controller\InitSerializer" class="App\Controller\InitSerializer" public="true" autowire="true" autoconfigure="true">
@@ -284,7 +284,7 @@
       <tag name="kernel.event_listener" event="lexik_jwt_authentication.on_authentication_success" method="onAuthSuccess"/>
       <argument>3600</argument>
     </service>
-    <service id="App\Repository\ApiKeysRepository" class="App\Repository\ApiKeysRepository" autowire="true" autoconfigure="true">
+    <service id="App\Repository\ApisRepository" class="App\Repository\ApisRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -292,15 +292,15 @@
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
-    <service id="App\Repository\UserMoviesRelationTypesRepository" class="App\Repository\UserMoviesRelationTypesRepository" autowire="true" autoconfigure="true">
+    <service id="App\Repository\UsersMoviesRelationTypesRepository" class="App\Repository\UsersMoviesRelationTypesRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
-    <service id="App\Repository\UserMoviesRepository" class="App\Repository\UserMoviesRepository" autowire="true" autoconfigure="true">
+    <service id="App\Repository\UsersMoviesRepository" class="App\Repository\UsersMoviesRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
-    <service id="App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true">
+    <service id="App\Repository\UsersRepository" class="App\Repository\UsersRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -1149,6 +1149,14 @@
         <argument>2048</argument>
       </call>
       <call method="addListener">
+        <argument>console.command</argument>
+        <argument type="collection">
+          <argument type="service" id="debug.debug_handlers_listener"/>
+          <argument>configure</argument>
+        </argument>
+        <argument>2048</argument>
+      </call>
+      <call method="addListener">
         <argument>kernel.request</argument>
         <argument type="collection">
           <argument type="service" id="router_listener"/>
@@ -1735,7 +1743,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory" public="false">
-      <argument type="service" id=".service_locator.14WXUY5"/>
+      <argument type="service" id=".service_locator.pWbC31P"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -2274,7 +2282,7 @@
     </service>
     <service id="security.encoder_factory.generic" class="Symfony\Component\Security\Core\Encoder\EncoderFactory" public="false">
       <argument type="collection">
-        <argument key="App\Entity\User" type="collection">
+        <argument key="App\Entity\Users" type="collection">
           <argument key="algorithm">auto</argument>
           <argument key="migrate_from" type="collection"/>
           <argument key="hash_algorithm">sha512</argument>
@@ -2760,7 +2768,7 @@
     </service>
     <service id="security.user.provider.concrete.app_user_provider" class="Symfony\Bridge\Doctrine\Security\User\EntityUserProvider" public="false">
       <argument type="service" id="doctrine"/>
-      <argument>App\Entity\User</argument>
+      <argument>App\Entity\Users</argument>
       <argument>email</argument>
       <argument>null</argument>
     </service>
@@ -3137,7 +3145,7 @@
       <tag name="console.command" command="security:encode-password"/>
       <argument type="service" id="security.encoder_factory.generic"/>
       <argument type="collection">
-        <argument>App\Entity\User</argument>
+        <argument>App\Entity\Users</argument>
       </argument>
       <call method="setName">
         <argument>security:encode-password</argument>
@@ -3263,12 +3271,12 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\EntityController\MoviesController" class="App\Controller\EntityController\MoviesController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\EntityController\MoviesController" class="App\Controller\EntityController\MoviesController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\EntityController\MoviesController" class="App\Controller\EntityController\MoviesController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\EntityController\UserController" class="App\Controller\EntityController\UserController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\EntityController\UserController" class="App\Controller\EntityController\UserController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\EntityController\UserController" class="App\Controller\EntityController\UserController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\EntityController\UserMoviesRelationTypesController" class="App\Controller\EntityController\UserMoviesRelationTypesController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\EntityController\UserMoviesRelationTypesController" class="App\Controller\EntityController\UserMoviesRelationTypesController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\EntityController\UserMoviesRelationTypesController" class="App\Controller\EntityController\UserMoviesRelationTypesController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\EntityController\UsersController" class="App\Controller\EntityController\UsersController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\EntityController\UsersController" class="App\Controller\EntityController\UsersController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\EntityController\UsersController" class="App\Controller\EntityController\UsersController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\EntityController\UsersMoviesRelationTypesController" class="App\Controller\EntityController\UsersMoviesRelationTypesController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\EntityController\UsersMoviesRelationTypesController" class="App\Controller\EntityController\UsersMoviesRelationTypesController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\EntityController\UsersMoviesRelationTypesController" class="App\Controller\EntityController\UsersMoviesRelationTypesController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\PageNotFoundController" class="App\Controller\PageNotFoundController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\PageNotFoundController" class="App\Controller\PageNotFoundController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\PageNotFoundController" class="App\Controller\PageNotFoundController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -3281,16 +3289,16 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RemoteApi\TmdbApi" class="App\Controller\RemoteApi\TmdbApi" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RemoteApi\TmdbApi" class="App\Controller\RemoteApi\TmdbApi" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\RemoteApi\TmdbApi" class="App\Controller\RemoteApi\TmdbApi" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ApiKeysRepository" class="App\Repository\ApiKeysRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\ApiKeysRepository" class="App\Repository\ApiKeysRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ApisRepository" class="App\Repository\ApisRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\ApisRepository" class="App\Repository\ApisRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\MoviesRepository" class="App\Repository\MoviesRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\MoviesRepository" class="App\Repository\MoviesRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserMoviesRelationTypesRepository" class="App\Repository\UserMoviesRelationTypesRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\UserMoviesRelationTypesRepository" class="App\Repository\UserMoviesRelationTypesRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserMoviesRepository" class="App\Repository\UserMoviesRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\UserMoviesRepository" class="App\Repository\UserMoviesRepository" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UsersMoviesRelationTypesRepository" class="App\Repository\UsersMoviesRelationTypesRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\UsersMoviesRelationTypesRepository" class="App\Repository\UsersMoviesRelationTypesRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UsersMoviesRepository" class="App\Repository\UsersMoviesRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\UsersMoviesRepository" class="App\Repository\UsersMoviesRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UsersRepository" class="App\Repository\UsersRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\UsersRepository" class="App\Repository\UsersRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.CmORmuK" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -3530,14 +3538,14 @@
         <argument key="doctrine.orm.default_listeners.attach_entity_listeners" type="service" id="doctrine.orm.default_listeners.attach_entity_listeners"/>
       </argument>
     </service>
-    <service id=".service_locator.14WXUY5" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.pWbC31P" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="App\Repository\ApiKeysRepository" type="service" id="App\Repository\ApiKeysRepository"/>
+        <argument key="App\Repository\ApisRepository" type="service" id="App\Repository\ApisRepository"/>
         <argument key="App\Repository\MoviesRepository" type="service" id="App\Repository\MoviesRepository"/>
-        <argument key="App\Repository\UserMoviesRelationTypesRepository" type="service" id="App\Repository\UserMoviesRelationTypesRepository"/>
-        <argument key="App\Repository\UserMoviesRepository" type="service" id="App\Repository\UserMoviesRepository"/>
-        <argument key="App\Repository\UserRepository" type="service" id="App\Repository\UserRepository"/>
+        <argument key="App\Repository\UsersMoviesRelationTypesRepository" type="service" id="App\Repository\UsersMoviesRelationTypesRepository"/>
+        <argument key="App\Repository\UsersMoviesRepository" type="service" id="App\Repository\UsersMoviesRepository"/>
+        <argument key="App\Repository\UsersRepository" type="service" id="App\Repository\UsersRepository"/>
       </argument>
     </service>
     <service id="debug.security.voter.security.access.authenticated_voter" class="Symfony\Component\Security\Core\Authorization\Voter\TraceableVoter">
@@ -3573,15 +3581,15 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.vdmMuyE" method="withContext"/>
     </service>
-    <service id=".service_locator.vdmMuyE.App\Controller\EntityController\UserController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator_context" id="App\Controller\EntityController\UserController"/>
-      <argument>App\Controller\EntityController\UserController</argument>
+    <service id=".service_locator.vdmMuyE.App\Controller\EntityController\UsersController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\EntityController\UsersController"/>
+      <argument>App\Controller\EntityController\UsersController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.vdmMuyE" method="withContext"/>
     </service>
-    <service id=".service_locator.vdmMuyE.App\Controller\EntityController\UserMoviesRelationTypesController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
-      <tag name="container.service_locator_context" id="App\Controller\EntityController\UserMoviesRelationTypesController"/>
-      <argument>App\Controller\EntityController\UserMoviesRelationTypesController</argument>
+    <service id=".service_locator.vdmMuyE.App\Controller\EntityController\UsersMoviesRelationTypesController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\EntityController\UsersMoviesRelationTypesController"/>
+      <argument>App\Controller\EntityController\UsersMoviesRelationTypesController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.vdmMuyE" method="withContext"/>
     </service>

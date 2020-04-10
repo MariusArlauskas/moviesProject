@@ -24,7 +24,7 @@
           <v-card-title class="font-weight-thin py-0 px-0">Age</v-card-title>
           <v-row class="mx-0">{{ userAge }}</v-row>
           <v-card-title class="font-weight-thin py-0 px-0">Registered from</v-card-title>
-          <v-row></v-row>
+          <v-row class="mx-0">{{ this.user.registerDate }}</v-row>
           <!-- <v-row class="font-weight-thin">Favorites count</v-row>
           <v-row></v-row>-->
         </v-card>
@@ -35,17 +35,20 @@
       <v-tab :to="{name: 'ProfileMainWall'}" :router="true" class="tab font-weight-thin">Main</v-tab>
       <v-tab :to="{name: 'ProfileMoviesList'}" :router="true" class="font-weight-thin">Movies</v-tab>
     </v-tabs>
-    <ProfileMainWall v-show="this.$route.name == 'Profile'" />
+    <!-- <ProfileMainWall v-if="this.user.name" v-show="this.$route.name == 'Profile'" /> -->
+    <ProfileMoviesList v-if="this.user.name" v-show="this.$route.name == 'Profile'" />
     <router-view />
   </v-flex>
 </template>
 
 <script>
-import ProfileMainWall from "./MainWall";
+// import ProfileMainWall from "./MainWall";
+import ProfileMoviesList from "./MoviesList";
 import { mapGetters } from "vuex";
 export default {
   name: "Profile",
-  components: { ProfileMainWall },
+  // components: { ProfileMainWall },
+  components: { ProfileMoviesList },
   data: () => ({
     user: {}
   }),

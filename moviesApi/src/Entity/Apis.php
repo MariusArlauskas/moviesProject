@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserMoviesRelationTypesRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\ApisRepository")
  */
-class UserMoviesRelationTypes
+class Apis
 {
     /**
      * @ORM\Id()
@@ -20,6 +20,11 @@ class UserMoviesRelationTypes
      * @ORM\Column(type="string", length=100)
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $apiKey;
 
     public function getId(): ?int
     {
@@ -34,6 +39,18 @@ class UserMoviesRelationTypes
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getApiKey(): ?string
+    {
+        return $this->apiKey;
+    }
+
+    public function setApiKey(string $apiKey): self
+    {
+        $this->apiKey = $apiKey;
 
         return $this;
     }

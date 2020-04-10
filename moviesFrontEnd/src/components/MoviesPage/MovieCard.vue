@@ -2,6 +2,7 @@
   <v-card class="movieCard white--text mb-4" outlined dark>
     <v-card-title class="primary subtitle-1 py-0 text-no-wrap" style="height: 15%">
       <v-btn
+        v-show="GET_USER"
         x-small
         class="ml-0 mr-3"
         color="accent lighten-2"
@@ -15,7 +16,7 @@
       <v-tooltip top>
         <template v-slot:activator="{ on }">
           <span
-            style="max-width: 55%; overflow: hidden"
+            :style="'overflow: hidden; ' + [GET_USER ? 'max-width: 55%' : 'max-width: 90%']"
             class="font-weight-light"
             v-on="on"
           >{{ item.title }}</span>
@@ -24,7 +25,7 @@
       </v-tooltip>
 
       <v-flex
-        v-if="this.item.relationTypeId > 0"
+        v-if="this.item.relationTypeId > 0 && GET_USER"
         class="'py-0 px-0 mr-0 ml-auto caption font-weight-thin accent--text text--lighten-2 d-none'"
         style="max-width: 17%; width: auto"
       >{{ moviesAddTypes[this.item.relationTypeId] }}</v-flex>
@@ -33,7 +34,15 @@
 
       <v-menu transition="slide-y-transition" bottom close-on-click offset-x>
         <template v-slot:activator="{ on }">
-          <v-btn small class="ml-1 mr-4" color="accent lighten-2" :ripple="false" icon v-on="on">
+          <v-btn
+            v-show="GET_USER"
+            small
+            class="ml-1 mr-4"
+            color="accent lighten-2"
+            :ripple="false"
+            icon
+            v-on="on"
+          >
             <v-icon size="23" v-if="item.relationTypeId > 0">{{ listIcon }}</v-icon>
             <v-icon size="23" v-else>{{ nolistIcon }}</v-icon>
           </v-btn>
@@ -81,6 +90,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import MovieDialog from "./MovieDialog";
 export default {
   name: "MovieCard",
@@ -95,6 +105,9 @@ export default {
   props: {
     item: Object,
     moviesAddTypes: null
+  },
+  computed: {
+    ...mapGetters(["GET_USER"])
   },
   methods: {
     removeUserMovie() {

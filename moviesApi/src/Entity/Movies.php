@@ -219,7 +219,11 @@ class Movies
 			$skip = false;
 			switch ($key) {
 				case 'releaseDate':
-					$value = $value->format('Y-m-d');
+					if (!empty($value)) {
+						$value = $value->format('Y-m-d');
+					} else {
+						$value = '';
+					}
 					break;
 				case 'genres':
 					if (is_array($value)) {

@@ -10,8 +10,8 @@ namespace App\Controller\EntityController;
 
 
 use App\Controller\InitSerializer;
-use App\Entity\User;
-use App\Entity\UserMovies;
+use App\Entity\Users;
+use App\Entity\UsersMovies;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +24,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @package App\Controller
  * @Route("/users")
  */
-class UserController extends AbstractController
+class UsersController extends AbstractController
 {
 	protected $serializer;
 
@@ -64,14 +64,14 @@ class UserController extends AbstractController
         }
 
         // Validation
-        $repository = $this->getDoctrine()->getRepository(User::class);
+        $repository = $this->getDoctrine()->getRepository(Users::class);
         $user = $repository->findBy(['email' => $email]);
         if ($user) {
             return $this->serializer->response('Email '.$email.' is already taken.', Response::HTTP_BAD_REQUEST);
         }
 
         // Creating user object
-        $user = new User();
+        $user = new Users();
         $user->setEmail($email);
         $user->setName($name);
         $user->setRegisterDate(new \DateTime());
@@ -98,7 +98,7 @@ class UserController extends AbstractController
 	public function getOneAction($id)
 	{
 		// Finding user
-		$repository = $this->getDoctrine()->getRepository(User::class);
+		$repository = $this->getDoctrine()->getRepository(Users::class);
 		$user = $repository->find($id);
 		if (!$user) {
 			return $this->serializer->response('No user found for id '.$id, Response::HTTP_NOT_FOUND);
@@ -115,6 +115,7 @@ class UserController extends AbstractController
 			$userArray['role'] = "ROLE_GUEST";
 		}
 		$userArray['birthDate'] = $user->getBirthDate()->format('Y-m-d');
+		$userArray['registerDate'] = $user->getRegisterDate()->format('Y-m-d');
 		if (empty($userArray['profilePicture'])) {
 			$userArray['profilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
 		} else {
@@ -134,7 +135,7 @@ class UserController extends AbstractController
 	 */
 	public function addMovieStatus($userId, $apiId, $movieId, $relationType) {
 		$em = $this->getDoctrine()->getManager();
-		$repository = $em->getRepository(UserMovies::class);
+		$repository = $em->getRepository(UsersMovies::class);
 		$userMovies = $repository->findOneBy([
 			'userId' => $userId,
 			'apiId' => $apiId,
@@ -150,7 +151,7 @@ class UserController extends AbstractController
 		}
 
 		if (empty($userMovies)) {
-			$userMovies = new UserMovies();
+			$userMovies = new UsersMovies();
 		}
 		$userMovies->setUserId($userId);
 		$userMovies->setApiId($apiId);

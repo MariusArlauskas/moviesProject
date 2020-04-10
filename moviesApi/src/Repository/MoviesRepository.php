@@ -42,7 +42,7 @@ class MoviesRepository extends ServiceEntityRepository
 				SELECT
 					*
 				FROM
-					user_movies um
+					users_movies um
 				WHERE
 					um.user_id = '.(int)$userId.'
 			) umm

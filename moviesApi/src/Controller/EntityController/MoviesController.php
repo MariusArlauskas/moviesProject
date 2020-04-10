@@ -99,8 +99,9 @@ class MoviesController extends AbstractController
 	 * @Route("/{id}", name="movie_show_one", methods={"GET"}, requirements={"id"="\d+"})
 	 * @return JsonResponse
 	 */
-	public function getOneFromDbAction($id)
+	public function getOneAction($id)
 	{
+		$apiId = 1;
 		// Finding user
 		$repository = $this->getDoctrine()->getRepository(Movies::class);
 		$movie = $repository->find($id);
@@ -114,51 +115,7 @@ class MoviesController extends AbstractController
 
 		return $this->serializer->response($movieArray, 200, [], true);
 	}
-//
-//    /**
-//     * @param Request $request
-//     * @param EntityManagerInterface $entityManager
-//     * @param MoviesRepository $moviesRepository
-//     * @return JsonResponse
-//     * @throws \Exception
-//     * @Route("/movies", name="movies_add", methods={"POST"})
-//     */
-//    public function addMovies(Request $request, EntityManagerInterface $entityManager, MoviesRepository $moviesRepository){
-//
-//        try{
-//            $request = $this->transformJsonBody($request);
-//
-//            if (!$request || !$request->get('name') || !$request->request->get('description')){
-//                throw new \Exception();
-//            }
-//
-////            $movies = new Movies();
-////            $entityManager->persist($movies); // TODO catch db error
-////            $entityManager->flush();
-//
-//            return $this->response('Movies added successfully', Response::HTTP_OK);
-//
-//        }catch (\Exception $e){
-//            return $this->response($e->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
-//        }
-//
-//    }
 
-
-//    /**
-//     * @param MoviesRepository $moviesRepository
-//     * @param $id
-//     * @return JsonResponse
-//     * @Route("/movies/{id}", name="movies_get", methods={"GET"})
-//     */
-//    public function getUser(MoviesRepository $moviesRepository, $id){
-//        $user = $moviesRepository->find($id);
-//
-//        if (!$user){
-//            return $this->response('User not found', Response::HTTP_NOT_FOUND);
-//        }
-//        return $this->response($user);
-//    }
 
 //    /**
 //     * @param Request $request

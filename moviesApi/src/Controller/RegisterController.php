@@ -20,7 +20,7 @@ class RegisterController extends AbstractController
      */
     public function register(Request $request)
     {
-        $data = $this->forward('App\Controller\EntityController\UserController::createAction', [
+        $data = $this->forward('App\Controller\EntityController\UsersController::createAction', [
             'request' => $request,
         ]);
 
