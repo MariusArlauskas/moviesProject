@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7e74540c-884f-4b9c-907e-f04adeb4760b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/ProfileMain.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/ProfileMain.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/UserStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/UserStore.js" afterDir="false" />
-    </list>
+    <list default="true" id="7e74540c-884f-4b9c-907e-f04adeb4760b" name="Default" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -170,6 +164,7 @@
       <workItem from="1586278504996" duration="10690000" />
       <workItem from="1586322297515" duration="223000" />
       <workItem from="1586458422534" duration="105000" />
+      <workItem from="1586495017118" duration="15000" />
     </task>
     <servers />
   </component>
