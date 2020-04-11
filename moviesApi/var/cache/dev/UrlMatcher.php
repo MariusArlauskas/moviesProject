@@ -29,10 +29,11 @@ return [
                     .'|users/(?'
                         .'|(\\d+)(*:132)'
                         .'|(\\d+)/apis/(\\d+)/movies/(\\d+)/status/(\\d+)(*:182)'
+                        .'|([^/]++)/movies(*:205)'
                     .')'
-                    .'|profile/([^/]++)(*:207)'
+                    .'|profile/([^/]++)(*:230)'
                 .')'
-                .'|/(.*)?(*:222)'
+                .'|/(.*)?(*:245)'
             .')/?$}sD',
     ],
     [ // $dynamicRoutes
@@ -42,8 +43,9 @@ return [
         109 => [[['_route' => 'movies_apimovie_show_one', '_controller' => 'App\\Controller\\EntityController\\MoviesController::getOneAction'], ['id'], ['GET' => 0], null, false, true, null]],
         132 => [[['_route' => 'user_show_one', '_controller' => 'App\\Controller\\EntityController\\UsersController::getOneAction'], ['id'], ['GET' => 0], null, false, true, null]],
         182 => [[['_route' => 'user_add_movie', '_controller' => 'App\\Controller\\EntityController\\UsersController::addMovieStatus'], ['userId', 'apiId', 'movieId', 'relationType'], ['POST' => 0], null, false, true, null]],
-        207 => [[['_route' => 'user_profile_data', '_controller' => 'App\\Controller\\ProfileController::getAction'], ['id'], ['GET' => 0], null, false, true, null]],
-        222 => [
+        205 => [[['_route' => 'user_movies_list', '_controller' => 'App\\Controller\\EntityController\\UsersController::getUsersMovies'], ['id'], ['GET' => 0], null, false, false, null]],
+        230 => [[['_route' => 'user_profile_data', '_controller' => 'App\\Controller\\ProfileController::getAction'], ['id'], ['GET' => 0], null, false, true, null]],
+        245 => [
             [['_route' => 'pageNotFound', '_controller' => 'App\\Controller\\PageNotFoundController::pageNotFoundAction', 'path' => ''], ['path'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

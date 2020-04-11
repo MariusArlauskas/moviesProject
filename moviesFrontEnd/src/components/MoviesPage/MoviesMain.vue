@@ -63,7 +63,6 @@ export default {
       }, 1500);
     }
   },
-  computed: {},
   mounted() {
     this.pagesLoaded = 1;
     this.getMovies();

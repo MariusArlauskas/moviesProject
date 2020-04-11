@@ -11,6 +11,7 @@ namespace App\Controller\EntityController;
 use App\Controller\InitSerializer;
 use App\Controller\RemoteApi\TmdbApi;
 use App\Entity\Movies;
+use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -41,6 +42,7 @@ class MoviesController extends AbstractController
 	 * @throws RedirectionExceptionInterface
 	 * @throws ServerExceptionInterface
 	 * @throws TransportExceptionInterface
+	 * @throws ORMException
 	 */
 	public function getMoviesWithFavorites($pageNumber, $userId){
 		$apiId = 1;
@@ -71,6 +73,7 @@ class MoviesController extends AbstractController
 	 * @throws RedirectionExceptionInterface
 	 * @throws ServerExceptionInterface
 	 * @throws TransportExceptionInterface
+	 * @throws ORMException
 	 */
 	public function getMovies($pageNumber){
 		$apiId = 1;
@@ -102,7 +105,6 @@ class MoviesController extends AbstractController
 	public function getOneAction($id)
 	{
 		$apiId = 1;
-		// Finding user
 		$repository = $this->getDoctrine()->getRepository(Movies::class);
 		$movie = $repository->find($id);
 		if (!$movie) {
@@ -114,6 +116,57 @@ class MoviesController extends AbstractController
 		unset($movieArray['usersList']);
 
 		return $this->serializer->response($movieArray, 200, [], true);
+	}
+
+	/** Fetches and inserts into db
+	 */
+	public function getOneFromApiAction($movieId, $apiId)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$movieApi = new TmdbApi($em);
+		$movie = $movieApi->getOneMovie($movieId);
+		if (empty($movie)) {
+			return '';
+		}
+		$em->persist($movie);
+		// Save movies
+		$em->flush();
+
+		return $movie;
+	}
+
+	/**
+	 * @param $userId
+	 * @return JsonResponse|Response
+	 * @throws ClientExceptionInterface
+	 * @throws RedirectionExceptionInterface
+	 * @throws ServerExceptionInterface
+	 * @throws TransportExceptionInterface
+	 * @throws ORMException
+	 */
+	public function getUsersMovieList($userId){
+		$apiId = 1;
+		$em = $this->getDoctrine()->getManager();
+		$repMovies = $em->getRepository(Movies::class);
+		$movies = $repMovies->findUsersMovieList($apiId, $userId);
+
+		if (empty($movies)) { 	// Fetch from remote api
+			return $this->serializer->response('User has no movies in his list');
+		}
+
+		$movieApi = new TmdbApi($em);
+		foreach ($movies as $movie) {
+			if (empty($movie->getId())) {
+				$movie = $movieApi->getOneMovie($movie->getMovieId());
+				$em->persist($movie[0]);
+			}
+		}
+		$em->flush();
+
+		// Now check again to join with users liked movies list
+		$movies = $repMovies->findUsersMovieList($apiId, $userId);
+
+		return $this->serializer->response($movies, 200, [], false, true, true);
 	}
 
 

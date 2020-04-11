@@ -36,7 +36,13 @@
             <v-card-actions class="mr-10 ml-10">
               <v-btn to="/signUp" depressed rounded color="transparent">Sign up</v-btn>
               <v-spacer></v-spacer>
-              <v-btn depressed rounded color="transparent" @click="login()">
+              <v-btn
+                :loading="this.loginLoad"
+                depressed
+                rounded
+                color="transparent"
+                @click="login()"
+              >
                 Login
                 <v-icon>keyboard_arrow_right</v-icon>
               </v-btn>
@@ -56,10 +62,12 @@ export default {
   data: () => ({
     username: "",
     password: "",
-    error: false
+    error: false,
+    loginLoad: false
   }),
   methods: {
     login() {
+      this.loginLoad = true;
       this.$store
         .dispatch("LOGIN", {
           username: this.username,
@@ -78,6 +86,7 @@ export default {
             });
         })
         .catch(() => {
+          this.loginLoad = false;
           this.error = true;
         });
     }

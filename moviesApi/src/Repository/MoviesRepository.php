@@ -68,6 +68,51 @@ class MoviesRepository extends ServiceEntityRepository
 		return $ojbArr;
 	}
 
+	public function findUsersMovieList($apiId, $userId) {
+		$sql = '
+			SELECT
+				m.id,
+				m.title,
+				m.author,
+				m.release_date as releaseDate,
+				m.overview,
+				m.poster_path as posterPath,
+				m.original_title as originalTitle,
+				m.rating,
+				m.api_id as apiId,
+				m.genres,
+				m.most_popular as mostPopular,
+				umm.movie_id as movieId,
+			   	umm.is_favorite as isFavorite,
+			   	umm.relation_type_id as relationTypeId
+			FROM
+				(
+				SELECT
+					*
+				FROM
+					users_movies um
+				WHERE
+					um.user_id = '.(int)$userId.' AND um.api_id = '.(int)$apiId.'
+				) umm
+			LEFT JOIN
+				movies m
+			ON
+				m.movie_id = umm.movie_id
+		';
+
+		$conn = $this->getEntityManager()
+			->getConnection();
+		$stmt = $conn->prepare($sql);
+		$stmt->execute();
+
+		$ojbArr = [];
+		foreach ($stmt->fetchAll() as $movie) {
+			$ojbArr[] = new Movies($movie);
+		}
+
+		return $ojbArr;
+	}
+
 //     /**
 //      * @return Movies[] Returns an array of Movies objects
 //      */

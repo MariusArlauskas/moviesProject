@@ -9,8 +9,13 @@
 namespace App\Controller\RemoteApi;
 
 use App\Entity\Apis;
+use App\Entity\Genres;
 use App\Entity\Movies;
+use App\Repository\GenresRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
@@ -35,10 +40,16 @@ class TmdbApi extends AbstractController
 	 */
 	protected $apiId = 1;
 
+	/**
+	 * @var EntityManager
+	 */
+	protected $em;
+
 	public function __construct(EntityManagerInterface $em)
 	{
 		$api = $em->getRepository(Apis::class);
 		$this->apiKey = $api->find($this->apiId)->getApiKey();
+		$this->em = $em;
 	}
 
 //    /**
@@ -54,13 +65,14 @@ class TmdbApi extends AbstractController
 //        return json_decode($client->request('GET', 'https://api.themoviedb.org/3/search/movie?api_key='.$this->apiKey.'&query='.$movieName)->getContent());
 //    }
 
-    /**
-     * @return mixed
-     * @throws ClientExceptionInterface
-     * @throws RedirectionExceptionInterface
-     * @throws ServerExceptionInterface
-     * @throws TransportExceptionInterface
-     */
+	/**
+	 * @return mixed
+	 * @throws ClientExceptionInterface
+	 * @throws RedirectionExceptionInterface
+	 * @throws ServerExceptionInterface
+	 * @throws TransportExceptionInterface
+	 * @throws ORMException
+	 */
     public function getPopularMovies($page, $nr) {
         $client = HttpClient::create();
         return $this->returnMovies($client->request('GET', 'https://api.themoviedb.org/3/movie/popular?api_key='.$this->apiKey.'&language=en-US&page='.$page)->getContent(), 'MostPopular', $nr);
@@ -73,27 +85,46 @@ class TmdbApi extends AbstractController
      * @throws ServerExceptionInterface
      * @throws TransportExceptionInterface
      */
-    public function getMovieGenres() {
+    public function getMovieGenresFromApi() {
         $client = HttpClient::create();
         return json_decode($client->request('GET', 'https://api.themoviedb.org/3/genre/movie/list?api_key='.$this->apiKey.'&language=en-US')->getContent());
     }
 
-    protected function returnMovies($movies, $type, $nr) {
-		$movies = json_decode($movies);
-		try {
-			$genres = $this->getMovieGenres();
-		} catch (ClientExceptionInterface $e) {		// ??
-		} catch (RedirectionExceptionInterface $e) {
-		} catch (ServerExceptionInterface $e) {
-		} catch (TransportExceptionInterface $e) {
-		}
-		$tmp = [];
-		foreach ($genres->genres as $genre) {
-			$tmp[$genre->id] = $genre->name;
-		}
-		$genres = $tmp;
-		unset($tmp);
+	/**
+	 * @param $movieId
+	 * @return mixed
+	 * @throws ClientExceptionInterface
+	 * @throws RedirectionExceptionInterface
+	 * @throws ServerExceptionInterface
+	 * @throws TransportExceptionInterface
+	 * @throws ORMException
+	 */
+    public function getOneMovie($movieId) {
+    	$client = HttpClient::create();
+    	return $this->returnMovies($client->request('GET', 'https://api.themoviedb.org/3/movie/'.$movieId.'?api_key='.$this->apiKey.'&language=en-US')->getContent());
+	}
 
+	/**
+	 * @param $movies
+	 * @param int $type
+	 * @param int $nr
+	 * @return array
+	 * @throws ORMException
+	 */
+    protected function returnMovies($movies, $type = 0, $nr = 0) {
+		$movies = json_decode($movies);
+		if (empty($movies->results)) {	// Then its only one movie
+			$tmpArr = [];
+			foreach ($movies->genres as $genre) {
+				if (!empty($genre)) {
+					array_push($tmpArr, $genre->id);
+				}
+			}
+			$movies->genre_ids = $tmpArr;
+			$movies->results[0] = $movies;
+		}
+
+		$genres = $this->getMovieGenres();
 		// Converting genre_ids to genre names and adding for saving
 		$moviesReturn = [];
 		foreach ($movies->results as $id => $movie) {
@@ -115,6 +146,9 @@ class TmdbApi extends AbstractController
 			// From genres_ids to names
 			$tmpArr = [];
 			foreach ($movie->genre_ids as $genre_id) {
+				if (empty($genres[$genre_id])) {
+					$genres = $this->getMovieGenres(true);
+				}
 				 array_push($tmpArr, $genres[$genre_id]);
 			}
 			$temp->setGenres($tmpArr);
@@ -123,5 +157,39 @@ class TmdbApi extends AbstractController
 		}
 
 		return $moviesReturn;
+	}
+
+	/**
+	 * @param bool $refresh Fetch from api and update db
+	 * @return array
+	 * @throws ClientExceptionInterface
+	 * @throws ORMException
+	 * @throws RedirectionExceptionInterface
+	 * @throws ServerExceptionInterface
+	 * @throws TransportExceptionInterface
+	 * @throws OptimisticLockException
+	 */
+	protected function getMovieGenres($refresh = false) {
+		if ($refresh) {
+			$genres = $this->getMovieGenresFromApi();
+			$tmp = [];
+			foreach ($genres->genres as $genre) {
+				$item = new Genres();
+				$item->setApiId($this->apiId);
+				$item->setGenreId($genre->id);
+				$item->setName($genre->name);
+				$this->em->persist($item);
+
+				$tmp[$genre->id] = $genre->name;
+			}
+			$this->em->flush();
+			return $tmp;
+		}
+		$genres = $this->em->getRepository(Genres::class)->findBy(['apiId' => $this->apiId]);
+		$tmp = [];
+		foreach ($genres as $genre) {
+			$tmp[$genre->getGenreId()] = $genre->getName();
+		}
+		return $tmp;
 	}
 }

@@ -31,14 +31,28 @@ const getters = {
 };
 
 const actions = {
-  GET_USER_PROFILE: ({ commit }, payload) => {
-    axios.get(`profile/` + payload)
-      .then(({ data, status }) => {
-        if (status === 200) {
-          commit("SET_USER_SESSION", data);
-        }
-      })
+  GET_USER_MOVIES_LIST: (commit, userId) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`users/` + userId + `/movies`)
+        .then(({ data, status }) => {
+          if (status === 200) {
+            resolve(data);
+          }
+        })
+        .catch(error => {
+          reject(error);
+        })
+    });
   },
+  // GET_USER_PROFILE: ({ commit }, payload) => {
+  //   axios.get(`profile/` + payload)
+  //     .then(({ data, status }) => {
+  //       if (status === 200) {
+  //         commit("SET_USER_SESSION", data);
+  //       }
+  //     })
+  // },
   GET_USER_PROFILE_BY_ID: (commit, payload) => {
     return axios.get(`profile/` + payload.id)
       .then(({ data, status }) => {

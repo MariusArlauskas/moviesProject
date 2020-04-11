@@ -177,4 +177,17 @@ class UsersController extends AbstractController
 
 		return $this->serializer->response('Set users '.$userId.' movie '.$movieId.' in list with status id '.$relationType);
 	}
+
+	/**
+	 * @Route("/{id}/movies", name="user_movies_list", methods={"GET"})
+	 * @return Response
+	 */
+	public function getUsersMovies($id)
+	{
+		$result = $this->forward('App\Controller\EntityController\MoviesController::getUsersMovieList', [
+			'userId' => $id,
+		]);
+
+		return $result;
+	}
 }

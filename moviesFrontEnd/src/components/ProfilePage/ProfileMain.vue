@@ -1,6 +1,6 @@
 <template>
   <v-flex class="mx-0 px-0" style="margin-top: -9px; width:100; height:100%">
-    <v-card class="topContainer secondary" dark flat>
+    <v-card class="topContainer secondary" max-height="290px" dark flat>
       <v-layout
         justify-center
         v-if="this.user.name"

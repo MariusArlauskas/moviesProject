@@ -2,37 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e74540c-884f-4b9c-907e-f04adeb4760b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200410181506.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200410182325.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200410185640.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/Genres.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200411182558.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/GenresRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/MoviesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/MoviesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/UsersController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/UserMoviesRelationTypesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/UsersMoviesRelationTypesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/RegisterController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegisterController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/UsersController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/RemoteApi/TmdbApi.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RemoteApi/TmdbApi.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/ApiKeys.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Apis.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Movies.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Movies.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Users.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/UserMovies.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/UsersMovies.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/UserMoviesRelationTypes.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/UsersMoviesRelationTypes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ApiKeysRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ApisRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/MoviesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/MoviesRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserMoviesRelationTypesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UsersMoviesRelationTypesRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserMoviesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UsersMoviesRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UserRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UsersRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.preload.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.preload.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainerCompiler.log" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainerCompiler.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MovieCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MovieCard.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/Auth/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/Auth/Login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/MoviesList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/MoviesList.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/ProfileMain.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/ProfileMain.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/plugins/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/plugins/axios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/UserStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/UserStore.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,6 +189,7 @@
       <workItem from="1586495017118" duration="15000" />
       <workItem from="1586540121297" duration="4212000" />
       <workItem from="1586547206775" duration="1072000" />
+      <workItem from="1586625582951" duration="6982000" />
     </task>
     <servers />
   </component>
@@ -232,18 +223,18 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2715" y="443" key="NewPhpFileDialog/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1585857180100" />
-    <state x="2423" y="133" width="1102" height="739" key="find.popup" timestamp="1585593685140">
+    <state x="2423" y="133" width="1102" height="739" key="find.popup" timestamp="1586629859092">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="503" y="133" width="1102" height="739" key="find.popup/1920.0.1920.1040/0.0.1920.1040@0.0.1920.1040" timestamp="1585506654623" />
-    <state x="2423" y="133" width="1102" height="739" key="find.popup/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1585593685140" />
+    <state x="2423" y="133" width="1102" height="739" key="find.popup/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1586629859092" />
     <state x="2536" y="240" key="run.anything.popup" timestamp="1586027339029">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2536" y="240" key="run.anything.popup/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1586027339029" />
-    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1585492849205">
+    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1586627084343">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1585492849205" />
+    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1586627084343" />
   </component>
 </project>

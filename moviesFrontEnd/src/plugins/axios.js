@@ -39,13 +39,13 @@ axios.interceptors.response.use(
     return response;
   },
   function (error) {
-    if (error.response.status == 401) {
+    if (error.response.status == 401 && (this.$route.name == 'Login' || this.$route.name == 'Signup')) {
       store.dispatch("LOGOUT").then(() => {   // Loggout user when session expires
         if (router.path !== "/login") {
           router.push("/login");
           store.commit("SET_NOTIFICATION", {
             display: true,
-            text: "Session expired!",
+            text: "Please login!",
             alertClass: "warning"
           });
         }
