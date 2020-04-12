@@ -9,7 +9,7 @@
         :moviesAddTypes="moviesAddTypes"
       />
     </v-layout>
-    <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+    <infinite-loading spinner="spiral" @infinite="infiniteHandler"></infinite-loading>
     <router-view name="MovieDialog"></router-view>
   </div>
 </template>

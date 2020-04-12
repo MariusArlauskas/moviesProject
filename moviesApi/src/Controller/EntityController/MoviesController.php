@@ -48,20 +48,26 @@ class MoviesController extends AbstractController
 		$apiId = 1;
 		$em = $this->getDoctrine()->getManager();
 		$repMovies = $em->getRepository(Movies::class);
-		$movies = $repMovies->findByApiIdWithUserStatuses($apiId, $userId, 20, $pageNumber * 20 - 20 );
+		$movies = $repMovies->findByApiIdAndTypeWithUserStatuses($apiId, $userId, 'most_popular', 20, $pageNumber * 20 - 20 );
 
 		if (empty($movies)) { 	// Fetch from remote api
 			$movieApi = new TmdbApi($em);
 			$movies = $movieApi->getPopularMovies($pageNumber, $pageNumber * 20 - 20);
 			foreach ($movies as $movie) {
 				// Add movie to Doctrine so that it can be saved
-				$em->persist($movie);
+				$dbMovie = $repMovies->findOneBy(['apiId' => $apiId, 'movieId' => $movie->getMovieId()]);
+				if (!empty($dbMovie)) {
+					$dbMovie->setMostPopular($movie->getMostPopular());
+					$em->persist($dbMovie);
+				} else {
+					$em->persist($movie);
+				}
 			}
 			// Save movies
 			$em->flush();
 
 			// Now check again to join with users liked movies list
-			$movies = $repMovies->findByApiIdWithUserStatuses($apiId, $userId, 20, $pageNumber * 20 - 20 );
+			$movies = $repMovies->findByApiIdAndTypeWithUserStatuses($apiId, $userId, 'most_popular', 20, $pageNumber * 20 - 20 );
 		}
 		return $this->serializer->response($movies, 200, [], false, true, true);
 	}
@@ -79,7 +85,7 @@ class MoviesController extends AbstractController
 		$apiId = 1;
 		$em = $this->getDoctrine()->getManager();
 		$repMovies = $em->getRepository(Movies::class);
-		$movies = $repMovies->findBy(['apiId' => $apiId], null, 20, $pageNumber * 20 - 20);
+		$movies = $repMovies->findMostPopularByApi($apiId, 'most_popular', 20, $pageNumber * 20 - 20);
 
 		if (empty($movies)) { 	// Fetch from remote api
 			$movieApi = new TmdbApi($em);
@@ -92,7 +98,7 @@ class MoviesController extends AbstractController
 			$em->flush();
 
 			// Now check again to join with users liked movies list
-			$movies = $repMovies->findBy(['apiId' => $apiId], null, 20, $pageNumber * 20 - 20);
+			$movies = $repMovies->findMostPopularByApi($apiId, 'most_popular', 20, $pageNumber * 20 - 20);
 		}
 
 		return $this->serializer->response($movies, 200, [], true, true, true);
@@ -155,16 +161,22 @@ class MoviesController extends AbstractController
 		}
 
 		$movieApi = new TmdbApi($em);
+		$change = false;
 		foreach ($movies as $movie) {
 			if (empty($movie->getId())) {
+				$change = true;
 				$movie = $movieApi->getOneMovie($movie->getMovieId());
 				$em->persist($movie[0]);
 			}
 		}
-		$em->flush();
+		if ($change) {
+			$em->flush();
+		}
 
 		// Now check again to join with users liked movies list
-		$movies = $repMovies->findUsersMovieList($apiId, $userId);
+		if ($change) {
+			$movies = $repMovies->findUsersMovieList($apiId, $userId);
+		}
 
 		return $this->serializer->response($movies, 200, [], false, true, true);
 	}

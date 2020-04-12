@@ -134,7 +134,9 @@ class TmdbApi extends AbstractController
 			$temp->setMovieId($movie->id);
 			$temp->setRating($movie->vote_average);
 			$temp->setOriginalTitle($movie->original_title);
-			$temp->setPosterPath('https://image.tmdb.org/t/p/w600_and_h900_bestv2'.$movie->poster_path);
+			if (!empty($movie->poster_path)) {
+				$temp->setPosterPath('https://image.tmdb.org/t/p/w600_and_h900_bestv2'.$movie->poster_path);
+			}
 			$temp->setOverview($movie->overview);
 			if (!empty($movie->release_date)) {
 				$temp->setReleaseDate(\DateTime::createFromFormat('Y-m-d', $movie->release_date));

@@ -5,22 +5,15 @@
 // npm run serve
 
 # In PROGRESS:
-    1. Profile:
-        ADD My movie lists (seperated by  types - completed, planning...)
-        
-    2. Feed:
+    Feed:
         user can post messages
         show messages to users probably one every xx secs
         allow option to share messages in fb/twitter
         
-# TODO list (fixes or small details):
-    Retrieving movies to users list:
-        only posible way to retrieve all - one by one from current api
-        
+# TODO list (fixes or small details):        
     Movies page:
         Movie dialog:
-            ADD like movies and add to list buttons (??)
-            ADD link to movie page
+            ADD link to movie page and back button redirects
     
     Header:
         fix animation when scrolling down and up
@@ -58,16 +51,19 @@
     ?? - bonus ideas, only if enaught time.
 
 # what is DONE (but might still be expanded):
-    Profile pages
-        Showing basic users info
+    Profile page
+        Showing users info
+        Showing users movies list
+        Movie dialog opens on click 
 
     Movies page
         Showing all movies in cards
-        user can like or add movies to list by pressing icons near movie title, 
+        User can like or add movies to list by pressing icons near movie title, 
           also posible to remove item from list by choosing - remove
-        showing if a movie is liked or added to list (type is shown near button - completed, paused..)
-        color indicating rating of the movie
+        Showing if a movie is liked or added to list (type is shown near button - completed, paused..)
+        Color indicating rating of the movie
         Movies dialog with more info about movie
+            dialog has like, add to list and rating buttons
         
     Profile toolbar
         Toolbar easy navigation of personal info shows up when user is logged in

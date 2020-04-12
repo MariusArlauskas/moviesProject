@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Movies;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\DBAL\DBALException;
 
 /**
  * @method Movies|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,7 +20,16 @@ class MoviesRepository extends ServiceEntityRepository
         parent::__construct($registry, Movies::class);
     }
 
-    public function findByApiIdWithUserStatuses($apiId, $userId, $limit, $offset) {
+	/**
+	 * @param int $apiId
+	 * @param int $userId
+	 * @param string $type
+	 * @param int $limit
+	 * @param int $offset
+	 * @return array
+	 * @throws DBALException
+	 */
+    public function findByApiIdAndTypeWithUserStatuses($apiId, $userId, $type, $limit, $offset) {
 		$sql = '
 			SELECT
 				m.id,
@@ -35,7 +45,8 @@ class MoviesRepository extends ServiceEntityRepository
 				m.most_popular as mostPopular,
 				m.movie_id as movieId,
 			   	umm.is_favorite as isFavorite,
-			   	umm.relation_type_id as relationTypeId
+			   	umm.relation_type_id as relationTypeId,
+			    umm.user_rating as userRating
 			FROM
 				movies m
 			LEFT JOIN(
@@ -49,10 +60,10 @@ class MoviesRepository extends ServiceEntityRepository
 			ON
 				m.movie_id = umm.movie_id
 			WHERE 
-				m.api_id = '.$apiId.'
+				m.api_id = '.(int)$apiId.' AND m.'.$type.' > '.(int)$offset.'
 			ORDER BY
 				m.most_popular ASC
-			LIMIT '.(int)$limit.' OFFSET '.(int)$offset.'
+			LIMIT '.(int)$limit.'
 		';
 
 		$conn = $this->getEntityManager()
@@ -68,6 +79,12 @@ class MoviesRepository extends ServiceEntityRepository
 		return $ojbArr;
 	}
 
+	/**
+	 * @param int $apiId
+	 * @param int $userId
+	 * @return array
+	 * @throws DBALException
+	 */
 	public function findUsersMovieList($apiId, $userId) {
 		$sql = '
 			SELECT
@@ -84,7 +101,8 @@ class MoviesRepository extends ServiceEntityRepository
 				m.most_popular as mostPopular,
 				umm.movie_id as movieId,
 			   	umm.is_favorite as isFavorite,
-			   	umm.relation_type_id as relationTypeId
+			   	umm.relation_type_id as relationTypeId,
+			    umm.user_rating as userRating
 			FROM
 				(
 				SELECT
@@ -98,6 +116,52 @@ class MoviesRepository extends ServiceEntityRepository
 				movies m
 			ON
 				m.movie_id = umm.movie_id
+			ORDER BY m.title ASC
+		';
+
+		$conn = $this->getEntityManager()
+			->getConnection();
+		$stmt = $conn->prepare($sql);
+		$stmt->execute();
+
+		$ojbArr = [];
+		foreach ($stmt->fetchAll() as $movie) {
+			$ojbArr[] = new Movies($movie);
+		}
+
+		return $ojbArr;
+	}
+
+	/**
+	 * @param int $apiId
+	 * @param string $type
+	 * @param int $limit
+	 * @param int $offset
+	 * @return array
+	 * @throws DBALException
+	 */
+	public function findMostPopularByApi($apiId, $type, $limit, $offset) {
+		$sql = '
+			SELECT
+				m.id,
+				m.title,
+				m.author,
+				m.release_date as releaseDate,
+				m.overview,
+				m.poster_path as posterPath,
+				m.original_title as originalTitle,
+				m.rating,
+				m.api_id as apiId,
+				m.genres,
+				m.most_popular as mostPopular,
+				m.movie_id as movieId
+			FROM
+				movies m
+			WHERE 
+				m.api_id = '.(int)$apiId.' AND m.'.$type.' > '.(int)$offset.'
+			ORDER BY
+				m.most_popular ASC
+			LIMIT '.(int)$limit.'
 		';
 
 		$conn = $this->getEntityManager()

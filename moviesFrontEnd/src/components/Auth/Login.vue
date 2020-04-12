@@ -37,15 +37,25 @@
               <v-btn to="/signUp" depressed rounded color="transparent">Sign up</v-btn>
               <v-spacer></v-spacer>
               <v-btn
-                :loading="this.loginLoad"
+                v-if="!this.loginLoad"
                 depressed
                 rounded
                 color="transparent"
+                :disabled="this.loginLoad"
                 @click="login()"
               >
-                Login
-                <v-icon>keyboard_arrow_right</v-icon>
+                <span>
+                  Login
+                  <v-icon>keyboard_arrow_right</v-icon>
+                </span>
               </v-btn>
+              <v-progress-circular
+                v-else
+                indeterminate
+                size="26"
+                color="accent lighten-2"
+                style="margin-right:38px"
+              ></v-progress-circular>
             </v-card-actions>
           </v-card>
         </v-form>

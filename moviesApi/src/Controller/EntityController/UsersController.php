@@ -130,7 +130,7 @@ class UsersController extends AbstractController
 	}
 
 	/**
-	 * @Route("/{userId}/apis/{apiId}/movies/{movieId}/status/{relationType}", name="user_add_movie", methods={"POST"}, requirements={"userId"="\d+", "apiId"="\d+", "movieId"="\d+", "relationType"="\d+"})
+	 * @Route("/{userId}/apis/{apiId}/movies/{movieId}/status/{relationType}", name="user_add_movie_to_list", methods={"POST"}, requirements={"userId"="\d+", "apiId"="\d+", "movieId"="\d+", "relationType"="\d+"})
 	 * @return JsonResponse
 	 */
 	public function addMovieStatus($userId, $apiId, $movieId, $relationType) {
@@ -176,6 +176,30 @@ class UsersController extends AbstractController
 		$em->flush();
 
 		return $this->serializer->response('Set users '.$userId.' movie '.$movieId.' in list with status id '.$relationType);
+	}
+
+	/**
+	 * @Route("/{userId}/apis/{apiId}/movies/{movieId}/rating/{rating}", name="user_add_movie_rating", methods={"POST"}, requirements={"userId"="\d+", "apiId"="\d+", "movieId"="\d+", "rating"="\d+"})
+	 * @return JsonResponse
+	 */
+	public function addUsersRating($userId, $apiId, $movieId, $rating) {
+		$em = $this->getDoctrine()->getManager();
+		$repository = $em->getRepository(UsersMovies::class);
+		$userMovie = $repository->findOneBy([
+			'userId' => $userId,
+			'apiId' => $apiId,
+			'movieId' => $movieId,
+		]);
+
+		if (empty($userMovie)) {
+			return $this->serializer->response('Cannot rate movies not in list', Response::HTTP_NOT_FOUND);
+		}
+		$userMovie->setUserRating($rating);
+
+		$em->persist($userMovie);
+		$em->flush();
+
+		return $this->serializer->response('Rated movie - '.$rating);
 	}
 
 	/**

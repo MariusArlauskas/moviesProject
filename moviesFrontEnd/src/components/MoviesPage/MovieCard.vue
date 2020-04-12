@@ -63,7 +63,9 @@
       <v-container class="colorIndicator" :style="'background:' + getColor(item.rating)"></v-container>
     </v-card-title>
     <v-layout style="height:85%; width:100%">
-      <MovieDialog :movie="item" />
+      <div style="width:40%">
+        <MovieDialog :movie="item" :moviesAddTypes="moviesAddTypes" />
+      </div>
       <v-flex outlined style="width:60%; height:100%">
         <v-card flat dark style="width:100%; height:36%; background:transparent">
           <v-row class="mx-0 pt-3 pl-4">
@@ -82,7 +84,10 @@
           class="desc white--text caption mt-4 pt-0 pl-4 pr-5"
           style="height:49%; overflow-y: scroll"
         >
-          <div>{{ item.overview }}</div>
+          <div
+            v-if="typeof item.overview !== 'undefined' && item.overview !== null && item.overview !== ''"
+          >{{ item.overview }}</div>
+          <div v-else>No description</div>
         </v-card-text>
       </v-flex>
     </v-layout>
@@ -119,15 +124,8 @@ export default {
         })
         .then(() => {
           this.item.relationTypeId = 0;
-          this.$store
-            .commit("SET_NOTIFICATION", {
-              display: true,
-              text: this.item.title + " removed from list!",
-              alertClass: "warning"
-            })
-            .catch(() => {
-              this.error = true;
-            });
+          var msg = this.item.title + " removed from list!";
+          this.notify(msg, "warning");
         })
         .catch(() => {
           this.error = true;
@@ -182,15 +180,6 @@ export default {
         .catch(() => {
           this.error = true;
         });
-    },
-    openMovieDialog(movie) {
-      this.$router.push({
-        name: "MovieDialog",
-        params: {
-          movieId: movie.id,
-          movie: movie
-        }
-      });
     },
     getColor(value) {
       //value from 0 to 1

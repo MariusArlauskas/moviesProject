@@ -43,6 +43,11 @@ class UsersMovies
      */
     private $isFavorite = false;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $userRating;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +109,18 @@ class UsersMovies
     public function setIsFavorite(bool $isFavorite): self
     {
         $this->isFavorite = $isFavorite;
+
+        return $this;
+    }
+
+    public function getUserRating(): ?int
+    {
+        return $this->userRating;
+    }
+
+    public function setUserRating(?int $userRating): self
+    {
+        $this->userRating = $userRating;
 
         return $this;
     }
