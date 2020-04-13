@@ -8,6 +8,7 @@ use App\Entity\Messages;
 use App\Entity\Movies;
 use Doctrine\ORM\ORMException;
 use Exception;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,6 +35,7 @@ class MessagesController extends AbstractController
 	}
 
 	/**
+	 * @IsGranted("ROLE_USER", statusCode=403, message="Access denied!!")
 	 * @Route("", name="message_create", methods={"POST"})
 	 * @param Request $request
 	 * @return JsonResponse|Response
@@ -41,10 +43,6 @@ class MessagesController extends AbstractController
 	 */
 	public function createAction(Request $request)
 	{
-		if (!$this->isGranted("ROLE_USER")) {
-			throw new HttpException(Response::HTTP_FORBIDDEN, "Access denied!!");
-		}
-
 		// Assingning data from request and removing unnecessary symbols
 		$parametersAsArray = [];
 		if ($content = $request->getContent()) {
@@ -52,9 +50,9 @@ class MessagesController extends AbstractController
 		}
 		// Check if none of the data is missing
 		if (isset($parametersAsArray['message'])) {
-			$message = htmlspecialchars($parametersAsArray['message']);
+			$messageText = htmlspecialchars($parametersAsArray['message']);
 		} else {
-			return $this->serializer->response("Missing message!");
+			return $this->serializer->response("Missing message!", Response::HTTP_BAD_REQUEST);
 		}
 		$userId = $this->getUser()->getId();
 
@@ -64,36 +62,45 @@ class MessagesController extends AbstractController
 		}
 
 		// Creating user object
-		$user = new Messages();
-		$user->setUserId($userId);
-		$user->setMessage($message);
-		$user->setPostDate(new \DateTime());
+		$message = new Messages();
+		$message->setUserId($userId);
+		$message->setMessage($messageText);
+		$message->setPostDate(new \DateTime());
 		if (!empty($parentId)) {
-			$user->setParentId($parentId);
+			$message->setParentId($parentId);
 		}
 
 		// Get the Doctrine service and manager
 		$em = $this->getDoctrine()->getManager();
 
 		// Add user to Doctrine for saving
-		$em->persist($user);
+		$em->persist($message);
 
 		// Save user
 		$em->flush();
 
-		return $this->serializer->response('Posted users message');
+		return $this->serializer->response($message, 200, [], false, false, true);
 	}
 
 	/**
-	 * @Route("/{pageNumber}", name="messages_get", methods={"GET"}, requirements={"pageNumber"="\d+"})
+	 * @Route("/{pageNumber}/{lastId}", name="messages_get", methods={"GET"}, requirements={"pageNumber"="\d+", "lastId"="\d+"})
 	 */
-	public function getAction($pageNumber){
+	public function getAction($pageNumber, $lastId){
 		$em = $this->getDoctrine()->getManager();
 		$repMessages = $em->getRepository(Messages::class);
-		$messages = $repMessages->findMessagesSortedByDate(20, $pageNumber * 20 - 20 );
+
+		if ($pageNumber == 0) {
+			$messages = $repMessages->findMessagesSortedByDate(1, 0);
+			if ($messages[0]['id'] == $lastId) {
+				return $this->serializer->response([], 200);
+			}
+		} else {
+			$messages = $repMessages->findMessagesSortedByDate(10, $pageNumber * 10 - 10 );
+		}
+
 
 		if (empty($messages)) {
-			return $this->serializer->response('No more messages found', Response::HTTP_NOT_FOUND);
+			return $this->serializer->response([], 200);
 		}
 
 		foreach ($messages as $key => $message) {

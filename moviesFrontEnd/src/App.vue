@@ -4,7 +4,6 @@
     <ProfileBar v-show="drawer" />
     <v-content class="mainBackground" style="padding-top: 60px; height:95%; width:100%">
       <!-- <router-link to="/">Home</router-link> -->
-
       <router-view />
     </v-content>
     <Footer />

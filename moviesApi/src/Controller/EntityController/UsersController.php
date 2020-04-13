@@ -64,12 +64,14 @@ class UsersController extends AbstractController
         }
 
         // Creating user object
+		$dateNow = new \DateTime();
         $user = new Users();
         $user->setEmail($email);
         $user->setName($name);
-        $user->setRegisterDate(new \DateTime());
+        $user->setRegisterDate($dateNow);
         $user->setBirthDate(\DateTime::createFromFormat('Y-m-d', $birthDate));
         $user->setRoles(['ROLE_USER']);
+        $user->setDescription('Hello I\'m here from '.$dateNow->format('Y-m-d'));
         $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
 
         // Get the Doctrine service and manager

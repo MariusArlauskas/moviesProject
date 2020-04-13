@@ -42,6 +42,8 @@ class MessagesRepository extends ServiceEntityRepository
 			LEFT JOIN
 				users u ON
 				msg.user_id = u.id
+			WHERE 
+				msg.parent_id IS NULL
 			ORDER BY
 				post_date DESC
 			LIMIT '.(int)$limit.' OFFSET '.(int)$offset.'

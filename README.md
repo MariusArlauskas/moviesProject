@@ -5,12 +5,18 @@
 // npm run serve
 
 # In PROGRESS:
+    1. Main page:
+        show some watching and planning movies
+    
+    2. Get stats of completed movies to get the favorite (save movie info by days)
+    
+    3. Main page:
+        show most popular movies
+        
+# TODO list (fixes or small details):    
     Feed:
-        user can post messages
-        show messages to users probably one every xx secs
         allow option to share messages in fb/twitter
         
-# TODO list (fixes or small details):        
     Profile:
         seperate types (completed, planning..)
 
@@ -37,7 +43,7 @@
         show full movie details
         
     Header
-        ADD Search for a movie:
+        ADD Search for a movie (probably search self db first an show button to o better search - in API):
             show movies in list, open movie list on click (now only showing search input - does no action)
         
     Profile:
@@ -54,10 +60,18 @@
     ?? - bonus ideas, only if enaught time.
 
 # what is DONE (but might still be expanded):
+    Main page:
+        showing feed
+        Feed:
+            shown users posted messages
+            user can post messages
+            messages are updating every 10 secons (getting 1 newest message)
+
     Profile page
         Showing users info
         Showing users movies list
-        Movie dialog opens on click 
+        Movie dialog opens on click
+        Dialog doesnt let do any actions when in others profile
 
     Movies page
         Showing all movies in cards

@@ -1,12 +1,11 @@
 <template>
-  <!-- <v-container v-bind:class="getClass"> -->
-  <v-container class="mainContainer" style="position:absolute">
-    <v-card class="leftColumn" color="transparent" dark outlined>news</v-card>
-    <v-card class="middleColumn" color="transparent" dark outlined>
+  <v-layout row class="mainContainer mt-3" style="width:100%; height:auto">
+    <v-card class="leftColumn" color="transparent" dark outlined>s</v-card>
+    <v-card class="middleColumn" color="transparent" dark flat>
       <FeedMain />
     </v-card>
     <v-card class="rightColumn" color="transparent" dark outlined>mystuff</v-card>
-  </v-container>
+  </v-layout>
 </template>
 
 <script>
@@ -28,23 +27,14 @@ export default {
 <style scoped>
 .leftColumn {
   width: 20%;
-  position: absolute;
   margin-left: 0;
-  left: 0;
-  right: 0;
 }
 .middleColumn {
   width: 48%;
-  position: absolute;
-  margin-left: 21%;
-  left: 0;
-  right: 0;
+  margin-left: 1%;
 }
 .rightColumn {
   width: 30%;
-  position: absolute;
-  margin-left: 70%;
-  left: 0;
-  right: 0;
+  margin-left: 1%;
 }
 </style>

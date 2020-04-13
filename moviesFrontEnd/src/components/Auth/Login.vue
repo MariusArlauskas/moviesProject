@@ -53,6 +53,7 @@
                 v-else
                 indeterminate
                 size="26"
+                width="3"
                 color="accent lighten-2"
                 style="margin-right:38px"
               ></v-progress-circular>
