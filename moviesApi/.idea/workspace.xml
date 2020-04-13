@@ -2,24 +2,28 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e74540c-884f-4b9c-907e-f04adeb4760b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200412152648.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200412154246.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/EntityController/MessagesController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Entity/Messages.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200413100215.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/MessagesRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/MoviesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/MoviesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/UsersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/InitSerializer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/InitSerializer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/RemoteApi/TmdbApi.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RemoteApi/TmdbApi.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/UsersMovies.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/UsersMovies.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/MoviesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/MoviesRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Crons/MoviesTruncateCron.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.preload.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.preload.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/Auth/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/Auth/Login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MovieCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MovieCard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MovieDialog.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MovieDialog.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/ListItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/ListItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/MoviesList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/MoviesList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainerCompiler.log" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainerCompiler.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/HomePage/HomePage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/HomePage/HomePage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MoviesMain.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MoviesMain.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,6 +192,7 @@
       <workItem from="1586547206775" duration="1072000" />
       <workItem from="1586625582951" duration="7073000" />
       <workItem from="1586673557683" duration="8808000" />
+      <workItem from="1586767889839" duration="3017000" />
     </task>
     <servers />
   </component>
@@ -205,18 +210,18 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2257" y="166" width="806" height="758" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1586544962579" />
-    <state x="2610" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1586018474023">
+    <state x="2610" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1586772353804">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2610" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1586018474023" />
+    <state x="2610" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1586772353804" />
     <state x="2660" y="274" key="FileChooserDialogImpl" timestamp="1586098726027">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2660" y="274" key="FileChooserDialogImpl/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1586098726027" />
-    <state x="2417" y="334" key="NewPhpClassDialog" timestamp="1586018383787">
+    <state x="2417" y="334" key="NewPhpClassDialog" timestamp="1586772216898">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2417" y="334" key="NewPhpClassDialog/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1586018383787" />
+    <state x="2417" y="334" key="NewPhpClassDialog/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1586772216898" />
     <state x="2715" y="443" key="NewPhpFileDialog" timestamp="1585857180100">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>

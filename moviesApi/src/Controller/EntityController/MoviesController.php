@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Marius
- * Date: 19/02/2020
- * Time: 21:26
- */
 
 namespace App\Controller\EntityController;
 
@@ -24,7 +18,7 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 /**
  * Class MoviesController
  * @package App\Controller
- * @Route("/movies", name="movies_api")
+ * @Route("/movies")
  */
 class MoviesController extends AbstractController
 {

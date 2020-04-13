@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Marius
- * Date: 22/02/2020
- * Time: 17:12
- */
 
 namespace App\Controller\RemoteApi;
 

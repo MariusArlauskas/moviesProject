@@ -9,7 +9,13 @@
         :moviesAddTypes="moviesAddTypes"
       />
     </v-layout>
-    <infinite-loading spinner="spiral" @infinite="infiniteHandler"></infinite-loading>
+    <v-progress-circular
+      v-if="typeof this.movies[0] == 'undefined' && this.movies[0] == null"
+      indeterminate
+      color="accent lighten-2"
+      style="margin-left:49.5%; margin-top:2%"
+    ></v-progress-circular>
+    <infinite-loading v-else spinner="spiral" @infinite="infiniteHandler"></infinite-loading>
     <router-view name="MovieDialog"></router-view>
   </div>
 </template>

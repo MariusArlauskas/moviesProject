@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Marius
- * Date: 27/02/2020
- * Time: 21:09
- */
 
 namespace App\Controller\EntityController;
 
@@ -20,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class UserController
+ * Class UsersController
  * @package App\Controller
  * @Route("/users")
  */
@@ -59,7 +53,6 @@ class UsersController extends AbstractController
             $birthDate = htmlspecialchars(trim($parametersAsArray['birthDate']));
             $password = htmlspecialchars(trim($parametersAsArray['password']));
         } else {
-        	var_dump($parametersAsArray);
             return $this->serializer->response("Missing data!");
         }
 
@@ -203,7 +196,7 @@ class UsersController extends AbstractController
 	}
 
 	/**
-	 * @Route("/{id}/movies", name="user_movies_list", methods={"GET"})
+	 * @Route("/{id}/movies", name="user_movies_list", methods={"GET"}, requirements={"userId"="\d+"})
 	 * @return Response
 	 */
 	public function getUsersMovies($id)

@@ -1,15 +1,19 @@
 <template>
   <!-- <v-container v-bind:class="getClass"> -->
   <v-container class="mainContainer" style="position:absolute">
-    <v-container class="secondary lighten-1 white--text leftColumn">news</v-container>
-    <v-container class="middleColumn secondary lighten-1 white--text">chat</v-container>
-    <v-container class="secondary lighten-1 white--text hidden-xs-and-down rightColumn">mystuff</v-container>
+    <v-card class="leftColumn" color="transparent" dark outlined>news</v-card>
+    <v-card class="middleColumn" color="transparent" dark outlined>
+      <FeedMain />
+    </v-card>
+    <v-card class="rightColumn" color="transparent" dark outlined>mystuff</v-card>
   </v-container>
 </template>
 
 <script>
+import FeedMain from "./FeedMain";
 export default {
   name: "HomePage",
+  components: { FeedMain },
   computed: {
     getClass() {
       return this.$route.name === "HomePage" ? "layoutMain" : "layoutSide";
@@ -35,7 +39,6 @@ export default {
   margin-left: 21%;
   left: 0;
   right: 0;
-  flex-wrap: wrap;
 }
 .rightColumn {
   width: 30%;
@@ -44,16 +47,4 @@ export default {
   left: 0;
   right: 0;
 }
-/* .layoutSide {
-  height: 100%;
-  width: 90%;
-  margin: 0 auto 0 auto;
-  background: rgb(236, 236, 236);
-}
-.layoutMain {
-  max-width: 100%;
-  height: 100%;
-  width: 100%;
-  background: rgb(236, 236, 236);
-} */
 </style>

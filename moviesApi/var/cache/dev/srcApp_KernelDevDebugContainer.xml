@@ -226,6 +226,13 @@
     <service id="kernel" class="App\Kernel" public="true" synthetic="true">
       <tag name="routing.route_loader"/>
     </service>
+    <service id="App\Controller\EntityController\MessagesController" class="App\Controller\EntityController\MessagesController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\EntityController\MessagesController"/>
+      </call>
+    </service>
     <service id="App\Controller\EntityController\MoviesController" class="App\Controller\EntityController\MoviesController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -279,7 +286,6 @@
         <argument type="service" id=".service_locator.vdmMuyE.App\Controller\RemoteApi\TmdbApi"/>
       </call>
     </service>
-    <service id="App\Crons\MoviesTruncateCron" class="App\Crons\MoviesTruncateCron" autowire="true" autoconfigure="true"/>
     <service id="App\Listeners\AuthSuccessListener" class="App\Listeners\AuthSuccessListener" autowire="true" autoconfigure="true">
       <tag name="kernel.event_listener" event="lexik_jwt_authentication.on_authentication_success" method="onAuthSuccess"/>
       <argument>3600</argument>
@@ -289,6 +295,10 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\GenresRepository" class="App\Repository\GenresRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\MessagesRepository" class="App\Repository\MessagesRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -1739,7 +1749,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory" public="false">
-      <argument type="service" id=".service_locator.znckf2_"/>
+      <argument type="service" id=".service_locator.U4uTMIN"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -3264,6 +3274,9 @@
     <service id="lexik_jwt_authentication.security.jwt_user_provider" class="Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserProvider" public="false">
       <argument></argument>
     </service>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\EntityController\MessagesController" class="App\Controller\EntityController\MessagesController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\EntityController\MessagesController" class="App\Controller\EntityController\MessagesController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\EntityController\MessagesController" class="App\Controller\EntityController\MessagesController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\EntityController\MoviesController" class="App\Controller\EntityController\MoviesController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\EntityController\MoviesController" class="App\Controller\EntityController\MoviesController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\EntityController\MoviesController" class="App\Controller\EntityController\MoviesController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -3289,6 +3302,8 @@
     <service id=".abstract.instanceof.App\Repository\ApisRepository" class="App\Repository\ApisRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\GenresRepository" class="App\Repository\GenresRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\GenresRepository" class="App\Repository\GenresRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\MessagesRepository" class="App\Repository\MessagesRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\MessagesRepository" class="App\Repository\MessagesRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\MoviesRepository" class="App\Repository\MoviesRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\MoviesRepository" class="App\Repository\MoviesRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UsersMoviesRelationTypesRepository" class="App\Repository\UsersMoviesRelationTypesRepository" autowire="true" abstract="true"/>
@@ -3536,11 +3551,12 @@
         <argument key="doctrine.orm.default_listeners.attach_entity_listeners" type="service" id="doctrine.orm.default_listeners.attach_entity_listeners"/>
       </argument>
     </service>
-    <service id=".service_locator.znckf2_" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.U4uTMIN" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\ApisRepository" type="service" id="App\Repository\ApisRepository"/>
         <argument key="App\Repository\GenresRepository" type="service" id="App\Repository\GenresRepository"/>
+        <argument key="App\Repository\MessagesRepository" type="service" id="App\Repository\MessagesRepository"/>
         <argument key="App\Repository\MoviesRepository" type="service" id="App\Repository\MoviesRepository"/>
         <argument key="App\Repository\UsersMoviesRelationTypesRepository" type="service" id="App\Repository\UsersMoviesRelationTypesRepository"/>
         <argument key="App\Repository\UsersMoviesRepository" type="service" id="App\Repository\UsersMoviesRepository"/>
@@ -3573,6 +3589,12 @@
         <argument key="serializer" type="service" id="serializer" on-invalid="ignore"/>
         <argument key="session" type="service" id="session" on-invalid="ignore"/>
       </argument>
+    </service>
+    <service id=".service_locator.vdmMuyE.App\Controller\EntityController\MessagesController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\EntityController\MessagesController"/>
+      <argument>App\Controller\EntityController\MessagesController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.vdmMuyE" method="withContext"/>
     </service>
     <service id=".service_locator.vdmMuyE.App\Controller\EntityController\MoviesController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator_context" id="App\Controller\EntityController\MoviesController"/>

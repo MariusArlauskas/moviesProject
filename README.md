@@ -11,6 +11,9 @@
         allow option to share messages in fb/twitter
         
 # TODO list (fixes or small details):        
+    Profile:
+        seperate types (completed, planning..)
+
     Movies page:
         Movie dialog:
             ADD link to movie page and back button redirects
