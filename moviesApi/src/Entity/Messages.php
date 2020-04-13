@@ -27,7 +27,7 @@ class Messages
     private $message;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
      */
     private $postDate;
 
@@ -40,6 +40,19 @@ class Messages
      * @ORM\Column(type="integer", nullable=true)
      */
     private $sharedApiId;
+
+	public function __construct($arr = [])
+	{
+		if (!empty($arr)) {
+			// Initializing class properties
+			foreach($arr as $property => $value) {
+				if ($property == 'postDate') {
+					$value = \DateTime::createFromFormat('Y-m-d H:i:s', $value);
+				}
+				$this->$property = $value;
+			}
+		}
+	}
 
     public function getId(): ?int
     {
@@ -105,4 +118,22 @@ class Messages
 
         return $this;
     }
+
+	public function toArray() {
+		$vars = get_object_vars ( $this );
+		$array = array ();
+		foreach ( $vars as $key => $value ) {
+			switch ($key) {
+				case 'postDate':
+					if (!empty($value)) {
+						$value = $value->format('Y-m-d');
+					} else {
+						$value = '';
+					}
+					break;
+			}
+			$array [ltrim ( $key, '_' )] = $value;
+		}
+		return $array;
+	}
 }

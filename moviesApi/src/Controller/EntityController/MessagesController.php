@@ -3,7 +3,10 @@
 namespace App\Controller\EntityController;
 
 use App\Controller\InitSerializer;
+use App\Controller\RemoteApi\TmdbApi;
 use App\Entity\Messages;
+use App\Entity\Movies;
+use Doctrine\ORM\ORMException;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -11,6 +14,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
  * Class MessagesController
@@ -50,7 +57,6 @@ class MessagesController extends AbstractController
 			return $this->serializer->response("Missing message!");
 		}
 		$userId = $this->getUser()->getId();
-		var_dump($this->getUser());
 
 		// Not required fields
 		if (isset($parametersAsArray['parentId'])) {
@@ -76,5 +82,28 @@ class MessagesController extends AbstractController
 		$em->flush();
 
 		return $this->serializer->response('Posted users message');
+	}
+
+	/**
+	 * @Route("/{pageNumber}", name="messages_get", methods={"GET"}, requirements={"pageNumber"="\d+"})
+	 */
+	public function getAction($pageNumber){
+		$em = $this->getDoctrine()->getManager();
+		$repMessages = $em->getRepository(Messages::class);
+		$messages = $repMessages->findMessagesSortedByDate(20, $pageNumber * 20 - 20 );
+
+		if (empty($messages)) {
+			return $this->serializer->response('No more messages found', Response::HTTP_NOT_FOUND);
+		}
+
+		foreach ($messages as $key => $message) {
+			if (empty($message['userProfilePicture'])) {
+				$messages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
+			} else {
+				$messages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/'.$message['userProfilePicture'];
+			}
+		}
+
+		return $this->serializer->response($messages, 200, [], false, true);
 	}
 }

@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -62,8 +61,6 @@ class Users implements UserInterface
 
     public function __construct()
     {
-        $this->MoviesList = new ArrayCollection();
-        $this->UserMovies = new ArrayCollection();
     }
 
     public function getId(): ?int

@@ -5,6 +5,7 @@ import GlobalStore from "./modules/GlobalStore";
 import UserStore from "./modules/UserStore";
 import Notification from "./modules/NotificationStore";
 import MoviesStore from "./modules/MoviesStore";
+import FeedStore from "./modules/FeedStore";
 
 Vue.use(Vuex);
 
@@ -14,5 +15,6 @@ export default new Vuex.Store({
     UserStore,
     Notification,
     MoviesStore,
+    FeedStore
   }
 });

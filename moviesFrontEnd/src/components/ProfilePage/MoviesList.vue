@@ -8,12 +8,14 @@
     dark
   >
     <v-progress-circular
+      v-show="!this.noData"
       v-if="typeof this.movies[0] == 'undefined' && this.movies[0] == null"
+      width="3"
       indeterminate
       color="accent lighten-2"
-      style="margin-left:49.5%; margin-top:2%"
+      style="margin-left:48%; margin-top:1.5%"
     ></v-progress-circular>
-    <div v-else>
+    <div v-show="!this.noData" v-else>
       <ProfileMoviesFilter />
       <v-layout style="margin-left: 12%; width:88%" row>
         <v-card class="secondary px-3 pb-3" width="100%" flat>
@@ -41,6 +43,7 @@
         </v-card>
       </v-layout>
     </div>
+    <v-flex v-show="this.noData" class="mt-3 pt-5 text-center grey--text body-2">User has no movies</v-flex>
   </v-card>
 </template>
 
@@ -52,14 +55,20 @@ export default {
   components: { ProfileMoviesFilter, ListItem },
   data: () => ({
     movies: [],
-    moviesAddTypes: {}
+    moviesAddTypes: {},
+    noData: false
   }),
   methods: {
     getMovies() {
+      console.log(this.$route.params.id);
       this.$store
-        .dispatch("GET_USER_MOVIES_LIST", this.$store.getters.GET_USER.id)
+        .dispatch("GET_USER_MOVIES_LIST", this.$route.params.id)
         .then(data => {
-          this.movies = data;
+          if (data && data.constructor === Array) {
+            this.movies = data;
+          } else {
+            this.noData = true;
+          }
         })
         .catch(() => {});
     },
