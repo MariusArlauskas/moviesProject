@@ -36,7 +36,7 @@
           :src="movie.posterPath"
         ></v-img>
         <span
-          style="padding-left:17px; max-height:30px; max-width: 55%; overflow: hidden"
+          style="padding-left:17px; max-height:30px; max-width: 50%; overflow: hidden"
         >{{ movie.title }}</span>
         <v-btn
           class="ml-auto mr-3"
@@ -95,10 +95,15 @@
             justify="center"
             class="mx-0 mt-3"
             v-if="movie.relationTypeId != 0 && movie.relationTypeId != null"
+            v-show="getUser()"
           >
             <span class="body-1 font-weight-light">Personal rating</span>
           </v-row>
-          <v-row class="mx-0" v-if="movie.relationTypeId != 0 && movie.relationTypeId != null">
+          <v-row
+            v-show="getUser()"
+            class="mx-0"
+            v-if="movie.relationTypeId != 0 && movie.relationTypeId != null"
+          >
             <v-menu transition="slide-x-transition" bottom close-on-click offset-y>
               <template v-slot:activator="{ on }">
                 <v-btn
@@ -167,7 +172,11 @@ export default {
   }),
   methods: {
     getUser() {
-      return this.$store.getters.GET_USER;
+      return (
+        this.$store.getters.GET_USER &&
+        (this.$store.getters.GET_USER.id == this.$route.params.id ||
+          !this.$route.params.id)
+      );
     },
     getColor(value) {
       //value from 0 to 1

@@ -60,7 +60,6 @@ export default {
   }),
   methods: {
     getMovies() {
-      console.log(this.$route.params.id);
       this.$store
         .dispatch("GET_USER_MOVIES_LIST", this.$route.params.id)
         .then(data => {
