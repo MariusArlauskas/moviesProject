@@ -42,7 +42,7 @@ axios.interceptors.response.use(
     // && (this.$route.name != 'Login' || this.$route.name != 'Signup')
     if ((error.response.status == 401 || error.response.status == 403)) {
       store.dispatch("LOGOUT").then(() => {   // Loggout user when session expires
-        if (router.path !== "/login") {
+        if (router.currentRoute.name != 'Login') {
           router.push("/login");
           store.commit("SET_NOTIFICATION", {
             display: true,

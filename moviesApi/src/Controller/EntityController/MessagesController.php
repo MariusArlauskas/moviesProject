@@ -83,19 +83,20 @@ class MessagesController extends AbstractController
 	}
 
 	/**
-	 * @Route("/{pageNumber}/{lastId}", name="messages_get", methods={"GET"}, requirements={"pageNumber"="\d+", "lastId"="\d+"})
+	 * @Route("/{elementNumber}/{lastId}", name="messages_get", methods={"GET"}, requirements={"pageNumber"="\d+", "lastId"="\d+"})
 	 */
-	public function getAction($pageNumber, $lastId){
+	public function getAction($elementNumber, $lastId){
 		$em = $this->getDoctrine()->getManager();
 		$repMessages = $em->getRepository(Messages::class);
 
-		if ($pageNumber == 0) {
+		if ($elementNumber == 0) {
 			$messages = $repMessages->findMessagesSortedByDate(1, 0);
 			if ($messages[0]['id'] == $lastId) {
 				return $this->serializer->response([], 200);
 			}
 		} else {
-			$messages = $repMessages->findMessagesSortedByDate(10, $pageNumber * 10 - 10 );
+			$elementNumber -= 1;
+			$messages = $repMessages->findMessagesSortedByDate(10, $elementNumber );
 		}
 
 

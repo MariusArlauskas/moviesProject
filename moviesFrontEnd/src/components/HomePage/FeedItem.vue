@@ -17,7 +17,12 @@
       </v-list-item-content>
     </v-list-item>
 
-    <v-card-text ref="message" class="pb-2 pt-3">{{ item.message }}</v-card-text>
+    <v-card-text
+      ref="message"
+      class="pb-2 pt-3"
+      style="max-width:100%; overflow: hidden; white-space: pre-line;"
+      v-html="decodeHtml(item.message)"
+    ></v-card-text>
     <v-btn
       v-show="this.long"
       class="caption accent--text text--lighten-2"
@@ -43,11 +48,18 @@ export default {
     item: Object
   },
   methods: {
+    decodeHtml(html) {
+      var txt = document.createElement("textarea");
+      txt.innerHTML = html;
+      return txt.value;
+    },
     changeShownText() {
       if (this.showingFull) {
-        this.$refs.message.style = "max-height: 145px; overflow-y: hidden";
+        this.$refs.message.style =
+          "max-height: 145px; overflow-y: hidden; white-space: pre-line;";
       } else {
-        this.$refs.message.style = "";
+        this.$refs.message.style =
+          "max-width:100%; overflow-y: hidden; white-space: pre-line;";
       }
       this.showingFull = !this.showingFull;
     }

@@ -1,6 +1,7 @@
 <template>
   <v-layout column>
     <v-btn
+      v-show="GET_USER"
       class="caption accent--text text--lighten-2 mb-3"
       text
       height="20px"
@@ -79,7 +80,6 @@ export default {
   components: { FeedItem, InfiniteLoading },
   data: () => ({
     writeMsg: false,
-    pagesLoaded: 1,
     messages: [],
     pagesEnd: false,
     textArea: "",
@@ -141,14 +141,13 @@ export default {
     },
     getMessages() {
       this.$store
-        .dispatch("GET_MESSAGES", { page: this.pagesLoaded, id: 0 })
+        .dispatch("GET_MESSAGES", { page: this.messages.length + 1, id: 0 })
         .then(data => {
           if (
             typeof data[0] !== "undefined" &&
             data[0] !== null &&
             data[0] !== ""
           ) {
-            this.pagesLoaded += 1;
             this.messages = [...this.messages, ...data];
           } else {
             this.pagesEnd = true;

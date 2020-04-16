@@ -15,6 +15,9 @@
         
 # TODO list (fixes or small details):    
     Feed:
+        fix message showing (probably api should return decoded text)
+        remake - send to api number of currently shown records
+        add user reporting
         allow option to share messages in fb/twitter
         
     Profile:
@@ -31,6 +34,9 @@
         allow some html tags (??)
         
 # TODO list (new functions):
+    Feed:
+        ADD user reporting
+
     Movies main page:
         ADD filter
         ADD suggest movie component

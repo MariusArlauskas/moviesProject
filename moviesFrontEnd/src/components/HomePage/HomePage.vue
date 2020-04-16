@@ -4,21 +4,29 @@
     <v-card class="middleColumn" color="transparent" dark flat>
       <FeedMain />
     </v-card>
-    <v-card class="rightColumn" color="transparent" dark outlined>mystuff</v-card>
+    <v-card class="rightColumn" color="transparent" dark outlined>
+      <MyMoviesMain :userId="getUser().id" v-if="getUser().id > 0" />
+    </v-card>
   </v-layout>
 </template>
 
 <script>
+import MyMoviesMain from "./MyMoviesMain";
 import FeedMain from "./FeedMain";
 export default {
   name: "HomePage",
-  components: { FeedMain },
+  components: { FeedMain, MyMoviesMain },
   computed: {
     getClass() {
       return this.$route.name === "HomePage" ? "layoutMain" : "layoutSide";
     },
     theme() {
       return this.$vuetify.theme.dark ? "dark" : "light";
+    }
+  },
+  methods: {
+    getUser() {
+      return this.$store.getters.GET_USER;
     }
   }
 };
@@ -30,11 +38,11 @@ export default {
   margin-left: 0;
 }
 .middleColumn {
-  width: 48%;
-  margin-left: 1%;
+  width: 46%;
+  margin-left: 2%;
 }
 .rightColumn {
   width: 30%;
-  margin-left: 1%;
+  margin-left: 2%;
 }
 </style>

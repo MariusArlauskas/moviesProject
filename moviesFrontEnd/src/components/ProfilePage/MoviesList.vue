@@ -43,7 +43,7 @@
         </v-card>
       </v-layout>
     </div>
-    <v-flex v-show="this.noData" class="mt-3 pt-5 text-center grey--text body-2">User has no movies</v-flex>
+    <v-flex v-show="this.noData" class="mt-3 pt-5 text-center grey--text body-2">No movies in list</v-flex>
   </v-card>
 </template>
 

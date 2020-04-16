@@ -21,38 +21,38 @@ return [
                 .'|/_error/(\\d+)(?:\\.([^/]++))?(*:35)'
                 .'|/api/(?'
                     .'|m(?'
-                        .'|essages/(\\d+)/(\\d+)(*:73)'
+                        .'|essages/([^/]++)/(\\d+)(*:76)'
                         .'|ovies/(?'
                             .'|page/(?'
-                                .'|(\\d+)/user/(\\d+)(*:113)'
-                                .'|(\\d+)(*:126)'
+                                .'|(\\d+)/user/(\\d+)(*:116)'
+                                .'|(\\d+)(*:129)'
                             .')'
-                            .'|(\\d+)(*:140)'
+                            .'|(\\d+)(*:143)'
                         .')'
                     .')'
                     .'|users/(?'
-                        .'|(\\d+)(*:164)'
-                        .'|(\\d+)/apis/(\\d+)/movies/(\\d+)/status/(\\d+)(*:214)'
-                        .'|(\\d+)/apis/(\\d+)/movies/(\\d+)/rating/(\\d+)(*:264)'
-                        .'|([^/]++)/movies(*:287)'
+                        .'|(\\d+)(*:167)'
+                        .'|(\\d+)/apis/(\\d+)/movies/(\\d+)/status/(\\d+)(*:217)'
+                        .'|(\\d+)/apis/(\\d+)/movies/(\\d+)/rating/(\\d+)(*:267)'
+                        .'|([^/]++)/movies(*:290)'
                     .')'
-                    .'|profile/([^/]++)(*:312)'
+                    .'|profile/([^/]++)(*:315)'
                 .')'
-                .'|/(.*)?(*:327)'
+                .'|/(.*)?(*:330)'
             .')/?$}sD',
     ],
     [ // $dynamicRoutes
         35 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
-        73 => [[['_route' => 'messages_get', '_controller' => 'App\\Controller\\EntityController\\MessagesController::getAction'], ['pageNumber', 'lastId'], ['GET' => 0], null, false, true, null]],
-        113 => [[['_route' => 'movies_with_favorites_get', '_controller' => 'App\\Controller\\EntityController\\MoviesController::getMoviesWithFavorites'], ['pageNumber', 'userId'], ['GET' => 0], null, false, true, null]],
-        126 => [[['_route' => 'movies_get', '_controller' => 'App\\Controller\\EntityController\\MoviesController::getMovies'], ['pageNumber'], ['GET' => 0], null, false, true, null]],
-        140 => [[['_route' => 'movie_show_one', '_controller' => 'App\\Controller\\EntityController\\MoviesController::getOneAction'], ['id'], ['GET' => 0], null, false, true, null]],
-        164 => [[['_route' => 'user_show_one', '_controller' => 'App\\Controller\\EntityController\\UsersController::getOneAction'], ['id'], ['GET' => 0], null, false, true, null]],
-        214 => [[['_route' => 'user_add_movie_to_list', '_controller' => 'App\\Controller\\EntityController\\UsersController::addMovieStatus'], ['userId', 'apiId', 'movieId', 'relationType'], ['POST' => 0], null, false, true, null]],
-        264 => [[['_route' => 'user_add_movie_rating', '_controller' => 'App\\Controller\\EntityController\\UsersController::addUsersRating'], ['userId', 'apiId', 'movieId', 'rating'], ['POST' => 0], null, false, true, null]],
-        287 => [[['_route' => 'user_movies_list', '_controller' => 'App\\Controller\\EntityController\\UsersController::getUsersMovies'], ['id'], ['GET' => 0], null, false, false, null]],
-        312 => [[['_route' => 'user_profile_data', '_controller' => 'App\\Controller\\ProfileController::getAction'], ['id'], ['GET' => 0], null, false, true, null]],
-        327 => [
+        76 => [[['_route' => 'messages_get', '_controller' => 'App\\Controller\\EntityController\\MessagesController::getAction'], ['elementNumber', 'lastId'], ['GET' => 0], null, false, true, null]],
+        116 => [[['_route' => 'movies_with_favorites_get', '_controller' => 'App\\Controller\\EntityController\\MoviesController::getMoviesWithFavorites'], ['pageNumber', 'userId'], ['GET' => 0], null, false, true, null]],
+        129 => [[['_route' => 'movies_get', '_controller' => 'App\\Controller\\EntityController\\MoviesController::getMovies'], ['pageNumber'], ['GET' => 0], null, false, true, null]],
+        143 => [[['_route' => 'movie_show_one', '_controller' => 'App\\Controller\\EntityController\\MoviesController::getOneAction'], ['id'], ['GET' => 0], null, false, true, null]],
+        167 => [[['_route' => 'user_show_one', '_controller' => 'App\\Controller\\EntityController\\UsersController::getOneAction'], ['id'], ['GET' => 0], null, false, true, null]],
+        217 => [[['_route' => 'user_add_movie_to_list', '_controller' => 'App\\Controller\\EntityController\\UsersController::addMovieStatus'], ['userId', 'apiId', 'movieId', 'relationType'], ['POST' => 0], null, false, true, null]],
+        267 => [[['_route' => 'user_add_movie_rating', '_controller' => 'App\\Controller\\EntityController\\UsersController::addUsersRating'], ['userId', 'apiId', 'movieId', 'rating'], ['POST' => 0], null, false, true, null]],
+        290 => [[['_route' => 'user_movies_list', '_controller' => 'App\\Controller\\EntityController\\UsersController::getUsersMovies'], ['id'], ['GET' => 0], null, false, false, null]],
+        315 => [[['_route' => 'user_profile_data', '_controller' => 'App\\Controller\\ProfileController::getAction'], ['id'], ['GET' => 0], null, false, true, null]],
+        330 => [
             [['_route' => 'pageNotFound', '_controller' => 'App\\Controller\\PageNotFoundController::pageNotFoundAction', 'path' => ''], ['path'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
