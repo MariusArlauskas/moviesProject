@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import MovieDialog from "./../MoviesPage/MovieDialog";
+import MovieDialog from "./../../MoviesPage/MovieDialog";
 export default {
   name: "ListItem",
   components: { MovieDialog },

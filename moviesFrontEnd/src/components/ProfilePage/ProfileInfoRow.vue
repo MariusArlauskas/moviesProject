@@ -1,0 +1,58 @@
+<template>
+  <v-card class="topContainer secondary" max-height="290px" min-height="290px" dark flat>
+    <v-layout
+      justify-center
+      v-if="this.user.name"
+      row
+      style="padding: 20px 120px 20px 7%; height:290px; width:100%"
+    >
+      <v-card class="py-0 transparent" style="min-width:553px; width: 55%; height: 100%" flat>
+        <v-card-title class="font-italic font-weight-thin pb-4 pt-0 justify-center">About me</v-card-title>
+        <v-card-text class="desc" style="height: 80%; overflow-y: scroll">
+          <div>{{ this.user.description }}</div>
+        </v-card-text>
+      </v-card>
+      <v-spacer style="max-width:5%"></v-spacer>
+      <v-card img class="transparent" flat max-width="12%" max-height="100%" min-width="180px">
+        <v-img contain max-height="100%" max-width="100%" :src="this.user.profilePicture"></v-img>
+      </v-card>
+      <v-spacer style="max-width:5%"></v-spacer>
+      <v-card class="transparent" style="width: 15%" flat>
+        <v-card-title class="font-weight-thin pb-0 px-0">Users name</v-card-title>
+        <v-row class="mx-0">{{ this.user.name }}</v-row>
+        <v-card-title class="font-weight-thin py-0 px-0">Age</v-card-title>
+        <v-row class="mx-0">{{ userAge }}</v-row>
+        <v-card-title class="font-weight-thin py-0 px-0">Registered from</v-card-title>
+        <v-row class="mx-0">{{ this.user.registerDate }}</v-row>
+        <!-- <v-row class="font-weight-thin">Favorites count</v-row>
+        <v-row></v-row>-->
+      </v-card>
+    </v-layout>
+  </v-card>
+</template>
+
+<script>
+export default {
+  name: "ProfileInfoRow",
+  props: {
+    user: Object
+  },
+  computed: {
+    userAge() {
+      return new Date().getFullYear() - parseInt(this.user.birthDate);
+    }
+  }
+};
+</script>
+
+<style scoped>
+.topContainer {
+  width: 100%;
+  border-radius: 0%;
+  max-height: 35%;
+  height: 35%;
+}
+.desc::-webkit-scrollbar {
+  display: none;
+}
+</style>

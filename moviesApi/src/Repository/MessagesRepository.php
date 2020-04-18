@@ -23,10 +23,15 @@ class MessagesRepository extends ServiceEntityRepository
 	/**
 	 * @param int $limit
 	 * @param int $offset
+	 * @param int $user
 	 * @return array
 	 * @throws DBALException
 	 */
-	public function findMessagesSortedByDate($limit, $offset) {
+	public function findMessagesSortedByDate($limit, $offset, $user = 0) {
+		$and = '';
+		if (!empty($user)) {
+			$and = 'AND u.id = '.$user;
+		}
 		$sql = '
 			SELECT
 				msg.id,
@@ -43,10 +48,50 @@ class MessagesRepository extends ServiceEntityRepository
 				users u ON
 				msg.user_id = u.id
 			WHERE 
-				msg.parent_id IS NULL
+				msg.parent_id IS NULL '.$and.'
 			ORDER BY
 				post_date DESC
 			LIMIT '.(int)$limit.' OFFSET '.(int)$offset.'
+		';
+
+		$conn = $this->getEntityManager()
+			->getConnection();
+		$stmt = $conn->prepare($sql);
+		$stmt->execute();
+
+		return $stmt->fetchAll();
+	}
+
+	/**
+	 * @param array $parents
+	 * @param int $user
+	 * @return array
+	 * @throws DBALException
+	 */
+	public function findMessagesCommentsSortedByDate($parents, $user = 0) {
+		$and = '';
+		if (!empty($user)) {
+			$and = 'AND u.id = '.$user;
+		}
+		$sql = '
+			SELECT
+				msg.id,
+				msg.message,
+			    msg.post_date as postDate,
+			    msg.parent_id as parentId,
+				msg.shared_api_id as sharedApiId,
+			    u.name as userName,
+			    u.id as userId,
+			   	u.profile_picture as userProfilePicture
+			FROM
+				messages msg
+			LEFT JOIN
+				users u ON
+				msg.user_id = u.id
+			WHERE 
+				msg.parent_id IN ('.implode(',', $parents).')
+			ORDER BY
+				post_date DESC
 		';
 
 		$conn = $this->getEntityManager()

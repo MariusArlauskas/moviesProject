@@ -11,10 +11,11 @@
     </v-layout>
     <v-progress-circular
       v-if="typeof this.movies[0] == 'undefined' && this.movies[0] == null"
+      size="30"
       width="3"
       indeterminate
       color="accent lighten-2"
-      style="margin-left:48%; margin-top:2%"
+      style="margin-left:calc(50% - 15px); margin-top:2%"
     ></v-progress-circular>
     <infinite-loading v-else spinner="spiral" @infinite="infiniteHandler"></infinite-loading>
     <router-view name="MovieDialog"></router-view>

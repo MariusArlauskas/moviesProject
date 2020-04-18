@@ -29,8 +29,8 @@ class UsersController extends AbstractController
 
 	/**
 	 * @Route("", name="user_create", methods={"POST"})
+	 * @param Request $request
 	 * @return JsonResponse
-	 * @throws \Exception
 	 */
     public function createAction(Request $request)
     {
@@ -88,6 +88,7 @@ class UsersController extends AbstractController
 
 	/**
 	 * @Route("/{id}", name="user_show_one", methods={"GET"}, requirements={"id"="\d+"})
+	 * @param int $id
 	 * @return JsonResponse
 	 */
 	public function getOneAction($id)
@@ -126,6 +127,10 @@ class UsersController extends AbstractController
 
 	/**
 	 * @Route("/{userId}/apis/{apiId}/movies/{movieId}/status/{relationType}", name="user_add_movie_to_list", methods={"POST"}, requirements={"userId"="\d+", "apiId"="\d+", "movieId"="\d+", "relationType"="\d+"})
+	 * @param int $userId
+	 * @param int $apiId
+	 * @param int $movieId
+	 * @param int $relationType
 	 * @return JsonResponse
 	 */
 	public function addMovieStatus($userId, $apiId, $movieId, $relationType) {
@@ -175,6 +180,10 @@ class UsersController extends AbstractController
 
 	/**
 	 * @Route("/{userId}/apis/{apiId}/movies/{movieId}/rating/{rating}", name="user_add_movie_rating", methods={"POST"}, requirements={"userId"="\d+", "apiId"="\d+", "movieId"="\d+", "rating"="\d+"})
+	 * @param int $userId
+	 * @param int $apiId
+	 * @param int $movieId
+	 * @param int $rating
 	 * @return JsonResponse
 	 */
 	public function addUsersRating($userId, $apiId, $movieId, $rating) {
@@ -198,7 +207,8 @@ class UsersController extends AbstractController
 	}
 
 	/**
-	 * @Route("/{id}/movies", name="user_movies_list", methods={"GET"}, requirements={"userId"="\d+"})
+	 * @Route("/{id}/movies", name="user_movies_list", methods={"GET"}, requirements={"id"="\d+"})
+	 * @param $id
 	 * @return Response
 	 */
 	public function getUsersMovies($id)
@@ -208,5 +218,19 @@ class UsersController extends AbstractController
 		]);
 
 		return $result;
+	}
+
+	/**
+	 * @Route("/{id}/messages/{elementNumber}", name="user_get_messages_list", methods={"GET"}, requirements={"id"="\d+", "elementNumber"="\d+"})
+	 * @param int $id
+	 * @param int $elementNumber
+	 * @return Response
+	 */
+	public function getUsersMessages($id, $elementNumber)
+	{
+		return $this->forward('App\Controller\EntityController\MessagesController::getAllUsersMessages', [
+			'userId' => $id,
+			'elementNumber' => $elementNumber,
+		]);
 	}
 }

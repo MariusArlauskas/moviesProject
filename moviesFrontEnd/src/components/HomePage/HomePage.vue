@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import MyMoviesMain from "./MyMoviesMain";
-import FeedMain from "./FeedMain";
+import MyMoviesMain from "./MyMovies/MyMoviesMain";
+import FeedMain from "./Feed/FeedMain";
 export default {
   name: "HomePage",
   components: { FeedMain, MyMoviesMain },

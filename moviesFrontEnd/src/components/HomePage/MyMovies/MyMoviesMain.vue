@@ -3,10 +3,11 @@
     <v-progress-circular
       v-show="!this.noData"
       v-if="typeof this.movies[0] == 'undefined' && this.movies[0] == null"
+      size="30"
       width="3"
       indeterminate
       color="accent lighten-2"
-      style="margin-left:45%; margin-top:6%"
+      style="margin-left:calc(50% - 15px); margin-top:6%"
     ></v-progress-circular>
     <div v-show="!noData" v-else v-for="(movies, index) in this.movies" :key="index">
       <v-layout class="mx-0" style="width:100%" row>
@@ -15,9 +16,9 @@
             Movies I'm
             <span class="accent--text text--lighten-2">{{ names[index] }}</span>
           </v-flex>
-          <v-container class="py-0 px-0" v-for="(item, index) in movies" :key="item.id">
+          <v-container class="py-0 px-0" v-for="(item, index2) in movies" :key="item.id">
             <ListItem :item="item" :moviesAddTypes="moviesAddTypes" />
-            <v-divider v-if="index != Object.keys(movies).length - 1"></v-divider>
+            <v-divider v-if="index2 != Object.keys(movies).length - 1"></v-divider>
           </v-container>
         </v-card>
       </v-layout>

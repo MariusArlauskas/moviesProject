@@ -5,6 +5,8 @@ import router from './router';
 import store from './store';
 import vuetify from './plugins/vuetify';
 import InfiniteLoading from 'vue-infinite-loading';
+import CommentBox from './components/HomePage/Feed/CommentBox';
+import FeedItem from './components/HomePage/Feed/FeedItem';
 
 Vue.config.productionTip = false;
 
@@ -15,3 +17,6 @@ new Vue({
   vuetify,
   render: h => h(App)
 }).$mount('#app')
+
+Vue.component('CommentBox', CommentBox)
+Vue.component('FeedItem', FeedItem)

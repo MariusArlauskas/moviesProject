@@ -57,7 +57,7 @@ class MessagesController extends AbstractController
 		$userId = $this->getUser()->getId();
 
 		// Not required fields
-		if (isset($parametersAsArray['parentId'])) {
+		if (!empty($parametersAsArray['parentId'])) {
 			$parentId = htmlspecialchars(trim($parametersAsArray['parentId']));
 		}
 
@@ -84,8 +84,11 @@ class MessagesController extends AbstractController
 
 	/**
 	 * @Route("/{elementNumber}/{lastId}", name="messages_get", methods={"GET"}, requirements={"pageNumber"="\d+", "lastId"="\d+"})
+	 * @param int $elementNumber
+	 * @param int $lastId
+	 * @return JsonResponse|Response
 	 */
-	public function getAction($elementNumber, $lastId){
+	public function getAllAction($elementNumber, $lastId){
 		$em = $this->getDoctrine()->getManager();
 		$repMessages = $em->getRepository(Messages::class);
 
@@ -104,11 +107,76 @@ class MessagesController extends AbstractController
 			return $this->serializer->response([], 200);
 		}
 
+		$childMessages = [];
+		foreach ($messages as $message) {
+			$childMessages[] = $message['id'];		// First put in parents ids for search
+		}
+		$childMessages = $repMessages->findMessagesCommentsSortedByDate($childMessages);
+
+		foreach ($childMessages as $key => $message) {
+			if (empty($message['userProfilePicture'])) {
+				$childMessages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
+			} else {
+				$childMessages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/'.$message['userProfilePicture'];
+			}
+		}
 		foreach ($messages as $key => $message) {
+			$messages[$key]['children'] = [];
 			if (empty($message['userProfilePicture'])) {
 				$messages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
 			} else {
 				$messages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/'.$message['userProfilePicture'];
+			}
+
+			if (!empty($childMessages)) {
+				foreach ($childMessages as $childMessage) {
+					if ($childMessage['parentId'] == $message['id']) {
+						$messages[$key]['children'][] = $childMessage;
+					}
+				}
+			}
+		}
+
+		return $this->serializer->response($messages, 200, [], false, true);
+	}
+
+	public function getAllUsersMessages($userId, $elementNumber){
+		$em = $this->getDoctrine()->getManager();
+		$repMessages = $em->getRepository(Messages::class);
+
+		$messages = $repMessages->findMessagesSortedByDate(10, $elementNumber, $userId );
+
+		if (empty($messages)) {
+			return $this->serializer->response([], 200);
+		}
+
+		$childMessages = [];
+		foreach ($messages as $message) {
+			$childMessages[] = $message['id'];		// First put in parents ids for search
+		}
+		$childMessages = $repMessages->findMessagesCommentsSortedByDate($childMessages);
+
+		foreach ($childMessages as $key => $message) {
+			if (empty($message['userProfilePicture'])) {
+				$childMessages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
+			} else {
+				$childMessages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/'.$message['userProfilePicture'];
+			}
+		}
+		foreach ($messages as $key => $message) {
+			$messages[$key]['children'] = [];
+			if (empty($message['userProfilePicture'])) {
+				$messages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
+			} else {
+				$messages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/'.$message['userProfilePicture'];
+			}
+
+			if (!empty($childMessages)) {
+				foreach ($childMessages as $childMessage) {
+					if ($childMessage['parentId'] == $message['id']) {
+						$messages[$key]['children'][] = $childMessage;
+					}
+				}
 			}
 		}
 

@@ -10,10 +10,11 @@
     <v-progress-circular
       v-show="!this.noData"
       v-if="typeof this.movies[0] == 'undefined' && this.movies[0] == null"
+      size="30"
       width="3"
       indeterminate
       color="accent lighten-2"
-      style="margin-left:48%; margin-top:1.5%"
+      style="margin-left:calc(56% - 15px); margin-top:1.5%"
     ></v-progress-circular>
     <div v-show="!this.noData" v-else>
       <ProfileMoviesFilter />
@@ -49,7 +50,7 @@
 
 <script>
 import ListItem from "./ListItem";
-import ProfileMoviesFilter from "./ProfileMoviesFilter";
+import ProfileMoviesFilter from "./../ProfileMoviesFilter";
 export default {
   name: "ProfileMoviesList",
   components: { ProfileMoviesFilter, ListItem },

@@ -15,10 +15,18 @@ const actions = {
         }
       })
   },
-  POST_MESSAGE: (commit, msg) => {
+  GET_USERS_MESSAGES: (commit, { offset, userId }) => {
+    return axios.get('users/' + userId + '/messages/' + offset)
+      .then(({ data, status }) => {
+        if (status === 200) {
+          return data;
+        }
+      })
+  },
+  POST_MESSAGE: (commit, { message, parentId }) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(`messages`, { message: msg })
+        .post(`messages`, { message: message, parentId: parentId })
         .then(({ data, status }) => {
           if (status === 200) {
             resolve(data);

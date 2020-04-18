@@ -5,23 +5,27 @@
 // npm run serve
 
 # In PROGRESS:
-    1. Main page:
-        show some watching and planning movies
+    0. Edit profile
+
+    1. Most popular movies
     
-    2. Get stats of completed movies to get the favorite (save movie info by days)
+    2. Movie page
     
-    3. Main page:
-        show most popular movies
+    3. Movies filter (at least show by few types and order by genres)
+    
+    4. User reporting
+    
+    5. Admin panel
+    
+    6. Post reporting
         
-# TODO list (fixes or small details):    
+# TODO list (fixes or small details):  
     Feed:
-        fix message showing (probably api should return decoded text)
-        remake - send to api number of currently shown records
         add user reporting
         allow option to share messages in fb/twitter
         
     Profile:
-        seperate types (completed, planning..)
+        seperate shown types (completed, planning..)
 
     Movies page:
         Movie dialog:
@@ -30,10 +34,13 @@
     Header:
         fix animation when scrolling down and up
         
-    Feed:
-        allow some html tags (??)
-        
 # TODO list (new functions):
+    ADD admin panel:
+        see users info (see if banned from chat or not, allow changing rights to admin)
+
+    Main page:
+        show most popular movies (save movie info by days)  
+        
     Feed:
         ADD user reporting
 
@@ -54,12 +61,8 @@
         
     Profile:
         ADD Edit profile option
-        ADD ability for a user to customize profile theme (??)
-        ADD Various stats in graphs with ability to share (??)
-        ADD Followed/Following users
-        ADD my wall with all posts made by me
-        
-    ADD Forum (??)
+        ADD Various stats in graphs with ability to share
+        ADD Followed/Following users (??)
     
     Refresh token
 
@@ -69,11 +72,14 @@
     Main page:
         showing feed
         Feed:
-            shown users posted messages
+            shown users posted messages (html tags compatible)
             user can post messages
+            user can comment on messages and review others comments
             messages are updating every 10 secons (getting 1 newest message)
+        showing users 5 watching and planning movies
 
     Profile page
+        showing main wall with all users made posts
         Showing users info
         Showing users movies list
         Movie dialog opens on click

@@ -7,9 +7,10 @@ const state = {
     { name: "SignUp", href: "SignUp", classes: 'secondary--text text--lighten-4', showWhenLoggedIn: false }
   ],
   profileLinks: [
-    { title: "Home", icon: "mdi-view-dashboard", href: "HomePage" },
-    { title: "My movies", icon: "list", href: "HomePage" },
-    { title: "About", icon: "mdi-help-box", href: "HomePage" }
+    { title: "Home", icon: "mdi-view-dashboard", href: "HomePage", params: {} },
+    { title: "Profile", icon: "person", href: "ProfileMainWall", params: { name: 'id', method: 'this.getUserId' } },
+    { title: "My movies", icon: "list", href: "ProfileMoviesList", params: { name: 'id', method: 'this.getUserId' } },
+    { title: "About", icon: "mdi-help-box", href: "HomePage", params: {} }
   ]
 };
 

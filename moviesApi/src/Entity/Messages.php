@@ -134,6 +134,9 @@ class Messages
 			}
 			$array [ltrim ( $key, '_' )] = $value;
 		}
+		if (empty($array['children'])) {
+			$array['children'] = [];
+		}
 		return $array;
 	}
 }
