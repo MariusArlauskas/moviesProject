@@ -87,7 +87,10 @@ export default {
         obj[ruoteParams.name] = eval(ruoteParams.method);
         ruoteParams = obj;
       }
-      if (this.$route.name != routeName) {
+      if (
+        this.$route.name != routeName ||
+        this.$route.params.id != ruoteParams
+      ) {
         this.$router.push({ name: routeName, params: ruoteParams });
       }
     }

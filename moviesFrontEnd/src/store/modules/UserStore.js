@@ -21,11 +21,13 @@ const getters = {
     if (Object.keys(state.user).length < 2) {
       return false;
     }
-    let role = state.user.role
-      .split("_")[1]
-      .toLowerCase();
-    role = role.charAt(0).toUpperCase() + role.slice(1)
-    state.user.role = role;
+    if (state.user.role.includes('_')) {
+      let role = state.user.role
+        .split("_")[1]
+        .toLowerCase();
+      role = role.charAt(0).toUpperCase() + role.slice(1)
+      state.user.role = role;
+    }
     return state.user;
   }
 };
@@ -89,6 +91,42 @@ const actions = {
         })
     })
   },
+  UPDATE_USER: ({ commit }, { id, name, description, password }) => {
+    return new Promise((resolve, reject) => {
+      axios.post(`profile/` + id + '/update', {
+        name, description, password
+      })
+        .then(({ data, status }) => {
+          if (status === 200) {
+            commit("UPDATE_USER_SESSION", data);
+            resolve(true)
+          }
+        })
+        .catch(error => {
+          reject(error);
+        })
+    })
+  },
+  UPLOAD_USER_PICTURE: ({ commit }, [id, profilePicture]) => {
+    return new Promise((resolve, reject) => {
+      axios.post(`profile/` + id + '/update',
+        profilePicture,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        .then(({ data, status }) => {
+          if (status === 200) {
+            commit("UPDATE_USER_SESSION", data);
+            resolve(true)
+          }
+        })
+        .catch(error => {
+          reject(error);
+        })
+    })
+  },
   SET_USER: ({ commit }) => {   // Get user profile and set its data
     axios.get(`profile`)
       .then(({ data, status }) => {
@@ -110,6 +148,16 @@ const mutations = {
     state.user = user;
     // Profile bar
     state.drawer = true;
+  },
+  UPDATE_USER_SESSION: (state, user) => {  // Sets users data to local and session storage
+    // Update data
+    if (typeof user.id == 'undefined' && user.id == '') {
+      return
+    }
+    // User
+    state.user = user;
+    // Session
+    sessionStorage.setItem('user', JSON.stringify(user));
   },
   SET_USER_FROM_SESSION: (state) => {   // Sets users data from session to local
     if (sessionStorage.getItem('user')) {

@@ -15,7 +15,8 @@
         "symfony/orm-pack": "^1.0",
         "symfony/serializer": "4.4.*",
         "symfony/yaml": "4.4.*",
-      "ext-json": "*"
+      "ext-json": "*",
+      "ext-gd": "*"
     },
     "require-dev": {
         "symfony/maker-bundle": "^1.14",

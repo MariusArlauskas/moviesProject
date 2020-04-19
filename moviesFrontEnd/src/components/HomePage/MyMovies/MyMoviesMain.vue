@@ -72,19 +72,19 @@ export default {
         })
         .catch(() => {});
     },
-    getMovieAddTypes() {
-      this.$store.dispatch("GET_MOVIES_ADD_TYPES").then(data => {
+    async getMovieAddTypes() {
+      await this.$store.dispatch("GET_MOVIES_ADD_TYPES").then(data => {
         var moviesAddTypesArray = [];
         data.forEach(element => {
           moviesAddTypesArray[element.id] = element.name;
         });
         this.moviesAddTypes = moviesAddTypesArray;
+        this.getMovies();
       });
     }
   },
   created() {
     this.getMovieAddTypes();
-    this.getMovies();
   }
 };
 </script>

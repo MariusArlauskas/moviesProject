@@ -2,27 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e74540c-884f-4b9c-907e-f04adeb4760b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/symfony2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Files/1587327374_55b4ea7c723bcf74644835d4055d03b4--anime-scenery-kawaii-anime.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Files/1587328006_Screenshot_8.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/MessagesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/MessagesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/UsersController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Messages.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Messages.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/MessagesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/MessagesRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/ProfileController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProfileController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/HomePage/FeedMain.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/HomePage/MyMoviesMain.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MoviesMain.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MoviesMain.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/ListItem.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/MainWall.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/MoviesList.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/Auth/SignUp.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/Auth/SignUp.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/HomePage/Feed/FeedItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/HomePage/Feed/FeedItem.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/HomePage/MyMovies/MyMoviesMain.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/HomePage/MyMovies/MyMoviesMain.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/ProfileInfoRow.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/ProfileInfoRow.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/ProfileMain.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/ProfileMain.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/navBars/ProfileBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/navBars/ProfileBar.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/FeedStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/FeedStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/GlobalStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/GlobalStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/UserStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/UserStore.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,7 +193,7 @@
       <workItem from="1587058146007" duration="2478000" />
       <workItem from="1587099829384" duration="135000" />
       <workItem from="1587133079154" duration="8000" />
-      <workItem from="1587198176215" duration="6641000" />
+      <workItem from="1587198176215" duration="18900000" />
     </task>
     <servers />
   </component>

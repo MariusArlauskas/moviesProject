@@ -31,15 +31,19 @@ return [
                         .')'
                     .')'
                     .'|users/(?'
-                        .'|(\\d+)(*:167)'
-                        .'|(\\d+)/apis/(\\d+)/movies/(\\d+)/status/(\\d+)(*:217)'
-                        .'|(\\d+)/apis/(\\d+)/movies/(\\d+)/rating/(\\d+)(*:267)'
-                        .'|(\\d+)/movies(*:287)'
-                        .'|(\\d+)/messages/(\\d+)(*:315)'
+                        .'|(\\d+)/update(*:174)'
+                        .'|(\\d+)(*:187)'
+                        .'|(\\d+)/apis/(\\d+)/movies/(\\d+)/status/(\\d+)(*:237)'
+                        .'|(\\d+)/apis/(\\d+)/movies/(\\d+)/rating/(\\d+)(*:287)'
+                        .'|(\\d+)/movies(*:307)'
+                        .'|(\\d+)/messages/(\\d+)(*:335)'
                     .')'
-                    .'|profile/([^/]++)(*:340)'
+                    .'|profile/(?'
+                        .'|([^/]++)(*:363)'
+                        .'|(\\d+)/update(*:383)'
+                    .')'
                 .')'
-                .'|/(.*)?(*:355)'
+                .'|/(.*)?(*:399)'
             .')/?$}sD',
     ],
     [ // $dynamicRoutes
@@ -48,13 +52,15 @@ return [
         116 => [[['_route' => 'movies_with_favorites_get', '_controller' => 'App\\Controller\\EntityController\\MoviesController::getMoviesWithFavorites'], ['pageNumber', 'userId'], ['GET' => 0], null, false, true, null]],
         129 => [[['_route' => 'movies_get', '_controller' => 'App\\Controller\\EntityController\\MoviesController::getMovies'], ['pageNumber'], ['GET' => 0], null, false, true, null]],
         143 => [[['_route' => 'movie_show_one', '_controller' => 'App\\Controller\\EntityController\\MoviesController::getOneAction'], ['id'], ['GET' => 0], null, false, true, null]],
-        167 => [[['_route' => 'user_show_one', '_controller' => 'App\\Controller\\EntityController\\UsersController::getOneAction'], ['id'], ['GET' => 0], null, false, true, null]],
-        217 => [[['_route' => 'user_add_movie_to_list', '_controller' => 'App\\Controller\\EntityController\\UsersController::addMovieStatus'], ['userId', 'apiId', 'movieId', 'relationType'], ['POST' => 0], null, false, true, null]],
-        267 => [[['_route' => 'user_add_movie_rating', '_controller' => 'App\\Controller\\EntityController\\UsersController::addUsersRating'], ['userId', 'apiId', 'movieId', 'rating'], ['POST' => 0], null, false, true, null]],
-        287 => [[['_route' => 'user_movies_list', '_controller' => 'App\\Controller\\EntityController\\UsersController::getUsersMovies'], ['id'], ['GET' => 0], null, false, false, null]],
-        315 => [[['_route' => 'user_get_messages_list', '_controller' => 'App\\Controller\\EntityController\\UsersController::getUsersMessages'], ['id', 'elementNumber'], ['GET' => 0], null, false, true, null]],
-        340 => [[['_route' => 'user_profile_data', '_controller' => 'App\\Controller\\ProfileController::getAction'], ['id'], ['GET' => 0], null, false, true, null]],
-        355 => [
+        174 => [[['_route' => 'user_update', '_controller' => 'App\\Controller\\EntityController\\UsersController::updateAction'], ['id'], ['POST' => 0], null, false, false, null]],
+        187 => [[['_route' => 'user_show_one', '_controller' => 'App\\Controller\\EntityController\\UsersController::getOneAction'], ['id'], ['GET' => 0], null, false, true, null]],
+        237 => [[['_route' => 'user_add_movie_to_list', '_controller' => 'App\\Controller\\EntityController\\UsersController::addMovieStatus'], ['userId', 'apiId', 'movieId', 'relationType'], ['POST' => 0], null, false, true, null]],
+        287 => [[['_route' => 'user_add_movie_rating', '_controller' => 'App\\Controller\\EntityController\\UsersController::addUsersRating'], ['userId', 'apiId', 'movieId', 'rating'], ['POST' => 0], null, false, true, null]],
+        307 => [[['_route' => 'user_movies_list', '_controller' => 'App\\Controller\\EntityController\\UsersController::getUsersMovies'], ['id'], ['GET' => 0], null, false, false, null]],
+        335 => [[['_route' => 'user_get_messages_list', '_controller' => 'App\\Controller\\EntityController\\UsersController::getUsersMessages'], ['id', 'elementNumber'], ['GET' => 0], null, false, true, null]],
+        363 => [[['_route' => 'user_profile_data', '_controller' => 'App\\Controller\\ProfileController::getAction'], ['id'], ['GET' => 0], null, false, true, null]],
+        383 => [[['_route' => 'profile_update', '_controller' => 'App\\Controller\\ProfileController::updateProfile'], ['id'], ['POST' => 0], null, false, false, null]],
+        399 => [
             [['_route' => 'pageNotFound', '_controller' => 'App\\Controller\\PageNotFoundController::pageNotFoundAction', 'path' => ''], ['path'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

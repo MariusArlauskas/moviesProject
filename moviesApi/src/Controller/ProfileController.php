@@ -58,6 +58,20 @@ class ProfileController extends AbstractController
 		return $result;
 	}
 
+	/**
+	 * @IsGranted("ROLE_USER", statusCode=403, message="Access denied!!")
+	 * @Route("/{id}/update", name="profile_update", methods={"POST"}, requirements={"id"="\d+"})
+	 * @param Request $request
+	 * @return Response
+	 */
+	public function updateProfile(Request $request)
+	{
+		return $this->forward('App\Controller\EntityController\UsersController::updateAction', [
+			'id' => $this->getUser()->getId(),
+			'request' => $request,
+		]);
+	}
+
     /**
      * @return JsonResponse
      */

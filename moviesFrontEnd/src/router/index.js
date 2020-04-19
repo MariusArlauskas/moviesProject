@@ -7,6 +7,8 @@ import Movies from "../components/MoviesPage/MoviesMain";
 import Profile from "../components/ProfilePage/ProfileMain";
 import ProfileMainWall from "../components/ProfilePage/MoviesWall/MainWall";
 import ProfileMoviesList from "../components/ProfilePage/MoviesList/MoviesList";
+import ProfileEdit from "../components/ProfilePage/EditForm/ProfileEdit";
+import ProfileEditProfile from "../components/ProfilePage/EditForm/ProfileEditProfile";
 
 Vue.use(VueRouter);
 
@@ -36,6 +38,18 @@ const routes = [
         name: "ProfileMoviesList",
         component: ProfileMoviesList
       }
+    ]
+  },
+  {
+    path: "/profile/:id/edit",
+    name: "ProfileEdit",
+    component: ProfileEdit,
+    children: [
+      {
+        path: "profile",
+        name: "ProfileEditProfile",
+        component: ProfileEditProfile
+      },
     ]
   },
   {

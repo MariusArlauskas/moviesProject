@@ -10,6 +10,7 @@ const state = {
     { title: "Home", icon: "mdi-view-dashboard", href: "HomePage", params: {} },
     { title: "Profile", icon: "person", href: "ProfileMainWall", params: { name: 'id', method: 'this.getUserId' } },
     { title: "My movies", icon: "list", href: "ProfileMoviesList", params: { name: 'id', method: 'this.getUserId' } },
+    { title: "Settings", icon: "settings", href: "ProfileEditProfile", params: { name: 'id', method: 'this.getUserId' } },
     { title: "About", icon: "mdi-help-box", href: "HomePage", params: {} }
   ]
 };

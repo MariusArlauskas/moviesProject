@@ -2,7 +2,7 @@
   <v-container class="cont">
     <v-layout align-start justify-end>
       <v-flex xs12 sm8 md6 xl4>
-        <v-form>
+        <v-form autocomplete="off">
           <v-card flat dark style="border-radius:40px" color="secondary">
             <v-toolbar flat color="transparent">
               <v-toolbar-title class="ml-5">Signup form</v-toolbar-title>
@@ -61,6 +61,7 @@
                 name="password"
                 v-model="password"
                 label="Password"
+                autocomplete="new-password"
                 :rules="[rules.required]"
                 type="password"
               ></v-text-field>

@@ -87,6 +87,73 @@ class UsersController extends AbstractController
     }
 
 	/**
+	 * @Route("/{id}/update", name="user_update", methods={"POST"}, requirements={"id"="\d+"})
+	 * @param int $id
+	 * @param Request $request
+	 * @return JsonResponse
+	 */
+	public function updateAction($id, Request $request)
+	{
+		if ($this->getUser()->getId() != $id) {
+			if (!$this->isGranted("ROLE_ADMIN")) {
+				throw new HttpException(Response::HTTP_FORBIDDEN, "Access denied!!");
+			}
+		}
+
+		// Assingning data from request and removing unnecessary symbols
+		$parametersAsArray = [];
+		if ($content = $request->getContent()) {
+			$parametersAsArray = json_decode($content, true);
+		}
+
+		$repository = $this->getDoctrine()->getRepository(Users::class);
+		$user = $repository->findOneBy(['id' => $id]);
+		if (empty($user)) {
+			return $this->serializer->response('User not found!', Response::HTTP_BAD_REQUEST);
+		}
+
+		// Set all data
+		if (!empty($parametersAsArray['password'])) {
+			$password = htmlspecialchars(trim($parametersAsArray['password']));
+			$user->setPassword(password_hash($password, PASSWORD_DEFAULT));
+		}
+		if (!empty($parametersAsArray['name'])) {
+			$name = htmlspecialchars(trim($parametersAsArray['name']));
+			$user->setName($name);
+		}
+		if (!empty($parametersAsArray['description'])) {
+			$description = htmlspecialchars(trim($parametersAsArray['description']));
+			$user->setDescription($description);
+		}
+		if (!empty($_FILES['profilePicture'])) {
+			// File name
+			$filename = $_FILES['profilePicture']['name'];
+			// Valid file extensions
+			$valid_extensions = array("jpg","jpeg","png");
+			// File extension
+			$extension = pathinfo($filename, PATHINFO_EXTENSION);
+			// Check extension
+			if(in_array(strtolower($extension),$valid_extensions) ) {
+				$date = new \DateTime();
+				$filename = $date->format('U').'_'.htmlspecialchars(trim($filename));
+				move_uploaded_file($_FILES['profilePicture']['tmp_name'], "./Files/".$filename);
+				$user->setProfilePicture($filename);
+			}
+		}
+
+		// Get the Doctrine service and manager
+		$em = $this->getDoctrine()->getManager();
+
+		// Add user to Doctrine for saving
+		$em->persist($user);
+
+		// Save user
+		$em->flush();
+
+		return $this->getOneAction($id);
+	}
+
+	/**
 	 * @Route("/{id}", name="user_show_one", methods={"GET"}, requirements={"id"="\d+"})
 	 * @param int $id
 	 * @return JsonResponse
@@ -115,7 +182,7 @@ class UsersController extends AbstractController
 		if (empty($userArray['profilePicture'])) {
 			$userArray['profilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
 		} else {
-			$userArray['profilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/'.$userArray['profilePicture'];
+			$userArray['profilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/'.$userArray['profilePicture'];
 		}
 
 		// Unset important or unnecessary values
