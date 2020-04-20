@@ -11,6 +11,7 @@ axios.defaults.withCredentials = true;
 // axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 let config = {
+  headers: { Pragma: 'no-cache' },
   // baseURL: 'http://127.0.0.1:8000/api/', // doesn't work for some reason
   // timeout: 60 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control

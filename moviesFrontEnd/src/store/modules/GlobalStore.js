@@ -6,6 +6,9 @@ const state = {
     { name: "Login", href: "Login", classes: 'accent--text text--lighten-2', showWhenLoggedIn: false },
     { name: "SignUp", href: "SignUp", classes: 'secondary--text text--lighten-4', showWhenLoggedIn: false }
   ],
+  profileAdminLinks: [
+    { title: "Admin menu", icon: "settings_applications", href: "AdminUsers", params: {} },
+  ],
   profileLinks: [
     { title: "Home", icon: "mdi-view-dashboard", href: "HomePage", params: {} },
     { title: "Profile", icon: "person", href: "ProfileMainWall", params: { name: 'id', method: 'this.getUserId' } },
@@ -24,6 +27,9 @@ const getters = {
   },
   GET_PROFILE_LINKS: () => {
     return state.profileLinks
+  },
+  GET_ADMIN_PROFILE_LINKS: () => {
+    return state.profileAdminLinks
   },
 };
 

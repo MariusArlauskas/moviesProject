@@ -6,6 +6,7 @@ namespace App\Controller\EntityController;
 use App\Controller\InitSerializer;
 use App\Entity\Users;
 use App\Entity\UsersMovies;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -163,7 +164,7 @@ class UsersController extends AbstractController
 		// Finding user
 		$repository = $this->getDoctrine()->getRepository(Users::class);
 		$user = $repository->find($id);
-		if (!$user) {
+		if (empty($user)) {
 			return $this->serializer->response('No user found for id '.$id, Response::HTTP_NOT_FOUND);
 		}
 
@@ -190,6 +191,50 @@ class UsersController extends AbstractController
 		unset($userArray['roles']);
 
 		return $this->serializer->response($userArray, 200, [], false, true);
+	}
+
+	/**
+	 * @Route("", name="user_show_all", methods={"GET"})
+	 * @IsGranted("ROLE_ADMIN", statusCode=403, message="Access denied!!")
+	 * @return JsonResponse
+	 */
+	public function getAllAction()
+	{
+		// Finding users
+		$repository = $this->getDoctrine()->getRepository(Users::class);
+		$users = $repository->findAll();
+		if (empty($users)) {
+			return $this->serializer->response('No users found!!', Response::HTTP_NOT_FOUND);
+		}
+
+		$usersArray = [];
+		foreach ($users as $user) {
+			$userArray = $user->toArray();
+
+			// Reformat values for front
+			if (in_array('ROLE_ADMIN', $userArray['roles'])) {
+				$userArray['role'] = "ROLE_ADMIN";
+			}elseif (in_array('ROLE_USER', $userArray['roles'])){
+				$userArray['role'] = "ROLE_USER";
+			}else {
+				$userArray['role'] = "ROLE_GUEST";
+			}
+			$userArray['birthDate'] = $user->getBirthDate()->format('Y-m-d');
+			$userArray['registerDate'] = $user->getRegisterDate()->format('Y-m-d');
+			if (empty($userArray['profilePicture'])) {
+				$userArray['profilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
+			} else {
+				$userArray['profilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/'.$userArray['profilePicture'];
+			}
+
+			// Unset important or unnecessary values
+			unset($userArray['password']);
+			unset($userArray['roles']);
+
+			$usersArray[] = $userArray;
+		}
+
+		return $this->serializer->response($usersArray, 200, [], false, true);
 	}
 
 	/**

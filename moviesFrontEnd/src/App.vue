@@ -60,6 +60,9 @@ export default {
 html::-webkit-scrollbar {
   display: none;
 }
+html {
+  scrollbar-width: none;
+}
 
 /* .whiteTransparent {
   background-color: rgba(255, 255, 255, 0.1);

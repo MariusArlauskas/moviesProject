@@ -1,6 +1,6 @@
 <template>
   <v-layout class="mainContainer mt-3" style="width: 100%" flat>
-    <v-col cols="3">
+    <v-col cols="2">
       <v-card class="transparent" dark flat>
         <v-list class="transparent" nav>
           <v-list-item class="title font-weight-light justify-center">Navigation</v-list-item>
@@ -15,21 +15,21 @@
         </v-list>
       </v-card>
     </v-col>
-    <v-col cols="9" class="mt-3">
-      <!-- <router-view :user="getUser()" /> -->
+    <v-col cols="10" class="mt-3">
+      <router-view :user="getUser()" />
     </v-col>
   </v-layout>
 </template>
 
 <script>
 export default {
-  name: "ProfileEdit",
+  name: "AdminMenu",
   data: () => ({
     settingsList: [
       {
-        title: "Profile",
-        href: "ProfileEditProfile",
-        params: { name: "id", method: "this.getUserId" }
+        title: "Users",
+        href: "AdminUsers",
+        params: {}
       }
     ]
   }),

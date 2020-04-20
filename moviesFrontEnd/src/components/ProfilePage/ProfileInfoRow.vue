@@ -74,6 +74,9 @@ export default {
 .desc::-webkit-scrollbar {
   display: none;
 }
+.desc {
+  scrollbar-width: none;
+}
 div a {
   text-decoration: none;
 }

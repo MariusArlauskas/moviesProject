@@ -33,6 +33,20 @@ const getters = {
 };
 
 const actions = {
+  GET_USERS: () => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get('users')
+        .then(({ data, status }) => {
+          if (status === 200) {
+            resolve(data);
+          }
+        })
+        .catch(error => {
+          reject(error);
+        })
+    });
+  },
   GET_USER_MOVIES_LIST: (commit, userId) => {
     return new Promise((resolve, reject) => {
       axios
