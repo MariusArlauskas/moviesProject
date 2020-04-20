@@ -6,17 +6,11 @@
       <v-tab :to="{name: 'ProfileMainWall'}" :router="true" class="tab font-weight-thin">Main</v-tab>
       <v-tab :to="{name: 'ProfileMoviesList'}" :router="true" class="font-weight-thin">Movies</v-tab>
     </v-tabs>
-    <!-- <ProfileMainWall
-      v-if="this.user.id"
-      v-show="this.$route.name == 'Profile'"
-      :userId="this.user.id"
-    />-->
     <router-view :userId="this.user.id" />
   </v-flex>
 </template>
 
 <script>
-// import ProfileMainWall from "./MoviesWall/MainWall";
 import ProfileInfoRow from "./ProfileInfoRow";
 import { mapGetters } from "vuex";
 export default {

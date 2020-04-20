@@ -7,6 +7,10 @@ import Movies from "../components/MoviesPage/MoviesMain";
 import Profile from "../components/ProfilePage/ProfileMain";
 import ProfileMainWall from "../components/ProfilePage/MoviesWall/MainWall";
 import ProfileMoviesList from "../components/ProfilePage/MoviesList/MoviesList";
+import ProfileEdit from "../components/UserSettings/ProfileEdit";
+import ProfileEditProfile from "../components/UserSettings/ProfileEditProfile";
+import AdminMenu from "../components/AdminSettings/AdminMenu";
+import AdminUsers from "../components/AdminSettings/AdminUsers/AdminUsers";
 
 Vue.use(VueRouter);
 
@@ -36,6 +40,30 @@ const routes = [
         name: "ProfileMoviesList",
         component: ProfileMoviesList
       }
+    ]
+  },
+  {
+    path: "/profile/:id/edit",
+    name: "ProfileEdit",
+    component: ProfileEdit,
+    children: [
+      {
+        path: "profile",
+        name: "ProfileEditProfile",
+        component: ProfileEditProfile
+      },
+    ]
+  },
+  {
+    path: "/adminMenu",
+    name: "AdminMenu",
+    component: AdminMenu,
+    children: [
+      {
+        path: "users",
+        name: "AdminUsers",
+        component: AdminUsers
+      },
     ]
   },
   {

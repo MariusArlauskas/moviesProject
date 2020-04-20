@@ -219,6 +219,9 @@ export default {
 .desc::-webkit-scrollbar {
   display: none;
 }
+.desc {
+  scrollbar-width: none;
+}
 .colorIndicator {
   border-top-right-radius: 4px;
   padding: 2px;

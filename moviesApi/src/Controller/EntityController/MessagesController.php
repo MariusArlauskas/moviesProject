@@ -102,7 +102,6 @@ class MessagesController extends AbstractController
 			$messages = $repMessages->findMessagesSortedByDate(10, $elementNumber );
 		}
 
-
 		if (empty($messages)) {
 			return $this->serializer->response([], 200);
 		}
@@ -117,7 +116,7 @@ class MessagesController extends AbstractController
 			if (empty($message['userProfilePicture'])) {
 				$childMessages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
 			} else {
-				$childMessages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/'.$message['userProfilePicture'];
+				$childMessages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/'.$message['userProfilePicture'];
 			}
 		}
 		foreach ($messages as $key => $message) {
@@ -125,7 +124,7 @@ class MessagesController extends AbstractController
 			if (empty($message['userProfilePicture'])) {
 				$messages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
 			} else {
-				$messages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/'.$message['userProfilePicture'];
+				$messages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/'.$message['userProfilePicture'];
 			}
 
 			if (!empty($childMessages)) {
@@ -160,7 +159,7 @@ class MessagesController extends AbstractController
 			if (empty($message['userProfilePicture'])) {
 				$childMessages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
 			} else {
-				$childMessages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/'.$message['userProfilePicture'];
+				$childMessages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/'.$message['userProfilePicture'];
 			}
 		}
 		foreach ($messages as $key => $message) {
@@ -168,7 +167,7 @@ class MessagesController extends AbstractController
 			if (empty($message['userProfilePicture'])) {
 				$messages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
 			} else {
-				$messages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/'.$message['userProfilePicture'];
+				$messages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/'.$message['userProfilePicture'];
 			}
 
 			if (!empty($childMessages)) {

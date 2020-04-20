@@ -8,9 +8,11 @@
     >
       <v-card class="py-0 transparent" style="min-width:553px; width: 55%; height: 100%" flat>
         <v-card-title class="font-italic font-weight-thin pb-4 pt-0 justify-center">About me</v-card-title>
-        <v-card-text class="desc" style="height: 80%; overflow-y: scroll">
-          <div>{{ this.user.description }}</div>
-        </v-card-text>
+        <v-card-text
+          class="desc"
+          style="height: 80%; overflow-y: scroll; white-space: pre-line;"
+          v-html="decodeHtml(this.user.description)"
+        ></v-card-text>
       </v-card>
       <v-spacer style="max-width:5%"></v-spacer>
       <v-card img class="transparent" flat max-width="12%" max-height="100%" min-width="180px">
@@ -18,6 +20,13 @@
       </v-card>
       <v-spacer style="max-width:5%"></v-spacer>
       <v-card class="transparent" style="width: 15%" flat>
+        <v-btn v-show="this.user.id == getLoggedInUserId()" text outlined color="accent">
+          <router-link
+            class="accent--text text--lighten-2"
+            :to="{ name: 'ProfileEditProfile', params: { id: this.user.id } }"
+          >Edit profile</router-link>
+        </v-btn>
+
         <v-card-title class="font-weight-thin pb-0 px-0">Users name</v-card-title>
         <v-row class="mx-0">{{ this.user.name }}</v-row>
         <v-card-title class="font-weight-thin py-0 px-0">Age</v-card-title>
@@ -41,6 +50,16 @@ export default {
     userAge() {
       return new Date().getFullYear() - parseInt(this.user.birthDate);
     }
+  },
+  methods: {
+    getLoggedInUserId() {
+      return this.$store.getters.GET_USER.id; // Add user id to its profile link
+    },
+    decodeHtml(html) {
+      var txt = document.createElement("textarea");
+      txt.innerHTML = html;
+      return txt.value;
+    }
   }
 };
 </script>
@@ -54,5 +73,11 @@ export default {
 }
 .desc::-webkit-scrollbar {
   display: none;
+}
+.desc {
+  scrollbar-width: none;
+}
+div a {
+  text-decoration: none;
 }
 </style>

@@ -6,6 +6,7 @@ namespace App\Controller\EntityController;
 use App\Controller\InitSerializer;
 use App\Entity\Users;
 use App\Entity\UsersMovies;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -87,6 +88,73 @@ class UsersController extends AbstractController
     }
 
 	/**
+	 * @Route("/{id}/update", name="user_update", methods={"POST"}, requirements={"id"="\d+"})
+	 * @param int $id
+	 * @param Request $request
+	 * @return JsonResponse
+	 */
+	public function updateAction($id, Request $request)
+	{
+		if ($this->getUser()->getId() != $id) {
+			if (!$this->isGranted("ROLE_ADMIN")) {
+				throw new HttpException(Response::HTTP_FORBIDDEN, "Access denied!!");
+			}
+		}
+
+		// Assingning data from request and removing unnecessary symbols
+		$parametersAsArray = [];
+		if ($content = $request->getContent()) {
+			$parametersAsArray = json_decode($content, true);
+		}
+
+		$repository = $this->getDoctrine()->getRepository(Users::class);
+		$user = $repository->findOneBy(['id' => $id]);
+		if (empty($user)) {
+			return $this->serializer->response('User not found!', Response::HTTP_BAD_REQUEST);
+		}
+
+		// Set all data
+		if (!empty($parametersAsArray['password'])) {
+			$password = htmlspecialchars(trim($parametersAsArray['password']));
+			$user->setPassword(password_hash($password, PASSWORD_DEFAULT));
+		}
+		if (!empty($parametersAsArray['name'])) {
+			$name = htmlspecialchars(trim($parametersAsArray['name']));
+			$user->setName($name);
+		}
+		if (!empty($parametersAsArray['description'])) {
+			$description = htmlspecialchars(trim($parametersAsArray['description']));
+			$user->setDescription($description);
+		}
+		if (!empty($_FILES['profilePicture'])) {
+			// File name
+			$filename = $_FILES['profilePicture']['name'];
+			// Valid file extensions
+			$valid_extensions = array("jpg","jpeg","png");
+			// File extension
+			$extension = pathinfo($filename, PATHINFO_EXTENSION);
+			// Check extension
+			if(in_array(strtolower($extension),$valid_extensions) ) {
+				$date = new \DateTime();
+				$filename = $date->format('U').'_'.htmlspecialchars(trim($filename));
+				move_uploaded_file($_FILES['profilePicture']['tmp_name'], "./Files/".$filename);
+				$user->setProfilePicture($filename);
+			}
+		}
+
+		// Get the Doctrine service and manager
+		$em = $this->getDoctrine()->getManager();
+
+		// Add user to Doctrine for saving
+		$em->persist($user);
+
+		// Save user
+		$em->flush();
+
+		return $this->getOneAction($id);
+	}
+
+	/**
 	 * @Route("/{id}", name="user_show_one", methods={"GET"}, requirements={"id"="\d+"})
 	 * @param int $id
 	 * @return JsonResponse
@@ -96,7 +164,7 @@ class UsersController extends AbstractController
 		// Finding user
 		$repository = $this->getDoctrine()->getRepository(Users::class);
 		$user = $repository->find($id);
-		if (!$user) {
+		if (empty($user)) {
 			return $this->serializer->response('No user found for id '.$id, Response::HTTP_NOT_FOUND);
 		}
 
@@ -115,7 +183,7 @@ class UsersController extends AbstractController
 		if (empty($userArray['profilePicture'])) {
 			$userArray['profilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
 		} else {
-			$userArray['profilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/'.$userArray['profilePicture'];
+			$userArray['profilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/'.$userArray['profilePicture'];
 		}
 
 		// Unset important or unnecessary values
@@ -123,6 +191,50 @@ class UsersController extends AbstractController
 		unset($userArray['roles']);
 
 		return $this->serializer->response($userArray, 200, [], false, true);
+	}
+
+	/**
+	 * @Route("", name="user_show_all", methods={"GET"})
+	 * @IsGranted("ROLE_ADMIN", statusCode=403, message="Access denied!!")
+	 * @return JsonResponse
+	 */
+	public function getAllAction()
+	{
+		// Finding users
+		$repository = $this->getDoctrine()->getRepository(Users::class);
+		$users = $repository->findAll();
+		if (empty($users)) {
+			return $this->serializer->response('No users found!!', Response::HTTP_NOT_FOUND);
+		}
+
+		$usersArray = [];
+		foreach ($users as $user) {
+			$userArray = $user->toArray();
+
+			// Reformat values for front
+			if (in_array('ROLE_ADMIN', $userArray['roles'])) {
+				$userArray['role'] = "ROLE_ADMIN";
+			}elseif (in_array('ROLE_USER', $userArray['roles'])){
+				$userArray['role'] = "ROLE_USER";
+			}else {
+				$userArray['role'] = "ROLE_GUEST";
+			}
+			$userArray['birthDate'] = $user->getBirthDate()->format('Y-m-d');
+			$userArray['registerDate'] = $user->getRegisterDate()->format('Y-m-d');
+			if (empty($userArray['profilePicture'])) {
+				$userArray['profilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
+			} else {
+				$userArray['profilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/'.$userArray['profilePicture'];
+			}
+
+			// Unset important or unnecessary values
+			unset($userArray['password']);
+			unset($userArray['roles']);
+
+			$usersArray[] = $userArray;
+		}
+
+		return $this->serializer->response($usersArray, 200, [], false, true);
 	}
 
 	/**

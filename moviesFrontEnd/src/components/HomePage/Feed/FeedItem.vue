@@ -30,6 +30,7 @@
       style="max-width:100%; overflow: hidden; white-space: pre-line;"
       v-html="decodeHtml(item.message)"
     ></v-card-text>
+    <v-divider v-show="this.long"></v-divider>
     <v-btn
       v-show="this.long"
       class="caption accent--text text--lighten-2"
@@ -48,7 +49,12 @@
           class="noScroll background px-8 py-1"
           style="overflow-y: scroll; max-height:600px"
         >
-          <CommentBox @clicked="childAction" :parentId="parseInt(item.id)" :button="false" />
+          <CommentBox
+            v-if="GET_USER"
+            @clicked="childAction"
+            :parentId="parseInt(item.id)"
+            :button="false"
+          />
           <component
             :is="'FeedItem'"
             v-for="child in this.item.children"
@@ -63,6 +69,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "FeedItem",
   components: {},
@@ -74,6 +81,9 @@ export default {
   props: {
     item: Object,
     depth: Number
+  },
+  computed: {
+    ...mapGetters(["GET_USER"])
   },
   methods: {
     childAction(data) {

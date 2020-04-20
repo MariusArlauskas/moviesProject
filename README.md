@@ -5,9 +5,7 @@
 // npm run serve
 
 # In PROGRESS:
-    0. Edit profile
-
-    1. Most popular movies
+    1. Main page - Most popular movies
     
     2. Movie page
     
@@ -79,6 +77,7 @@
         showing users 5 watching and planning movies
 
     Profile page
+        user can edit profile (edit info, change profile picture)
         showing main wall with all users made posts
         Showing users info
         Showing users movies list

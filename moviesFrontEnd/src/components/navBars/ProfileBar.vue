@@ -33,6 +33,24 @@
         >Logout</v-list-item-content>
       </v-list-item>
 
+      <v-divider v-show="GET_USER.role == 'Admin'" class="mb-1"></v-divider>
+
+      <v-list-item
+        v-show="GET_USER.role == 'Admin'"
+        v-for="item in adminItems"
+        :key="item.title"
+        @click="jump(item.href, item.params)"
+      >
+        <v-list-item-icon>
+          <v-icon class="blue--text text--darken-1">{{ item.icon }}</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content
+          class="blue--text text--darken-1 subtitle-2"
+          style="text-decoration: none;"
+        >{{ item.title }}</v-list-item-content>
+      </v-list-item>
+
       <v-divider class="mb-1"></v-divider>
 
       <v-list-item v-for="item in items" :key="item.title" @click="jump(item.href, item.params)">
@@ -51,7 +69,8 @@ import { mapGetters } from "vuex";
 export default {
   data: () => ({
     miniVariant: true,
-    items: []
+    items: [],
+    adminItems: []
   }),
   computed: {
     ...mapGetters(["GET_USER", "GET_PROFILE_LINKS"]),
@@ -65,6 +84,7 @@ export default {
   methods: {
     getLinks() {
       this.items = this.$store.getters.GET_PROFILE_LINKS;
+      this.adminItems = this.$store.getters.GET_ADMIN_PROFILE_LINKS;
     },
     logout() {
       this.$store
@@ -87,7 +107,10 @@ export default {
         obj[ruoteParams.name] = eval(ruoteParams.method);
         ruoteParams = obj;
       }
-      if (this.$route.name != routeName) {
+      if (
+        this.$route.name != routeName ||
+        this.$route.params.id != ruoteParams.id
+      ) {
         this.$router.push({ name: routeName, params: ruoteParams });
       }
     }
