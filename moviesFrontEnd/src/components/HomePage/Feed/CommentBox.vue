@@ -1,56 +1,64 @@
 <template>
   <div>
-    <v-btn
-      v-show="this.button"
-      class="caption accent--text text--lighten-2 mb-3"
-      text
-      height="20px"
-      width="100%"
-      @click="writeMsg = !writeMsg"
-    >
-      <span v-if="!writeMsg">
-        <v-icon small>keyboard_arrow_down</v-icon>
-        <span>Share your thoughts</span>
-        <v-icon small>keyboard_arrow_down</v-icon>
-      </span>
-      <span v-else>
-        <v-icon small>keyboard_arrow_up</v-icon>
-        <span>Close</span>
-        <v-icon small>keyboard_arrow_up</v-icon>
-      </span>
-    </v-btn>
+    <div
+      v-if="new Date(GET_USER.chatBannedUntil) > new Date()"
+      v-show="typeof GET_USER.chatBannedUntil != 'undefined' && GET_USER.chatBannedUntil != null"
+      class="caption accent--text text--lighten-2 mb-3 text-center"
+    >You are chat banned until {{ GET_USER.chatBannedUntil }}</div>
 
-    <v-slide-y-transition>
-      <div v-show="writeMsg">
-        <v-list-item class="px-3 pt-3">
-          <v-textarea
-            v-model="textArea"
-            placeholder="Write your message here..."
-            hide-details
-            outlined
-            rows="1"
-            auto-grow
-          ></v-textarea>
-        </v-list-item>
-        <v-slide-y-transition>
-          <div v-show="this.textArea != ''">
-            <v-card-actions class="justify-end pb-0">
-              <v-btn height="22px" text @click="postMsg()">
-                <span class="body-2 accent--text text--lighten-2">Post</span>
-              </v-btn>
-            </v-card-actions>
-            <v-divider class="mt-2"></v-divider>
-            <v-card class="transparent" outlined>
-              <FeedItem
-                :item="{ userId: getUserId, userProfilePicture: GET_USER.profilePicture, userName: GET_USER.name, message: textArea }"
-              />
-            </v-card>
-            <v-divider class="mt-2"></v-divider>
-          </div>
-        </v-slide-y-transition>
-      </div>
-    </v-slide-y-transition>
-    <div :class="[this.writeMsg ? 'mt-5' : '']"></div>
+    <div v-else>
+      <v-btn
+        v-show="this.button"
+        class="caption accent--text text--lighten-2 mb-3"
+        text
+        height="20px"
+        width="100%"
+        @click="writeMsg = !writeMsg"
+      >
+        <span v-if="!writeMsg">
+          <v-icon small>keyboard_arrow_down</v-icon>
+          <span>Share your thoughts</span>
+          <v-icon small>keyboard_arrow_down</v-icon>
+        </span>
+        <span v-else>
+          <v-icon small>keyboard_arrow_up</v-icon>
+          <span>Close</span>
+          <v-icon small>keyboard_arrow_up</v-icon>
+        </span>
+      </v-btn>
+
+      <v-slide-y-transition>
+        <div v-show="writeMsg">
+          <v-list-item class="px-3 pt-3">
+            <v-textarea
+              v-model="textArea"
+              placeholder="Write your message here..."
+              hide-details
+              outlined
+              rows="1"
+              auto-grow
+            ></v-textarea>
+          </v-list-item>
+          <v-slide-y-transition>
+            <div v-show="this.textArea != ''">
+              <v-card-actions class="justify-end pb-0">
+                <v-btn height="22px" text @click="postMsg()">
+                  <span class="body-2 accent--text text--lighten-2">Post</span>
+                </v-btn>
+              </v-card-actions>
+              <v-divider class="mt-2"></v-divider>
+              <v-card class="transparent" outlined>
+                <FeedItem
+                  :item="{ userId: getUserId, userProfilePicture: GET_USER.profilePicture, userName: GET_USER.name, message: textArea }"
+                />
+              </v-card>
+              <v-divider class="mt-2"></v-divider>
+            </div>
+          </v-slide-y-transition>
+        </div>
+      </v-slide-y-transition>
+      <div :class="[this.writeMsg ? 'mt-5' : '']"></div>
+    </div>
   </div>
 </template>
 

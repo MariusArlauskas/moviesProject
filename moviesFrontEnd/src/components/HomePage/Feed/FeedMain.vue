@@ -1,17 +1,6 @@
 <template>
   <v-layout column>
-    <CommentBox
-      v-if="new Date(GET_USER.chatBannedUntil) < new Date()"
-      v-show="GET_USER"
-      @clicked="childAction"
-      :parentId="0"
-      :button="true"
-    />
-    <span
-      v-else
-      v-show="typeof GET_USER.chatBannedUntil != 'undefined' && GET_USER.chatBannedUntil != null"
-      class="caption text-center accent--text text--lighten-2 mb-3"
-    >You are chat banned until {{ GET_USER.chatBannedUntil }}</span>
+    <CommentBox v-show="GET_USER" @clicked="childAction" :parentId="0" :button="true" />
     <FeedItem v-for="item in this.messages" :key="item.id" :item="item" :depth="1" />
     <v-progress-circular
       v-show="!this.pagesEnd"

@@ -113,6 +113,17 @@ class UsersController extends AbstractController
 			return $this->serializer->response('User not found!', Response::HTTP_BAD_REQUEST);
 		}
 
+		if (!empty($parametersAsArray['chatBannedUntil'])) {
+			$chatBannedUntil = htmlspecialchars(trim($parametersAsArray['chatBannedUntil']));
+			$user->setChatBannedUntil(\DateTime::createFromFormat('Y-m-d', $chatBannedUntil));
+
+			// Return because banning is seperate thing
+			$em = $this->getDoctrine()->getManager();
+			$em->persist($user);
+			$em->flush();
+			return $this->serializer->response('User banned from chat!!', Response::HTTP_OK);
+		}
+
 		// Set all data
 		if (!empty($parametersAsArray['password'])) {
 			$password = htmlspecialchars(trim($parametersAsArray['password']));
@@ -125,11 +136,6 @@ class UsersController extends AbstractController
 		if (!empty($parametersAsArray['description'])) {
 			$description = htmlspecialchars(trim($parametersAsArray['description']));
 			$user->setDescription($description);
-		}
-
-		if (!empty($parametersAsArray['chatBannedUntil'])) {
-			$chatBannedUntil = htmlspecialchars(trim($parametersAsArray['chatBannedUntil']));
-			$user->setChatBannedUntil(\DateTime::createFromFormat('Y-m-d', $chatBannedUntil));
 		}
 
 		if (!empty($_FILES['profilePicture'])) {

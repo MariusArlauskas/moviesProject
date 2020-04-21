@@ -71,11 +71,7 @@
         ></v-date-picker>
       </v-menu>
     </v-col>
-    <v-container
-      v-show="this.item.chatBannedUntil != ''"
-      class="colorIndicator"
-      :style="'margin-right:1%; background:' + [new Date(this.item.chatBannedUntil) > new Date() ? 'var(--v-error-darken1);' : 'var(--v-success-base);']"
-    ></v-container>
+    <v-container class="colorIndicator" :style="'margin-right:1%; background:' + getBanColor"></v-container>
   </v-layout>
 </template>
 
@@ -96,6 +92,16 @@ export default {
     item: Object
   },
   computed: {
+    getBanColor() {
+      if (this.item.chatBannedUntil.length == 0) {
+        return "var(--v-success-base);";
+      }
+      if (new Date(this.item.chatBannedUntil) > new Date()) {
+        return "var(--v-error-darken1);";
+      } else {
+        return "var(--v-success-base);";
+      }
+    },
     getMaxDate() {
       var d = new Date();
       d.setFullYear(d.getFullYear() + 10);

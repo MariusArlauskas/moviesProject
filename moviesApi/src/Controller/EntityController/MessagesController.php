@@ -6,6 +6,7 @@ use App\Controller\InitSerializer;
 use App\Controller\RemoteApi\TmdbApi;
 use App\Entity\Messages;
 use App\Entity\Movies;
+use App\Entity\Users;
 use Doctrine\ORM\ORMException;
 use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -55,6 +56,13 @@ class MessagesController extends AbstractController
 			return $this->serializer->response("Missing message!", Response::HTTP_BAD_REQUEST);
 		}
 		$userId = $this->getUser()->getId();
+		$repository = $this->getDoctrine()->getRepository(Users::class);
+		$user = $repository->find($userId);
+		if (empty($user)) {
+			return $this->serializer->response('No user found for id '.$userId, Response::HTTP_NOT_FOUND);
+		} elseif ($user->getChatBannedUntil() > new \DateTime())  {
+			return $this->serializer->response('User is banned from chat!', Response::HTTP_FORBIDDEN);
+		}
 
 		// Not required fields
 		if (!empty($parametersAsArray['parentId'])) {

@@ -138,7 +138,7 @@ const actions = {
   },
   CHAT_BAN_USER: (commit, { id, chatBannedUntil }) => {
     return new Promise((resolve, reject) => {
-      axios.post(`profile/` + id + '/update', {
+      axios.post(`users/` + id + '/update', {
         chatBannedUntil
       })
         .then(({ status }) => {
