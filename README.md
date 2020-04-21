@@ -4,16 +4,14 @@
 # frontEnd - Vuejs
 // npm run serve
 
-# In PROGRESS:
+# In PROGRESS:    
+    0. User reporting
+    
     1. Main page - Most popular movies
     
     2. Movie page
     
     3. Movies filter (at least show by few types and order by genres)
-    
-    4. User reporting
-    
-    5. Admin panel
     
     6. Post reporting
         
@@ -28,14 +26,8 @@
     Movies page:
         Movie dialog:
             ADD link to movie page and back button redirects
-    
-    Header:
-        fix animation when scrolling down and up
         
 # TODO list (new functions):
-    ADD admin panel:
-        see users info (see if banned from chat or not, allow changing rights to admin)
-
     Main page:
         show most popular movies (save movie info by days)  
         
@@ -67,6 +59,9 @@
     ?? - bonus ideas, only if enaught time.
 
 # what is DONE (but might still be expanded):
+    Admin menu:
+        admin can review users, chang their roles or ban them from chat until specific day
+    
     Main page:
         showing feed
         Feed:

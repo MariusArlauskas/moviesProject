@@ -63,7 +63,12 @@ html::-webkit-scrollbar {
 html {
   scrollbar-width: none;
 }
-
+.noScrollbar {
+  scrollbar-width: none;
+}
+.noScrollbar::-webkit-scrollbar {
+  display: none;
+}
 /* .whiteTransparent {
   background-color: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.5);

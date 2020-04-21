@@ -1,36 +1,38 @@
 <template>
-  <v-navigation-drawer
-    width="100%"
-    height="auto"
-    dark
-    color="var(--v-primary-base)"
-    style="padding-left: 0px"
-    permanent
-    fixed
-    v-show="showNavbar"
-  >
-    <v-toolbar-title style="width: 180px; float: left;" class="ml-3 mr-10">
-      <router-link :to="{ name: 'HomePage' }">
-        <v-row class="ml-0 my-2" align="center">
-          <v-avatar size="35px" color="var(--v-primary-lighten5)" class="mr-2">
-            <v-img contain max-height="33px" max-width="33px" src="../../assets/logo.png"></v-img>
-          </v-avatar>
-          <v-content class="py-0 white--text">{{ GET_WEB_TITLE }}</v-content>
-        </v-row>
-      </router-link>
-    </v-toolbar-title>
-
-    <v-toolbar-items
-      style="float: left"
-      v-for="link in links"
-      :key="link.name"
-      class="font-weight-light mr-3 header-href"
+  <v-fade-transition>
+    <v-navigation-drawer
+      width="100%"
+      height="auto"
+      dark
+      color="var(--v-primary-base)"
+      style="padding-left: 0px"
+      permanent
+      fixed
+      v-show="showNavbar"
     >
-      <router-link :class="link.classes" :to="{ name: link.href }">{{ link.name }}</router-link>
-    </v-toolbar-items>
+      <v-toolbar-title style="width: 180px; float: left;" class="noScrollbar ml-3 mr-10">
+        <router-link :to="{ name: 'HomePage' }">
+          <v-row class="ml-0 my-2" align="center">
+            <v-avatar size="35px" color="var(--v-primary-lighten5)" class="mr-2">
+              <v-img contain max-height="33px" max-width="33px" src="../../assets/logo.png"></v-img>
+            </v-avatar>
+            <v-content class="py-0 white--text">{{ GET_WEB_TITLE }}</v-content>
+          </v-row>
+        </router-link>
+      </v-toolbar-title>
 
-    <SearchDialog />
-  </v-navigation-drawer>
+      <v-toolbar-items
+        style="float: left; height: auto"
+        v-for="link in links"
+        :key="link.name"
+        class="font-weight-light mr-3 header-href"
+      >
+        <router-link :class="link.classes" :to="{ name: link.href }">{{ link.name }}</router-link>
+      </v-toolbar-items>
+
+      <SearchDialog />
+    </v-navigation-drawer>
+  </v-fade-transition>
 </template>
 
 <script>

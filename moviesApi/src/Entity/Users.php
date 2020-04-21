@@ -59,6 +59,11 @@ class Users implements UserInterface
      */
     private $registerDate;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $chatBannedUntil;
+
     public function __construct()
     {
     }
@@ -190,13 +195,13 @@ class Users implements UserInterface
     }
 
 	public function toArray() {
-		$vars = get_object_vars ( $this );
-		$array = array ();
-		foreach ( $vars as $key => $value ) {
-			$array [ltrim ( $key, '_' )] = $value;
-		}
-		return $array;
-	}
+         		$vars = get_object_vars ( $this );
+         		$array = array ();
+         		foreach ( $vars as $key => $value ) {
+         			$array [ltrim ( $key, '_' )] = $value;
+         		}
+         		return $array;
+         	}
 
     public function getRegisterDate(): ?\DateTimeInterface
     {
@@ -210,33 +215,14 @@ class Users implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|UsersMovies[]
-     */
-    public function getUserMovies(): Collection
+    public function getChatBannedUntil(): ?\DateTimeInterface
     {
-        return $this->UserMovies;
+        return $this->chatBannedUntil;
     }
 
-    public function addUserMovie(UsersMovies $userMovie): self
+    public function setChatBannedUntil(?\DateTimeInterface $chatBannedUntil): self
     {
-        if (!$this->UserMovies->contains($userMovie)) {
-            $this->UserMovies[] = $userMovie;
-            $userMovie->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserMovie(UsersMovies $userMovie): self
-    {
-        if ($this->UserMovies->contains($userMovie)) {
-            $this->UserMovies->removeElement($userMovie);
-            // set the owning side to null (unless already changed)
-            if ($userMovie->getUser() === $this) {
-                $userMovie->setUser(null);
-            }
-        }
+        $this->chatBannedUntil = $chatBannedUntil;
 
         return $this;
     }

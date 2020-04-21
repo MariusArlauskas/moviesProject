@@ -2,23 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e74540c-884f-4b9c-907e-f04adeb4760b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/public/Files/1587407090_Sword Art Online (76).jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/UsersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Users.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Users.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MovieCard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MovieCard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/EditForm/ProfileEdit.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/EditForm/ProfileEditProfile.vue" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/ProfileInfoRow.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/ProfileInfoRow.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/navBars/ProfileBar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/navBars/ProfileBar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/plugins/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/plugins/axios.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/router/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/GlobalStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/GlobalStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/AdminSettings/AdminUsers/AdminUsers.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/AdminSettings/AdminUsers/AdminUsers.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/AdminSettings/AdminUsers/UserItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/AdminSettings/AdminUsers/UserItem.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/Auth/SignUp.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/Auth/SignUp.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/UserStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/UserStore.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -192,6 +187,8 @@
       <workItem from="1587099829384" duration="135000" />
       <workItem from="1587133079154" duration="8000" />
       <workItem from="1587198176215" duration="18900000" />
+      <workItem from="1587445673687" duration="48000" />
+      <workItem from="1587477968332" duration="3569000" />
     </task>
     <servers />
   </component>

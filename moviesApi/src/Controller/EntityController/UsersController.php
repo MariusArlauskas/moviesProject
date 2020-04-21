@@ -126,6 +126,12 @@ class UsersController extends AbstractController
 			$description = htmlspecialchars(trim($parametersAsArray['description']));
 			$user->setDescription($description);
 		}
+
+		if (!empty($parametersAsArray['chatBannedUntil'])) {
+			$chatBannedUntil = htmlspecialchars(trim($parametersAsArray['chatBannedUntil']));
+			$user->setChatBannedUntil(\DateTime::createFromFormat('Y-m-d', $chatBannedUntil));
+		}
+
 		if (!empty($_FILES['profilePicture'])) {
 			// File name
 			$filename = $_FILES['profilePicture']['name'];
@@ -140,6 +146,46 @@ class UsersController extends AbstractController
 				move_uploaded_file($_FILES['profilePicture']['tmp_name'], "./Files/".$filename);
 				$user->setProfilePicture($filename);
 			}
+		}
+
+		// Get the Doctrine service and manager
+		$em = $this->getDoctrine()->getManager();
+
+		// Add user to Doctrine for saving
+		$em->persist($user);
+
+		// Save user
+		$em->flush();
+
+		return $this->getOneAction($id);
+	}
+
+	/**
+	 * @Route("/{id}/updateRole", name="user_change_role", methods={"POST"}, requirements={"id"="\d+"})
+	 * @param int $id
+	 * @param Request $request
+	 * @return JsonResponse
+	 */
+	public function changeRoleAction($id, Request $request)
+	{
+		if (!$this->isGranted("ROLE_ADMIN")) {
+			throw new HttpException(Response::HTTP_FORBIDDEN, "Access denied!!");
+		}
+
+		// Assingning data from request and removing unnecessary symbols
+		$parametersAsArray = [];
+		if ($content = $request->getContent()) {
+			$parametersAsArray = json_decode($content, true);
+		}
+
+		$repository = $this->getDoctrine()->getRepository(Users::class);
+		$user = $repository->findOneBy(['id' => $id]);
+		if (empty($user)) {
+			return $this->serializer->response('User not found!', Response::HTTP_BAD_REQUEST);
+		}
+		if (!empty($parametersAsArray['role'])) {
+			$role = htmlspecialchars(trim($parametersAsArray['role']));
+			$user->setRoles([$role]);
 		}
 
 		// Get the Doctrine service and manager
@@ -180,6 +226,11 @@ class UsersController extends AbstractController
 		}
 		$userArray['birthDate'] = $user->getBirthDate()->format('Y-m-d');
 		$userArray['registerDate'] = $user->getRegisterDate()->format('Y-m-d');
+		if (!empty($userArray['chatBannedUntil'])) {
+			$userArray['chatBannedUntil'] = $user->getChatBannedUntil()->format('Y-m-d');
+		} else {
+			$userArray['chatBannedUntil'] = '';
+		}
 		if (empty($userArray['profilePicture'])) {
 			$userArray['profilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
 		} else {
@@ -221,6 +272,11 @@ class UsersController extends AbstractController
 			}
 			$userArray['birthDate'] = $user->getBirthDate()->format('Y-m-d');
 			$userArray['registerDate'] = $user->getRegisterDate()->format('Y-m-d');
+			if (!empty($userArray['chatBannedUntil'])) {
+				$userArray['chatBannedUntil'] = $user->getChatBannedUntil()->format('Y-m-d');
+			} else {
+				$userArray['chatBannedUntil'] = '';
+			}
 			if (empty($userArray['profilePicture'])) {
 				$userArray['profilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
 			} else {

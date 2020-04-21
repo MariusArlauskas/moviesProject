@@ -121,6 +121,36 @@ const actions = {
         })
     })
   },
+  CHANGE_USER_ROLE: (commit, { id, role }) => {
+    return new Promise((resolve, reject) => {
+      axios.post(`users/` + id + '/updateRole', {
+        role
+      })
+        .then(({ status }) => {
+          if (status === 200) {
+            resolve(true)
+          }
+        })
+        .catch(error => {
+          reject(error);
+        })
+    })
+  },
+  CHAT_BAN_USER: (commit, { id, chatBannedUntil }) => {
+    return new Promise((resolve, reject) => {
+      axios.post(`profile/` + id + '/update', {
+        chatBannedUntil
+      })
+        .then(({ status }) => {
+          if (status === 200) {
+            resolve(true)
+          }
+        })
+        .catch(error => {
+          reject(error);
+        })
+    })
+  },
   UPLOAD_USER_PICTURE: ({ commit }, [id, profilePicture]) => {
     return new Promise((resolve, reject) => {
       axios.post(`profile/` + id + '/update',
