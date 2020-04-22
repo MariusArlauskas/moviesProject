@@ -100,7 +100,7 @@ export default {
           "max-height: 145px; overflow-y: hidden; white-space: pre-line;";
       } else {
         this.$refs.message.style =
-          "max-width:100%; overflow-y: hidden; white-space: pre-line;";
+          "max-height: 600px; max-width:100%; overflow-y: scroll; white-space: pre-line;";
       }
       this.showingFull = !this.showingFull;
     }

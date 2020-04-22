@@ -95,27 +95,43 @@ class MoviesController extends AbstractController
 			$movies = $repMovies->findMostPopularByApi($apiId, 'most_popular', 20, $pageNumber * 20 - 20);
 		}
 
-		return $this->serializer->response($movies, 200, [], true, true, true);
+		return $this->serializer->response($movies, 200, [], false, true, true);
 	}
 
 	/**
 	 * @Route("/{id}", name="movie_show_one", methods={"GET"}, requirements={"id"="\d+"})
+	 * @param int $id
 	 * @return JsonResponse
+	 * @throws ClientExceptionInterface
+	 * @throws ORMException
+	 * @throws RedirectionExceptionInterface
+	 * @throws ServerExceptionInterface
+	 * @throws TransportExceptionInterface
 	 */
 	public function getOneAction($id)
 	{
 		$apiId = 1;
-		$repository = $this->getDoctrine()->getRepository(Movies::class);
-		$movie = $repository->find($id);
+		$em = $this->getDoctrine()->getManager();
+		$repMovies = $em->getRepository(Movies::class);
+		$movie = $repMovies->findOneBy(['movieId' => $id]);
 		if (!$movie) {
 			return new JsonResponse('No movie found for id '.$id, Response::HTTP_NOT_FOUND);
 		}
 
-		$movieArray = $movie->toArray();
-		$movieArray['releaseDate'] = $movie->getReleaseDate()->format('Y-m-d');
-		unset($movieArray['usersList']);
+		if (empty($movie)) { 	// Fetch from remote api
+			$movieApi = new TmdbApi($em);
+			$movies = $movieApi->getOneMovie($id);
 
-		return $this->serializer->response($movieArray, 200, [], true);
+			// Add movie to Doctrine so that it can be saved
+			$em->persist($movie);
+			// Save movies
+			$em->flush();
+
+			// Now check again to join with users liked movies list
+			$movie = $repMovies->findOneBy(['movieId' => $id]);
+		}
+
+		return $this->serializer->response($movie, 200, [], false, true, true);
 	}
 
 	/** Fetches and inserts into db

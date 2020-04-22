@@ -11,6 +11,7 @@ import ProfileEdit from "../components/UserSettings/ProfileEdit";
 import ProfileEditProfile from "../components/UserSettings/ProfileEditProfile";
 import AdminMenu from "../components/AdminSettings/AdminMenu";
 import AdminUsers from "../components/AdminSettings/AdminUsers/AdminUsers";
+import MoviePage from "../components/MoviesPage/MoviePage/MoviePage";
 
 Vue.use(VueRouter);
 
@@ -65,6 +66,11 @@ const routes = [
         component: AdminUsers
       },
     ]
+  },
+  {
+    path: "/movie/:id",
+    name: "MoviePage",
+    component: MoviePage,
   },
   {
     path: "/login",

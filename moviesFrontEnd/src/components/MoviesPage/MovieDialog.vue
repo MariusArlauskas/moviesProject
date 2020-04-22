@@ -150,9 +150,14 @@
       <v-divider></v-divider>
 
       <v-card-actions>
-        <v-btn text @click="showDialog = false">Back</v-btn>
+        <v-btn text @click="dialog = false">Back</v-btn>
         <v-spacer></v-spacer>
-        <v-btn text @click="showDialog = false">Open movie</v-btn>
+        <v-btn text>
+          <router-link
+            class="white--text"
+            :to="{ name: 'MoviePage', params: { id: this.movie.movieId } }"
+          >Open movie</router-link>
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -171,6 +176,9 @@ export default {
     likeIcon: "mdi-heart"
   }),
   methods: {
+    log() {
+      console.log(this.movie);
+    },
     getUser() {
       return (
         this.$store.getters.GET_USER &&
@@ -278,6 +286,9 @@ export default {
 </script>
 
 <style scoped>
+div a {
+  text-decoration: none;
+}
 .search {
   margin-right: 15%;
 }

@@ -29,10 +29,9 @@ class InitSerializer {
 	 * @param array|string $data
 	 * @param int $status
 	 * @param array $headers
-	 * @param bool $serialize Need serializing
-	 * @param bool $url Escape slashes
+	 * @param bool $serialize Need serializing 2nd
+	 * @param bool $url Escape slashes 1st
 	 * @param bool $toArray Init objects toArray before serialize
-	 * @param bool $normalizeKeys Key name from name_id to nameId
 	 * @return JsonResponse|Response
 	 */
 	public function response($data, $status = 200, $headers = [], $serialize = false, $url = false, $toArray = false)

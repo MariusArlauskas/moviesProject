@@ -55,6 +55,20 @@ const actions = {
         })
     });
   },
+  GET_FULL_MOVIE: (commit, id) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get('movies/' + id)
+        .then(({ data, status }) => {
+          if (status === 200) {
+            resolve(data);
+          }
+        })
+        .catch(error => {
+          reject(error);
+        })
+    });
+  },
   GET_MOVIES_ADD_TYPES: () => {
     return axios.get(`lists/types`)
       .then(({ data, status }) => {

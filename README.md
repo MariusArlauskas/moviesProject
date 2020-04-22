@@ -7,7 +7,7 @@
 # In PROGRESS:    
     0. User reporting
     
-    1. Main page - Most popular movies
+    1. Main page - Most popular movies (last 30 days)
     
     2. Movie page
     
@@ -22,10 +22,14 @@
         
     Profile:
         seperate shown types (completed, planning..)
+        add loading animation to info row
 
     Movies page:
         Movie dialog:
             ADD link to movie page and back button redirects
+            
+    Movie page:
+        ad loading like in profile info row
         
 # TODO list (new functions):
     Main page:
