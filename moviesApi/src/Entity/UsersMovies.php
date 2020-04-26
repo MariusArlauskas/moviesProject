@@ -48,6 +48,16 @@ class UsersMovies
      */
     private $userRating;
 
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $dateAdded;
+
+	public function __construct()
+	{
+		$this->dateAdded = new \DateTime();
+	}
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,6 +131,18 @@ class UsersMovies
     public function setUserRating(?int $userRating): self
     {
         $this->userRating = $userRating;
+
+        return $this;
+    }
+
+    public function getDateAdded(): ?\DateTimeInterface
+    {
+        return $this->dateAdded;
+    }
+
+    public function setDateAdded(\DateTimeInterface $dateAdded): self
+    {
+        $this->dateAdded = $dateAdded;
 
         return $this;
     }

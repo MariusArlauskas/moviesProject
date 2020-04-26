@@ -12,6 +12,7 @@ import ProfileEditProfile from "../components/UserSettings/ProfileEditProfile";
 import AdminMenu from "../components/AdminSettings/AdminMenu";
 import AdminUsers from "../components/AdminSettings/AdminUsers/AdminUsers";
 import MoviePage from "../components/MoviesPage/MoviePage/MoviePage";
+import AboutPage from "../components/AboutPage";
 
 Vue.use(VueRouter);
 
@@ -81,7 +82,12 @@ const routes = [
     path: "/signUp",
     name: "SignUp",
     component: SignUp
-  }
+  },
+  {
+    path: "/about",
+    name: "AboutPage",
+    component: AboutPage,
+  },
 ];
 
 const router = new VueRouter({

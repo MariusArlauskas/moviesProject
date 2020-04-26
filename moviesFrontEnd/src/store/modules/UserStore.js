@@ -185,6 +185,9 @@ const actions = {
 };
 
 const mutations = {
+  SET_DRAWER: (state) => {
+    state.drawer = !state.drawer;
+  },
   SET_USER_SESSION: (state, user) => {  // Sets users data to local and session storage
     // Session
     sessionStorage.setItem('user', JSON.stringify(user));

@@ -19,7 +19,7 @@
 
         <v-list-item-content>
           <v-list-item-title>{{ GET_USER.name }}</v-list-item-title>
-          <v-list-item-subtitle>{{ GET_USER.role }}</v-list-item-subtitle>
+          <v-list-item-subtitle class="blue--text text--darken-1">{{ GET_USER.role }}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 

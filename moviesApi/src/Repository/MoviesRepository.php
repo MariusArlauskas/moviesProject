@@ -177,6 +177,83 @@ class MoviesRepository extends ServiceEntityRepository
 		return $ojbArr;
 	}
 
+	/**
+	 * @param int $limit
+	 * @param int $offset
+	 * @param int $userId
+	 * @param string $type
+	 * @return array
+	 * @throws DBALException
+	 */
+	public function findMostPopularInWeb($limit, $offset, $userId = 0, $type = 'M') {
+		switch ($type) {
+			case 'D':
+				$dateInterval = '-1 day';
+				break;
+			default:
+				$dateInterval = '-1 month';
+				break;
+		}
+		$dateInterval = date("Y-m-d",strtotime($dateInterval));
+
+		$selectUser = '';
+		$leftJoinUser = '';
+		if ($userId > 0) {
+			$selectUser = ',
+				umm.is_favorite as isFavorite,
+				umm.relation_type_id as relationTypeId,
+				umm.user_rating as userRating';
+			$whereUser = '
+			LEFT JOIN (
+				SELECT
+					*
+				FROM
+					users_movies t
+				WHERE t.user_id = '.(int)$userId.'
+				) umm ON umm.movie_id = m.movie_id';
+		}
+
+		$sql = '
+			SELECT
+				m.id,
+				m.title,
+				m.author,
+				m.release_date AS releaseDate,
+				m.overview,
+				m.poster_path AS posterPath,
+				m.original_title AS originalTitle,
+				m.rating,
+				m.api_id AS apiId,
+				m.genres,
+				m.most_popular AS mostPopular,
+				COUNT(*) AS webPopularity,
+			   	m.movie_id as movieId
+			FROM
+				users_movies um
+			LEFT JOIN movies m ON
+				m.movie_id = um.movie_id
+			'.$leftJoinUser.'
+			WHERE
+				um.date_added > "'.$dateInterval.'"
+			GROUP BY
+				um.movie_id
+			ORDER BY
+				COUNT(*) DESC, m.title ASC
+		';
+
+		$conn = $this->getEntityManager()
+			->getConnection();
+		$stmt = $conn->prepare($sql);
+		$stmt->execute();
+
+		$ojbArr = [];
+		foreach ($stmt->fetchAll() as $movie) {
+			$ojbArr[] = new Movies($movie);
+		}
+
+		return $ojbArr;
+	}
+
 //     /**
 //      * @return Movies[] Returns an array of Movies objects
 //      */

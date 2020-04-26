@@ -1,6 +1,10 @@
 <template>
   <v-layout class="mainContainer">
-    <v-card class="transparent feed" flat dark>
+    <v-card
+      :class="[this.$vuetify.breakpoint.md || this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl ? 'feed' : 'feedSmall'] + ' transparent'"
+      flat
+      dark
+    >
       <v-layout style="width: 100%" column>
         <FeedItem v-for="item in this.messages" :key="item.id" :item="item" :depth="1" />
         <v-progress-circular
@@ -93,6 +97,12 @@ export default {
   margin-left: 30%;
   max-width: 70%;
   width: 70%;
+  height: auto;
+}
+.feedSmall {
+  margin-top: 1%;
+  max-width: 100%;
+  width: 100%;
   height: auto;
 }
 </style>

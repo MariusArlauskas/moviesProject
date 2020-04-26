@@ -18,23 +18,30 @@
     ></v-progress-circular>
     <div v-show="!this.noData" v-else>
       <ProfileMoviesFilter />
-      <v-layout style="margin-left: 12%; width:88%" row>
+      <v-layout
+        :style="[this.$vuetify.breakpoint.md || this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl ? 'margin-left: 12%; max-width:88%' : ''] + ''"
+        row
+      >
         <v-card class="secondary px-3 pb-3" width="100%" flat>
-          <v-flex class="pl-3 pt-2 title font-weight-medium">All movie types</v-flex>
+          <v-flex class="pl-3 pt-2 title font-weight-medium">Full movie list</v-flex>
           <v-layout class="mt-0 mb-5 listHeader" style="height: 35px" row>
-            <v-col class="px-0" style="margin-left: 30%; max-width:60px; min-width:60px">Title</v-col>
             <v-col
-              class="px-0"
-              style="margin-left: 20.5%; max-width:110px; min-width:110px"
-            >Favorite</v-col>
-            <v-col class="px-0" style="margin-left: 1%; max-width:60px; min-width:60px">Type</v-col>
+              v-show="this.$vuetify.breakpoint.sm || this.$vuetify.breakpoint.md || this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl"
+              class="px-0 text-center"
+              style="margin-left:1%; max-width:calc(45% + 70px); min-width:calc(20% + 70px);"
+            >Title</v-col>
             <v-col
-              class="px-0"
-              style="margin-left: auto; margin-right:-2%; max-width:70px; min-width:70px"
+              class="px-0 text-center"
+              :style="[this.$vuetify.breakpoint.md || this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl ? 'margin-left: 5%; max-width: calc(120px + 4%); min-width:calc(120px + 4%);' : [this.$vuetify.breakpoint.xs ? 'margin-left: 30%; max-width: 90px; min-width:90px;' : 'margin-left: 5%; max-width: 90px; min-width:90px;']] + ''"
+            >Status</v-col>
+            <v-col
+              v-show="this.$vuetify.breakpoint.md || this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl"
+              class="px-0 text-center"
+              style="margin-left: auto; max-width:calc(75px + 1%); min-width:calc(75px + 1%)"
             >Rating</v-col>
             <v-col
-              class="px-0"
-              style="margin-left: auto; margin-right:2%; max-width:70px; min-width:70px"
+              class="px-0 text-center"
+              style="margin-left: auto; max-width:calc(60px + 4%); min-width:calc(60px + 4%)"
             >My rating</v-col>
           </v-layout>
           <v-container class="py-0 px-0" v-for="(item, index) in this.movies" :key="item.id">

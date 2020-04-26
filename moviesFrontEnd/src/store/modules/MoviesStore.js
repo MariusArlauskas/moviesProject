@@ -55,6 +55,20 @@ const actions = {
         })
     });
   },
+  GET_WEB_MOST_POPULAR_MOVIES_LIST: (commit, { page, userId }) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .get(`movies/webMostPopular/page/` + page + `/M/` + userId)
+        .then(({ data, status }) => {
+          if (status === 200) {
+            resolve(data);
+          }
+        })
+        .catch(error => {
+          reject(error);
+        })
+    });
+  },
   GET_FULL_MOVIE: (commit, id) => {
     return new Promise((resolve, reject) => {
       axios

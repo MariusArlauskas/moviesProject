@@ -2,7 +2,7 @@
   <v-layout
     class="fullRow caption font-weight-light mx-0"
     align-center
-    style="height: 50px; width:100%; cursor:pointer"
+    style="height: 50px; cursor:pointer"
     row
     @click="$refs.movieDialog.dialog = true"
     @mouseover="$refs.movieImage.style = 'height:180px; margin-left: -50px; max-width: 120px; margin-top: -138px'"
@@ -16,16 +16,19 @@
       <!-- <v-img contain height="100%" :src="this.item.posterPath"></v-img> -->
     </v-flex>
     <v-col
+      v-show="this.$vuetify.breakpoint.sm || this.$vuetify.breakpoint.md || this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl"
       class="text-no-wrap"
-      style="margin-left:1%; max-width:45%; min-width:45%; overflow-x: hidden"
+      style="margin-left:1%; max-width:45%; min-width:20%; overflow-x: hidden"
     >{{ this.item.title }}</v-col>
     <v-icon
+      v-show="this.$vuetify.breakpoint.md || this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl"
       style="margin-left: 4%; max-width: 30px; min-width:30px"
       color="accent lighten-2"
       size="23"
       v-if="this.item.isFavorite == 1"
     >{{ this.likeIcon }}</v-icon>
     <v-icon
+      v-show="this.$vuetify.breakpoint.md || this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl"
       style="margin-left: 4%; max-width: 30px; min-width:30px"
       color="accent lighten-2"
       size="23"
@@ -36,8 +39,12 @@
       v-if="typeof this.moviesAddTypes[this.item.relationTypeId] !== 'undefined' && this.moviesAddTypes[this.item.relationTypeId] !== null && this.moviesAddTypes[this.item.relationTypeId] !== '' && this.item.relationTypeId != 0"
     >{{ this.moviesAddTypes[this.item.relationTypeId] }}</v-col>
     <v-col v-else style="margin-left: 5%; max-width:90px; min-width:90px"></v-col>
-    <v-col style="margin-left: auto; max-width:55px; min-width:55px">{{ this.item.rating }}</v-col>
+    <v-col
+      v-show="this.$vuetify.breakpoint.md || this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl"
+      style="margin-left: auto; max-width:55px; min-width:55px"
+    >{{ this.item.rating }}</v-col>
     <v-container
+      v-show="this.$vuetify.breakpoint.md || this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl"
       class="colorIndicator"
       :style="'margin-right:1%; background:' + getColor(item.rating)"
     ></v-container>

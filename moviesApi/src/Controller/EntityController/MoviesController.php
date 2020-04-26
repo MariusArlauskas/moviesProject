@@ -152,7 +152,7 @@ class MoviesController extends AbstractController
 	}
 
 	/**
-	 * @param $userId
+	 * @param int $userId
 	 * @return JsonResponse|Response
 	 * @throws ClientExceptionInterface
 	 * @throws RedirectionExceptionInterface
@@ -181,11 +181,49 @@ class MoviesController extends AbstractController
 		}
 		if ($change) {
 			$em->flush();
+
+			// Now check again to join with users liked movies list
+			if ($change) {
+				$movies = $repMovies->findUsersMovieList($apiId, $userId);
+			}
 		}
 
-		// Now check again to join with users liked movies list
+		return $this->serializer->response($movies, 200, [], false, true, true);
+	}
+
+	/**
+	 * @Route("/webMostPopular/page/{pageNumber}/{type}/{userId}", name="movies_get_most_popular_web", methods={"GET"}, requirements={"pageNumber"="\d+", "type"="\w", "userId"="\d+"})
+	 * @param int $pageNumber
+	 * @param int $type
+	 * @param int $userId
+	 * @return JsonResponse|Response
+	 * @throws ClientExceptionInterface
+	 * @throws ORMException
+	 * @throws RedirectionExceptionInterface
+	 * @throws ServerExceptionInterface
+	 * @throws TransportExceptionInterface
+	 */
+	public function getMostPopularMoviesInWeb($pageNumber, $type, $userId = 0){
+		$em = $this->getDoctrine()->getManager();
+		$repMovies = $em->getRepository(Movies::class);
+		$movies = $repMovies->findMostPopularInWeb(20, $pageNumber * 20 - 20, $userId, $type);
+
+		$movieApi = new TmdbApi($em);
+		$change = false;
+		foreach ($movies as $movie) {
+			if (empty($movie->getId())) {
+				$change = true;
+				$movie = $movieApi->getOneMovie($movie->getMovieId());
+				$em->persist($movie[0]);
+			}
+		}
 		if ($change) {
-			$movies = $repMovies->findUsersMovieList($apiId, $userId);
+			$em->flush();
+
+			// Now fetch filled list
+			if ($change) {
+				$movies = $repMovies->findMostPopularInWeb(20, $pageNumber * 20 - 20, $userId, $type);
+			}
 		}
 
 		return $this->serializer->response($movies, 200, [], false, true, true);

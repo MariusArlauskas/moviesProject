@@ -2,12 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e74540c-884f-4b9c-907e-f04adeb4760b" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Migrations/Version20200426072935.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/MoviesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/MoviesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/InitSerializer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/InitSerializer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/UsersController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/UsersMovies.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/UsersMovies.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/MoviesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/MoviesRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/HomePage/HomePage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/HomePage/HomePage.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,6 +190,8 @@
       <workItem from="1587477968332" duration="6064000" />
       <workItem from="1587532022433" duration="25000" />
       <workItem from="1587564687331" duration="4955000" />
+      <workItem from="1587618429863" duration="601000" />
+      <workItem from="1587737185984" duration="11581000" />
     </task>
     <servers />
   </component>
@@ -230,9 +238,9 @@
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
     <state x="2536" y="240" key="run.anything.popup/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1586027339029" />
-    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1586627084343">
+    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1587888659788">
       <screen x="1920" y="0" width="1920" height="1040" />
     </state>
-    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1586627084343" />
+    <state x="2543" y="225" width="672" height="678" key="search.everywhere.popup/1920.0.1920.1040/0.0.1920.1040@1920.0.1920.1040" timestamp="1587888659788" />
   </component>
 </project>

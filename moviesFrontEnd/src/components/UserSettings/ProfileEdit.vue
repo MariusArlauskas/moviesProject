@@ -1,6 +1,6 @@
 <template>
   <v-layout class="mainContainer mt-3" style="width: 100%" flat>
-    <v-col cols="2">
+    <v-col cols="2" style="min-width: 150px; ">
       <v-card class="transparent" dark flat>
         <v-list class="transparent" nav>
           <v-list-item class="title font-weight-light justify-center">Navigation</v-list-item>

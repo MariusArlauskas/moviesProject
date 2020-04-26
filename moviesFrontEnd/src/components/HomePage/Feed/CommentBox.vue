@@ -4,7 +4,7 @@
       v-if="new Date(GET_USER.chatBannedUntil) > new Date()"
       v-show="typeof GET_USER.chatBannedUntil != 'undefined' && GET_USER.chatBannedUntil != null"
       class="caption accent--text text--lighten-2 mb-3 text-center"
-    >You are chat banned until {{ GET_USER.chatBannedUntil }}</div>
+    >Chat banned until {{ GET_USER.chatBannedUntil }}</div>
 
     <div v-else>
       <v-btn

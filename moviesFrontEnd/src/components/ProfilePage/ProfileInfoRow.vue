@@ -4,9 +4,13 @@
       justify-center
       v-if="this.user.name"
       row
-      style="padding: 20px 120px 20px 7%; height:290px; width:100%"
+      style="padding: 20px 20px 20px 7%; height:290px; width:100%"
     >
-      <v-card class="py-0 transparent" style="min-width:553px; width: 55%; height: 100%" flat>
+      <v-card
+        class="py-0 transparent"
+        :style="[this.$vuetify.breakpoint.sm || this.$vuetify.breakpoint.xs ? 'width: 90%;' : 'width: 50%;'] + ' min-width:250px; height: 100%'"
+        flat
+      >
         <v-card-title class="font-italic font-weight-thin pb-4 pt-0 justify-center">About me</v-card-title>
         <v-card-text
           class="desc"
@@ -14,12 +18,23 @@
           v-html="decodeHtml(this.user.description)"
         ></v-card-text>
       </v-card>
-      <v-spacer style="max-width:5%"></v-spacer>
-      <v-card img class="transparent" flat max-width="12%" max-height="100%" min-width="180px">
+      <v-spacer class="hidden-sm-and-down" style="max-width:5%"></v-spacer>
+      <v-card
+        img
+        class="transparent hidden-sm-and-down"
+        flat
+        max-width="12%"
+        max-height="100%"
+        min-width="180px"
+      >
         <v-img contain max-height="100%" max-width="100%" :src="this.user.profilePicture"></v-img>
       </v-card>
       <v-spacer style="max-width:5%"></v-spacer>
-      <v-card class="transparent" style="width: 15%" flat>
+      <v-card
+        class="transparent hidden-sm-and-down"
+        style="min-width: 15%; padding-right:80px"
+        flat
+      >
         <v-btn v-show="this.user.id == getLoggedInUserId()" text outlined color="accent">
           <router-link
             class="accent--text text--lighten-2"

@@ -48,7 +48,7 @@
           </v-btn>
         </template>
 
-        <v-list style="background: var(--v-primary-lighten1)" dark>
+        <v-list style="background: var(--v-primary-lighten1)" dark dense>
           <v-list-item
             v-for="(moviesAddTypeName, moviesAddTypeId) in this.moviesAddTypes"
             :key="moviesAddTypeId"

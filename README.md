@@ -4,76 +4,53 @@
 # frontEnd - Vuejs
 // npm run serve
 
-# In PROGRESS:    
-    0. User reporting
+# In PROGRESS:        
+    Movies filter (at least show by few types and order by genres and seperate shown types in profile (completed, planning..))
     
-    1. Main page - Most popular movies (last 30 days)
+    User reporting
     
-    2. Movie page
-    
-    3. Movies filter (at least show by few types and order by genres)
-    
-    6. Post reporting
+    Post reporting
         
-# TODO list (fixes or small details):  
-    Feed:
-        add user reporting
-        allow option to share messages in fb/twitter
-        
+# TODO list (fixes or small details):          
     Profile:
-        seperate shown types (completed, planning..)
         add loading animation to info row
-
-    Movies page:
-        Movie dialog:
-            ADD link to movie page and back button redirects
             
     Movie page:
-        ad loading like in profile info row
+        add loading like in profile info row
+        add more movie info (genres, popularity stats)
+        
+    Add rating from my website (in movie page, movie dialog, profile?)
         
 # TODO list (new functions):
-    Main page:
-        show most popular movies (save movie info by days)  
-        
-    Feed:
-        ADD user reporting
-
     Movies main page:
-        ADD filter
         ADD suggest movie component
-        ADD show some movies from profile
         
     Login / signup:
         ADD background card with picture of main page on the left (after main page is done)
-            
-    ADD Movie page:
-        show full movie details
         
     Header
         ADD Search for a movie (probably search self db first an show button to o better search - in API):
             show movies in list, open movie list on click (now only showing search input - does no action)
         
     Profile:
-        ADD Edit profile option
-        ADD Various stats in graphs with ability to share
         ADD Followed/Following users (??)
     
     Refresh token
 
-    ?? - bonus ideas, only if enaught time.
-
 # what is DONE (but might still be expanded):
+    Mostly responsive design
+
     Admin menu:
         admin can review users, chang their roles or ban them from chat until specific day
     
     Main page:
-        showing feed
+        Showing 5 most popular movies and color based line which is calculated by most popular movie.
         Feed:
             shown users posted messages (html tags compatible)
             user can post messages
             user can comment on messages and review others comments
             messages are updating every 10 secons (getting 1 newest message)
-        showing users 5 watching and planning movies
+        showing users 5 of watching and planning movies
 
     Profile page
         user can edit profile (edit info, change profile picture)
@@ -83,7 +60,7 @@
         Movie dialog opens on click
         Dialog doesnt let do any actions when in others profile
 
-    Movies page
+    Movies page (all movies)
         Showing all movies in cards
         User can like or add movies to list by pressing icons near movie title, 
           also posible to remove item from list by choosing - remove
@@ -91,6 +68,10 @@
         Color indicating rating of the movie
         Movies dialog with more info about movie
             dialog has like, add to list and rating buttons
+            has a button to redirect to main movies page
+            
+    Movie page:
+        shown all info about movie
         
     Profile toolbar
         Toolbar easy navigation of personal info shows up when user is logged in

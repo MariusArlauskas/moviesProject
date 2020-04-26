@@ -90,12 +90,12 @@ export default {
       }, 1500);
     }
   },
-  created() {
+  beforeMount() {
     this.getMessages();
-    this.timer = setInterval(this.fetchComment, 10000);
+    // this.timer = setInterval(this.fetchComment, 10000);
   },
   beforeDestroy() {
-    clearInterval(this.timer);
+    // clearInterval(this.timer);
   }
 };
 </script>

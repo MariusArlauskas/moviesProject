@@ -1,7 +1,7 @@
 <template>
   <div>
     <MoviesFilter />
-    <v-layout class="mainContainer mt-3" wrap justify-center>
+    <v-layout class="mainContainer pl-10 mt-3" wrap justify-center>
       <MovieCard
         v-for="item in this.movies"
         :key="item.id"

@@ -8,12 +8,17 @@ const getters = {
 
 const actions = {
   GET_MESSAGES: (commit, { page, id }) => {
-    return axios.get('messages/' + page + '/' + id)
-      .then(({ data, status }) => {
-        if (status === 200) {
-          return data;
-        }
-      })
+    return new Promise((resolve, reject) => {
+      axios.get('messages/' + page + '/' + id)
+        .then(({ data, status }) => {
+          if (status === 200) {
+            resolve(data);
+          }
+        })
+        .catch(error => {
+          reject(error);
+        })
+    })
   },
   GET_USERS_MESSAGES: (commit, { offset, userId }) => {
     return axios.get('users/' + userId + '/messages/' + offset)

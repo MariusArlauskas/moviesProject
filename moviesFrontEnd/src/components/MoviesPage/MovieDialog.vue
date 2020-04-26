@@ -78,7 +78,7 @@
                 </v-btn>
               </template>
 
-              <v-list style="background: var(--v-primary-lighten2)" dark>
+              <v-list class="text-center" style="background: var(--v-primary-lighten2)" dark dense>
                 <v-list-item
                   v-for="(moviesAddTypeName, moviesAddTypeId) in moviesAddTypes"
                   :key="moviesAddTypeId"
@@ -122,7 +122,7 @@
                 </v-btn>
               </template>
 
-              <v-list style="background: var(--v-primary-lighten2)" dark>
+              <v-list style="background: var(--v-primary-lighten2)" class="text-center" dark dense>
                 <v-list-item v-for="index in 10" :key="index" @click="addUserRating(index)">
                   <v-list-item-title>{{ index }}</v-list-item-title>
                 </v-list-item>
@@ -188,8 +188,8 @@ export default {
     },
     getColor(value) {
       //value from 0 to 1
-      var hue = ((0 + value / 10) * 100).toString(10);
-      return ["hsl(", hue, ",80%,45%)"].join("");
+      var hue = ((0 + (value - 1) / 10) * 100).toString(10);
+      return ["hsl(", hue, ",80%,40%)"].join("");
     },
     removeUserMovie() {
       this.$store

@@ -10,37 +10,34 @@
       style="margin-left:calc(50% - 15px); margin-top:6%"
     ></v-progress-circular>
     <div v-show="!noData" v-else v-for="(movies, index) in this.movies" :key="index">
-      <v-layout v-if="movies.length > 0" class="mx-0" style="width:100%" row>
+      <v-layout class="mx-0" style="width:100%" row>
         <v-card class="transparent px-3 pb-3" width="100%" flat>
           <v-flex class="pl-2 py-2 font-weight-light">
-            Movies I'm
-            <span class="accent--text text--lighten-2">{{ names[index] }}</span>
+            Most
+            <span class="accent--text text--lighten-2">popular</span>
+            on site (last 30 days)
           </v-flex>
           <v-container class="py-0 px-0" v-for="(item, index2) in movies" :key="item.id">
-            <ListItem :item="item" :moviesAddTypes="moviesAddTypes" />
+            <WebMostPopulatListItem
+              :item="item"
+              :moviesAddTypes="moviesAddTypes"
+              :popularity="movies[0].webPopularity"
+            />
             <v-divider v-if="index2 != Object.keys(movies).length - 1"></v-divider>
           </v-container>
         </v-card>
       </v-layout>
-      <v-flex v-else class="mt-3 pt-5 text-center grey--text body-2">
-        You are not
-        <span class="accent--text text--lighten-2">{{ names[index] }}</span> any movies
-      </v-flex>
     </div>
-    <v-flex
-      v-show="this.noData"
-      class="mt-3 pt-5 text-center grey--text body-2"
-    >You are not planning to watch any new movies</v-flex>
+    <v-flex v-show="this.noData" class="mt-3 pt-5 text-center grey--text body-2">No popular movies</v-flex>
   </v-card>
 </template>
 
 <script>
-import ListItem from "./ListItem";
+import WebMostPopulatListItem from "./WebMostPopulatListItem";
 export default {
-  name: "MyMoviesMain",
-  components: { ListItem },
+  name: "WebMostPopularMoviesMain",
+  components: { WebMostPopulatListItem },
   data: () => ({
-    names: ["watching", "planning"],
     movies: [],
     moviesAddTypes: {},
     noData: false
@@ -50,34 +47,25 @@ export default {
   },
   methods: {
     getMovies() {
+      var uid = 0;
+      if (typeof this.userId != "undefined" || this.userId != null) {
+        uid = this.userId;
+      }
       this.$store
-        .dispatch("GET_USER_MOVIES_LIST", this.userId)
+        .dispatch("GET_WEB_MOST_POPULAR_MOVIES_LIST", { page: 1, userId: uid })
         .then(data => {
           if (data && data.constructor === Array) {
-            let first = data
-              .filter(obj => {
-                return this.moviesAddTypes[obj.relationTypeId] == "Watching";
-              })
-              .sort((a, b) => (a.title > b.title ? 1 : -1))
-              .slice(0, 5);
-
-            let second = data
-              .filter(obj => {
-                return this.moviesAddTypes[obj.relationTypeId] == "Planning";
-              })
-              .sort((a, b) => (a.title > b.title ? 1 : -1))
-              .slice(0, 5);
-
-            this.movies.push(first);
-            this.movies.push(second);
+            this.movies.push(data.slice(0, 5));
           } else {
             this.noData = true;
           }
         })
-        .catch(() => {});
+        .catch(() => {
+          this.noData = true;
+        });
     },
-    async getMovieAddTypes() {
-      await this.$store.dispatch("GET_MOVIES_ADD_TYPES").then(data => {
+    getMovieAddTypes() {
+      this.$store.dispatch("GET_MOVIES_ADD_TYPES").then(data => {
         var moviesAddTypesArray = [];
         data.forEach(element => {
           moviesAddTypesArray[element.id] = element.name;

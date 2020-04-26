@@ -1,6 +1,19 @@
 <template>
   <v-layout style="height: 100%" align-center justify-center>
-    <v-flex xs10 sm6 md6 xl4>
+    <!-- <v-layout
+      v-if="typeof this.movies[0] != 'undefined'"
+      style="position:absolute; max-width:100%; height:105%"
+      wrap
+    >
+      <v-img
+        v-for="item in this.movies[0]"
+        :key="item.id"
+        max-height="100%"
+        style="position:relative"
+        :src="item.posterPath"
+      ></v-img>
+    </v-layout>-->
+    <v-flex xs10 sm6 md6 xl5>
       <v-form>
         <v-card flat dark style="border-radius:40px; margin-bottom:10%" color="secondary">
           <v-toolbar flat color="transparent">
@@ -72,9 +85,23 @@ export default {
     username: "",
     password: "",
     error: false,
-    loginLoad: false
+    loginLoad: false,
+    movies: []
   }),
   methods: {
+    getMovies() {
+      var uid = 0;
+      if (typeof this.userId != "undefined" || this.userId != null) {
+        uid = this.userId;
+      }
+      this.$store
+        .dispatch("GET_WEB_MOST_POPULAR_MOVIES_LIST", { page: 1, userId: uid })
+        .then(data => {
+          if (data && data.constructor === Array) {
+            this.movies.push(data.slice(0, 3));
+          }
+        });
+    },
     login() {
       this.loginLoad = true;
       this.$store
@@ -99,6 +126,9 @@ export default {
           this.error = true;
         });
     }
+  },
+  beforeMount() {
+    this.getMovies();
   }
 };
 </script>

@@ -316,7 +316,7 @@ class UsersController extends AbstractController
 			'movieId' => $movieId,
 		]);
 
-		// if not liked and remove from list or if only liked and remove like - remove from db aswell
+		// if movie is not liked and removing it from list or if only liked and removing like - remove from db as well
 		if ((!empty($userMovies) && $userMovies->getIsFavorite() == 0 && $userMovies->getRelationTypeId() == $relationType)
 			|| (!empty($userMovies) && $userMovies->getIsFavorite() == 1 && empty($userMovies->getRelationTypeId()) && $relationType == 0)) {
 			$em->remove($userMovies);
@@ -326,16 +326,20 @@ class UsersController extends AbstractController
 
 		if (empty($userMovies)) {
 			$userMovies = new UsersMovies();
+			$userMovies->setUserId($userId);
+			$userMovies->setApiId($apiId);
+			$userMovies->setMovieId($movieId);
 		}
-		$userMovies->setUserId($userId);
-		$userMovies->setApiId($apiId);
-		$userMovies->setMovieId($movieId);
 		if ($relationType == 0) {
 			$userMovies->setIsFavorite(!$userMovies->getIsFavorite());
 		} else {
 			if ($userMovies->getRelationTypeId() == $relationType) {
 				$userMovies->setRelationTypeId(0);
+				$userMovies->setDateAdded(new \DateTime('0000-00-00'));
 			} else {
+				if (empty($userMovies->getRelationTypeId()) || $userMovies->getRelationTypeId() == 0) {
+					$userMovies->setDateAdded(new \DateTime());
+				}
 				$userMovies->setRelationTypeId($relationType);
 			}
 		}

@@ -1,9 +1,11 @@
 <template>
   <v-app>
     <Header />
-    <ProfileBar v-show="drawer" />
-    <v-content class="mainBackground" style="padding-top: 60px; height:95%; width:100%">
-      <!-- <router-link to="/">Home</router-link> -->
+    <ProfileBar v-if="GET_USER.id && drawer" />
+    <v-content
+      class="mainBackground"
+      :style="[this.$vuetify.breakpoint.md || this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl ? 'padding-top: 60px;' : 'padding-top: 5px;'] + ' height:auto; width:100%'"
+    >
       <router-view />
     </v-content>
     <Footer />
@@ -27,7 +29,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["GET_USER_DRAWER"]),
+    ...mapGetters(["GET_USER_DRAWER", "GET_USER"]),
     drawer: {
       get() {
         return this.$store.getters.GET_USER_DRAWER;
