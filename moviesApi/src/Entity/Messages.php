@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MessagesRepository")
+ * @ORM\Table(indexes={@ORM\Index(name="index", columns={"user_id", "movie_id", "parent_id", "shared_api_id"})})
  */
 class Messages
 {
@@ -20,6 +21,11 @@ class Messages
      * @ORM\Column(type="integer")
      */
     private $userId;
+
+	/**
+	 * @ORM\Column(type="integer", nullable=true)
+	 */
+	private $movieId;
 
     /**
      * @ORM\Column(type="text")
@@ -70,6 +76,18 @@ class Messages
 
         return $this;
     }
+
+	public function getMovieId(): ?int
+	{
+		return $this->movieId;
+	}
+
+	public function setMovieId(int $movieId): self
+	{
+		$this->movieId = $movieId;
+
+		return $this;
+	}
 
     public function getMessage(): ?string
     {

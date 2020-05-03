@@ -38,6 +38,7 @@ class InitSerializer {
 	{
 		if ($toArray) {
 			if (is_array($data)) {
+				$tempData = [];
 				foreach ($data as $dat) {
 					$tempData[] = $dat->toArray();
 				}

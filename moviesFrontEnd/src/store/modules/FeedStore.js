@@ -28,10 +28,18 @@ const actions = {
         }
       })
   },
-  POST_MESSAGE: (commit, { message, parentId }) => {
+  GET_MOVIE_MESSAGES: (commit, { offset, movieId }) => {
+    return axios.get('movies/' + movieId + '/messages/' + offset)
+      .then(({ data, status }) => {
+        if (status === 200) {
+          return data;
+        }
+      })
+  },
+  POST_MESSAGE: (commit, { message, parentId, movieId }) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(`messages`, { message: message, parentId: parentId })
+        .post(`messages`, { message: message, parentId: parentId, movieId: movieId })
         .then(({ data, status }) => {
           if (status === 200) {
             resolve(data);

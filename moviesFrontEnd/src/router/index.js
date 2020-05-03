@@ -1,17 +1,24 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Homepage from "../components/HomePage/HomePage";
+
 import Login from "../components/Auth/Login";
 import SignUp from "../components/Auth/SignUp";
+
 import Movies from "../components/MoviesPage/MoviesMain";
+
 import Profile from "../components/ProfilePage/ProfileMain";
 import ProfileMainWall from "../components/ProfilePage/MoviesWall/MainWall";
 import ProfileMoviesList from "../components/ProfilePage/MoviesList/MoviesList";
 import ProfileEdit from "../components/UserSettings/ProfileEdit";
 import ProfileEditProfile from "../components/UserSettings/ProfileEditProfile";
+
 import AdminMenu from "../components/AdminSettings/AdminMenu";
 import AdminUsers from "../components/AdminSettings/AdminUsers/AdminUsers";
+
 import MoviePage from "../components/MoviesPage/MoviePage/MoviePage";
+import MovieMainWall from "../components/MoviesPage/MoviePage/MainWall/MainWall";
+
 import AboutPage from "../components/AboutPage";
 
 Vue.use(VueRouter);
@@ -72,6 +79,13 @@ const routes = [
     path: "/movie/:id",
     name: "MoviePage",
     component: MoviePage,
+    children: [
+      {
+        path: "main",
+        name: "MovieMainWall",
+        component: MovieMainWall
+      }
+    ]
   },
   {
     path: "/login",

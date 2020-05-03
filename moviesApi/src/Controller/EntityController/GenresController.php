@@ -3,16 +3,16 @@
 namespace App\Controller\EntityController;
 
 use App\Controller\InitSerializer;
-use App\Entity\UsersMoviesRelationTypes;
+use App\Entity\Genres;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class UsersMoviesRelationTypesController
+ * Class GenresController
  * @package App\Controller
- * @Route("/lists/types")
+ * @Route("/genres")
  */
-class UsersMoviesRelationTypesController extends AbstractController
+class GenresController extends AbstractController
 {
 	protected $serializer;
 
@@ -22,13 +22,13 @@ class UsersMoviesRelationTypesController extends AbstractController
 	}
 
 	/** Get top rated movies
-	 * @Route("", name="movie_add_types_get", methods={"GET"})
+	 * @Route("", name="genres_get", methods={"GET"})
 	 */
 	public function getAllAction() {
 		$em = $this->getDoctrine()->getManager();
-		$repMoviesAddTypes = $em->getRepository(UsersMoviesRelationTypes::class);
-		$moviesAddTypes = $repMoviesAddTypes->findAll();
+		$repGenres = $em->getRepository(Genres::class);
+		$genres = $repGenres->findAll();
 
-		return $this->serializer->response($moviesAddTypes, 200, [], true);
+		return $this->serializer->response($genres, 200, [], true);
 	}
 }

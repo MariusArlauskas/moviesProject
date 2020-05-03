@@ -30,6 +30,7 @@ class MoviesRepository extends ServiceEntityRepository
 	 * @throws DBALException
 	 */
     public function findByApiIdAndTypeWithUserStatuses($apiId, $userId, $type, $limit, $offset) {
+		$type = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $type));		// oneTwo to one_two
 		$sql = '
 			SELECT
 				m.id,
@@ -42,7 +43,6 @@ class MoviesRepository extends ServiceEntityRepository
 				m.rating,
 				m.api_id as apiId,
 				m.genres,
-				m.most_popular as mostPopular,
 				m.movie_id as movieId,
 			   	umm.is_favorite as isFavorite,
 			   	umm.relation_type_id as relationTypeId,
@@ -60,9 +60,9 @@ class MoviesRepository extends ServiceEntityRepository
 			ON
 				m.movie_id = umm.movie_id
 			WHERE 
-				m.api_id = '.(int)$apiId.' AND m.'.$type.' > '.(int)$offset.'
+				m.api_id = '.(int)$apiId.' AND m.'.$type.' >= '.(int)$offset.' AND m.'.$type.' < ('.(int)$offset.' + 20)
 			ORDER BY
-				m.most_popular ASC
+				m.'.$type.' ASC
 			LIMIT '.(int)$limit.'
 		';
 
@@ -140,7 +140,8 @@ class MoviesRepository extends ServiceEntityRepository
 	 * @return array
 	 * @throws DBALException
 	 */
-	public function findMostPopularByApi($apiId, $type, $limit, $offset) {
+	public function findByApi($apiId, $type, $limit, $offset) {
+		$type = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $type));		// oneTwo to one_two
 		$sql = '
 			SELECT
 				m.id,
@@ -158,9 +159,9 @@ class MoviesRepository extends ServiceEntityRepository
 			FROM
 				movies m
 			WHERE 
-				m.api_id = '.(int)$apiId.' AND m.'.$type.' > '.(int)$offset.'
+				m.api_id = '.(int)$apiId.' AND m.'.$type.' >= '.(int)$offset.' AND m.'.$type.' < ('.(int)$offset.' + 20)
 			ORDER BY
-				m.most_popular ASC
+				m.'.$type.' ASC
 			LIMIT '.(int)$limit.'
 		';
 
@@ -223,11 +224,11 @@ class MoviesRepository extends ServiceEntityRepository
 				m.poster_path AS posterPath,
 				m.original_title AS originalTitle,
 				m.rating,
-				m.api_id AS apiId,
+				um.api_id AS apiId,
 				m.genres,
 				m.most_popular AS mostPopular,
-				COUNT(*) AS webPopularity,
-			   	m.movie_id as movieId
+				COUNT(um.id) AS webPopularity,
+			   	um.movie_id as movieId
 			FROM
 				users_movies um
 			LEFT JOIN movies m ON
@@ -238,7 +239,8 @@ class MoviesRepository extends ServiceEntityRepository
 			GROUP BY
 				um.movie_id
 			ORDER BY
-				COUNT(*) DESC, m.title ASC
+				COUNT(um.id) DESC, m.title ASC
+			LIMIT '.(int)$limit.'  OFFSET '.(int)$offset.'
 		';
 
 		$conn = $this->getEntityManager()

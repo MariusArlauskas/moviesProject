@@ -24,12 +24,41 @@
         <v-icon>comment</v-icon>
       </v-btn>
     </v-row>
+
+    <div v-if="typeof item.posterPath !== 'undefined' && item.posterPath !== null">
+      <v-row>
+        <v-col class="px-0 ml-7" style="max-width: 13%">
+          <router-link :to="{ name: 'MovieMainWall', params: { id: item.movieId } }">
+            <v-img height="120px" :src="item.posterPath"></v-img>
+          </router-link>
+        </v-col>
+        <v-col>
+          <div class="pl-2 pb-3">
+            <v-row class="title" style="width:100%">Review</v-row>
+            <v-row
+              class="accent--text text--lighten-3 subtitle-2 font-italic font-weight-medium"
+              style="width:100%"
+            >{{ item.title }}</v-row>
+            <v-divider inset></v-divider>
+          </div>
+          <v-card-text
+            ref="message"
+            class="py-1 pb-2 pl-1"
+            style="max-width:100%; overflow: hidden; white-space: pre-line;"
+            v-html="decodeHtml(item.message)"
+          ></v-card-text>
+        </v-col>
+      </v-row>
+    </div>
+
     <v-card-text
+      v-else
       ref="message"
       class="py-1 pb-2"
       style="max-width:100%; overflow: hidden; white-space: pre-line;"
       v-html="decodeHtml(item.message)"
     ></v-card-text>
+
     <v-divider v-show="this.long"></v-divider>
     <v-btn
       v-show="this.long"

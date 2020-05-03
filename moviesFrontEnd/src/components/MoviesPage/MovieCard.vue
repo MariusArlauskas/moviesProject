@@ -1,6 +1,6 @@
 <template>
-  <v-card class="movieCard white--text mb-4" outlined dark>
-    <v-card-title class="primary subtitle-1 py-0 text-no-wrap" style="height: 15%">
+  <v-card class="movieCard white--text mb-4" min-width="350px" max-width="400px" outlined dark>
+    <v-card-title class="primary subtitle-1 py-0 text-no-wrap" style="height: 32px">
       <v-btn
         v-show="GET_USER"
         x-small
@@ -16,12 +16,12 @@
       <v-tooltip top>
         <template v-slot:activator="{ on }">
           <span
-            :style="'overflow: hidden; ' + [GET_USER ? 'max-width: 55%' : 'max-width: 90%']"
+            :style="'overflow: hidden; ' + [GET_USER ? 'max-width: 55%; min-width: 150px' : 'max-width: 90%; min-width: 150px']"
             class="font-weight-light"
             v-on="on"
           >{{ item.title }}</span>
         </template>
-        <span style="overflow: hidden">{{ item.title }}</span>
+        <span style="overflow: hidden; min-width: 200px">{{ item.title }}</span>
       </v-tooltip>
 
       <v-flex
@@ -62,7 +62,7 @@
       </v-menu>
       <v-container class="colorIndicator" :style="'background:' + getColor(item.rating)"></v-container>
     </v-card-title>
-    <v-layout style="height:85%; width:100%">
+    <v-layout style="height:190px; width:100%">
       <div style="width:40%">
         <MovieDialog :movie="item" :moviesAddTypes="moviesAddTypes" />
       </div>
@@ -77,7 +77,10 @@
               class="pl-0 py-0 font-italic font-weight-light white--text text-right"
             >{{ item.releaseDate }}</v-col>
           </v-row>
-          <v-row class="mx-0 pt-1 pl-4 caption">{{ item.genres }}</v-row>
+          <v-row
+            class="mx-0 pt-1 pl-4 pr-3 mr-6 caption text-no-wrap"
+            style="overflow-x: hidden"
+          >{{ item.genres }}</v-row>
         </v-card>
 
         <v-card-text

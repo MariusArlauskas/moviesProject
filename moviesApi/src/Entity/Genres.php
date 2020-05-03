@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GenresRepository")
+ * @ORM\Table(indexes={@ORM\Index(name="index", columns={"api_id", "genre_id"})})
  */
 class Genres
 {

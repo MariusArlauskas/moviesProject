@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MoviesRepository")
+ * @ORM\Table(indexes={@ORM\Index(name="index", columns={"most_popular", "movie_id", "top_rated", "upcoming", "latest", "now_playing"})})
  */
 class Movies
 {
@@ -70,6 +71,26 @@ class Movies
      * @ORM\Column(type="integer", nullable=true)
      */
     private $mostPopular;
+
+	/**
+	 * @ORM\Column(type="integer", nullable=true)
+	 */
+	private $topRated;
+
+	/**
+	 * @ORM\Column(type="integer", nullable=true)
+	 */
+	private $upcoming;
+
+	/**
+	 * @ORM\Column(type="integer", nullable=true)
+	 */
+	private $latest;
+
+	/**
+	 * @ORM\Column(type="integer", nullable=true)
+	 */
+	private $nowPlaying;
 
     public function __construct($arr = [])
     {
@@ -251,4 +272,52 @@ class Movies
 
         return $this;
     }
+
+	public function getTopRated(): ?int
+	{
+		return $this->topRated;
+	}
+
+	public function setTopRated(?int $topRated): self
+	{
+		$this->topRated = $topRated;
+
+		return $this;
+	}
+
+	public function getUpcoming(): ?int
+	{
+		return $this->upcoming;
+	}
+
+	public function setUpcoming(?int $upcoming): self
+	{
+		$this->upcoming = $upcoming;
+
+		return $this;
+	}
+
+	public function getLatest(): ?int
+	{
+		return $this->latest;
+	}
+
+	public function setLatest(?int $latest): self
+	{
+		$this->latest = $latest;
+
+		return $this;
+	}
+
+	public function getNowPlaying(): ?int
+	{
+		return $this->nowPlaying;
+	}
+
+	public function setNowPlaying(?int $nowPlaying): self
+	{
+		$this->nowPlaying = $nowPlaying;
+
+		return $this;
+	}
 }

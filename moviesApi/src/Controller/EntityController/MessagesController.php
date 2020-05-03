@@ -3,23 +3,15 @@
 namespace App\Controller\EntityController;
 
 use App\Controller\InitSerializer;
-use App\Controller\RemoteApi\TmdbApi;
 use App\Entity\Messages;
-use App\Entity\Movies;
 use App\Entity\Users;
-use Doctrine\ORM\ORMException;
 use Exception;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 /**
  * Class MessagesController
@@ -36,7 +28,6 @@ class MessagesController extends AbstractController
 	}
 
 	/**
-	 * @IsGranted("ROLE_USER", statusCode=403, message="Access denied!!")
 	 * @Route("", name="message_create", methods={"POST"})
 	 * @param Request $request
 	 * @return JsonResponse|Response
@@ -44,6 +35,10 @@ class MessagesController extends AbstractController
 	 */
 	public function createAction(Request $request)
 	{
+		if (!$this->isGranted("ROLE_USER") || !$this->isGranted("ROLE_ADMIN")) {
+			throw new HttpException(Response::HTTP_FORBIDDEN, "Access denied!!");
+		}
+
 		// Assingning data from request and removing unnecessary symbols
 		$parametersAsArray = [];
 		if ($content = $request->getContent()) {
@@ -68,6 +63,9 @@ class MessagesController extends AbstractController
 		if (!empty($parametersAsArray['parentId'])) {
 			$parentId = htmlspecialchars(trim($parametersAsArray['parentId']));
 		}
+		if (!empty($parametersAsArray['movieId'])) {
+			$movieId = htmlspecialchars(trim($parametersAsArray['movieId']));
+		}
 
 		// Creating user object
 		$message = new Messages();
@@ -76,6 +74,9 @@ class MessagesController extends AbstractController
 		$message->setPostDate(new \DateTime());
 		if (!empty($parentId)) {
 			$message->setParentId($parentId);
+		}
+		if (!empty($movieId)) {
+			$message->setMovieId($movieId);
 		}
 
 		// Get the Doctrine service and manager
@@ -162,6 +163,49 @@ class MessagesController extends AbstractController
 			$childMessages[] = $message['id'];		// First put in parents ids for search
 		}
 		$childMessages = $repMessages->findMessagesCommentsSortedByDate($childMessages);
+
+		foreach ($childMessages as $key => $message) {
+			if (empty($message['userProfilePicture'])) {
+				$childMessages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
+			} else {
+				$childMessages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/'.$message['userProfilePicture'];
+			}
+		}
+		foreach ($messages as $key => $message) {
+			$messages[$key]['children'] = [];
+			if (empty($message['userProfilePicture'])) {
+				$messages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/defProfilePic.png';
+			} else {
+				$messages[$key]['userProfilePicture'] = 'http://'.$_SERVER['HTTP_HOST'].'/Files/'.$message['userProfilePicture'];
+			}
+
+			if (!empty($childMessages)) {
+				foreach ($childMessages as $childMessage) {
+					if ($childMessage['parentId'] == $message['id']) {
+						$messages[$key]['children'][] = $childMessage;
+					}
+				}
+			}
+		}
+
+		return $this->serializer->response($messages, 200, [], false, true);
+	}
+
+	public function getAllMovieMessages($movieId, $elementNumber){
+		$em = $this->getDoctrine()->getManager();
+		$repMessages = $em->getRepository(Messages::class);
+
+		$messages = $repMessages->findMovieMessagesSortedByDate(10, $elementNumber, $movieId );
+
+		if (empty($messages)) {
+			return $this->serializer->response([], 200);
+		}
+
+		$childMessages = [];
+		foreach ($messages as $message) {
+			$childMessages[] = $message['id'];		// First put in parents ids for search
+		}
+		$childMessages = $repMessages->findMovieMessagesCommentsSortedByDate($childMessages);
 
 		foreach ($childMessages as $key => $message) {
 			if (empty($message['userProfilePicture'])) {

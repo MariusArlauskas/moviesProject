@@ -35,12 +35,12 @@ const actions = {
         })
     });
   },
-  GET_MOVIES: (commit, { page, userId }) => {
+  GET_MOVIES: (commit, { page, userId, type }) => {
     var req;
     if (typeof userId === 'undefined' || userId === null) {
-      req = `movies/page/` + page;
+      req = `movies/` + type + `/page/` + page;
     } else {
-      req = `movies/page/` + page + '/user/' + userId;
+      req = `movies/` + type + `/page/` + page + '/user/' + userId;
     }
     return new Promise((resolve, reject) => {
       axios
@@ -85,6 +85,14 @@ const actions = {
   },
   GET_MOVIES_ADD_TYPES: () => {
     return axios.get(`lists/types`)
+      .then(({ data, status }) => {
+        if (status === 200) {
+          return data;
+        }
+      })
+  },
+  GET_MOVIES_GENRES: () => {
+    return axios.get(`genres`)
       .then(({ data, status }) => {
         if (status === 200) {
           return data;

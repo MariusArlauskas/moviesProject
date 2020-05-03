@@ -6,6 +6,13 @@
       dark
     >
       <v-layout style="width: 100%" column>
+        <CommentBox
+          v-show="GET_USER"
+          @clicked="childAction"
+          :parentId="0"
+          :button="true"
+          :movieId="getMovieId"
+        />
         <FeedItem v-for="item in this.messages" :key="item.id" :item="item" :depth="1" />
         <v-progress-circular
           v-show="!this.pagesEnd"
@@ -33,21 +40,32 @@
 
 <script>
 import InfiniteLoading from "vue-infinite-loading";
-import FeedItem from "./../../HomePage/Feed/FeedItem";
+import { mapGetters } from "vuex";
+import CommentBox from "./../../../HomePage/Feed/CommentBox";
+import FeedItem from "./../../../HomePage/Feed/FeedItem";
 export default {
   name: "ProfileMoviesWall",
-  components: { FeedItem, InfiniteLoading },
+  components: { FeedItem, InfiniteLoading, CommentBox },
   data: () => ({
     messages: [],
     pagesEnd: false,
     textArea: ""
   }),
+  computed: {
+    ...mapGetters(["GET_USER"]),
+    getMovieId() {
+      return parseInt(this.$route.params.id);
+    }
+  },
   methods: {
+    childAction(data) {
+      this.messages = [...[data], ...this.messages];
+    },
     getMessages() {
       this.$store
-        .dispatch("GET_USERS_MESSAGES", {
+        .dispatch("GET_MOVIE_MESSAGES", {
           offset: this.messages.length,
-          userId: this.$route.params.id
+          movieId: this.$route.params.id
         })
         .then(data => {
           if (

@@ -59,6 +59,11 @@ class TmdbApi extends AbstractController
 //        return json_decode($client->request('GET', 'https://api.themoviedb.org/3/search/movie?api_key='.$this->apiKey.'&query='.$movieName)->getContent());
 //    }
 
+	public function getMovies($type, $page, $nr) {
+		$function = $type.'Movies';
+		return $this->$function($page, $nr);
+	}
+
 	/**
 	 * @return mixed
 	 * @throws ClientExceptionInterface
@@ -67,10 +72,62 @@ class TmdbApi extends AbstractController
 	 * @throws TransportExceptionInterface
 	 * @throws ORMException
 	 */
-    public function getPopularMovies($page, $nr) {
+    protected function mostPopularMovies($page, $nr) {
         $client = HttpClient::create();
         return $this->returnMovies($client->request('GET', 'https://api.themoviedb.org/3/movie/popular?api_key='.$this->apiKey.'&language=en-US&page='.$page)->getContent(), 'MostPopular', $nr);
     }
+
+	/**
+	 * @return mixed
+	 * @throws ClientExceptionInterface
+	 * @throws RedirectionExceptionInterface
+	 * @throws ServerExceptionInterface
+	 * @throws TransportExceptionInterface
+	 * @throws ORMException
+	 */
+	protected function topRatedMovies($page, $nr) {
+		$client = HttpClient::create();
+		return $this->returnMovies($client->request('GET', 'https://api.themoviedb.org/3/movie/top_rated?api_key='.$this->apiKey.'&language=en-US&page='.$page)->getContent(), 'TopRated', $nr);
+	}
+
+	/**
+	 * @return mixed
+	 * @throws ClientExceptionInterface
+	 * @throws RedirectionExceptionInterface
+	 * @throws ServerExceptionInterface
+	 * @throws TransportExceptionInterface
+	 * @throws ORMException
+	 */
+	protected function upcomingMovies($page, $nr) {
+		$client = HttpClient::create();
+		return $this->returnMovies($client->request('GET', 'https://api.themoviedb.org/3/movie/upcoming?api_key='.$this->apiKey.'&language=en-US&page='.$page)->getContent(), 'Upcoming', $nr);
+	}
+
+	/**
+	 * @return mixed
+	 * @throws ClientExceptionInterface
+	 * @throws RedirectionExceptionInterface
+	 * @throws ServerExceptionInterface
+	 * @throws TransportExceptionInterface
+	 * @throws ORMException
+	 */
+	protected function latestMovies($page, $nr) {
+		$client = HttpClient::create();
+		return $this->returnMovies($client->request('GET', 'https://api.themoviedb.org/3/movie/latest?api_key='.$this->apiKey.'&language=en-US&page='.$page)->getContent(), 'Latest', $nr);
+	}
+
+	/**
+	 * @return mixed
+	 * @throws ClientExceptionInterface
+	 * @throws RedirectionExceptionInterface
+	 * @throws ServerExceptionInterface
+	 * @throws TransportExceptionInterface
+	 * @throws ORMException
+	 */
+	protected function nowPlayingMovies($page, $nr) {
+		$client = HttpClient::create();
+		return $this->returnMovies($client->request('GET', 'https://api.themoviedb.org/3/movie/now_playing?api_key='.$this->apiKey.'&language=en-US&page='.$page)->getContent(), 'NowPlaying', $nr);
+	}
 
     /**
      * @return mixed

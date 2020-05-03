@@ -1,14 +1,14 @@
 <template>
   <v-layout class="mainContainer">
-    <ProfileFeed />
+    <MovieFeed />
   </v-layout>
 </template>
 
 <script>
-import ProfileFeed from "./ProfileFeed";
+import MovieFeed from "./MovieFeed";
 export default {
-  name: "ProfileMainWall",
-  components: { ProfileFeed }
+  name: "MovieMainWall",
+  components: { MovieFeed }
 };
 </script>
 

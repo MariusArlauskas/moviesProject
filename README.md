@@ -14,10 +14,13 @@
 # TODO list (fixes or small details):          
     Profile:
         add loading animation to info row
+            profile bar
+                animation when apearing in small screen mode
             
     Movie page:
         add loading like in profile info row
         add more movie info (genres, popularity stats)
+        fix screen reactivity
         
     Add rating from my website (in movie page, movie dialog, profile?)
         

@@ -226,6 +226,13 @@
     <service id="kernel" class="App\Kernel" public="true" synthetic="true">
       <tag name="routing.route_loader"/>
     </service>
+    <service id="App\Controller\EntityController\GenresController" class="App\Controller\EntityController\GenresController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.vdmMuyE.App\Controller\EntityController\GenresController"/>
+      </call>
+    </service>
     <service id="App\Controller\EntityController\MessagesController" class="App\Controller\EntityController\MessagesController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -3274,6 +3281,9 @@
     <service id="lexik_jwt_authentication.security.jwt_user_provider" class="Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserProvider" public="false">
       <argument></argument>
     </service>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\EntityController\GenresController" class="App\Controller\EntityController\GenresController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\EntityController\GenresController" class="App\Controller\EntityController\GenresController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\EntityController\GenresController" class="App\Controller\EntityController\GenresController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\EntityController\MessagesController" class="App\Controller\EntityController\MessagesController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\EntityController\MessagesController" class="App\Controller\EntityController\MessagesController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\EntityController\MessagesController" class="App\Controller\EntityController\MessagesController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -3589,6 +3599,12 @@
         <argument key="serializer" type="service" id="serializer" on-invalid="ignore"/>
         <argument key="session" type="service" id="session" on-invalid="ignore"/>
       </argument>
+    </service>
+    <service id=".service_locator.vdmMuyE.App\Controller\EntityController\GenresController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\EntityController\GenresController"/>
+      <argument>App\Controller\EntityController\GenresController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.vdmMuyE" method="withContext"/>
     </service>
     <service id=".service_locator.vdmMuyE.App\Controller\EntityController\MessagesController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator_context" id="App\Controller\EntityController\MessagesController"/>

@@ -9,6 +9,7 @@ use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -30,28 +31,32 @@ class MoviesController extends AbstractController
 	}
 
 	/** Get top rated movies
-	 * @Route("/page/{pageNumber}/user/{userId}", name="movies_with_favorites_get", methods={"GET"}, requirements={"userId"="\d+", "pageNumber"="\d+"})
+	 * @Route("/{type}/page/{pageNumber}/user/{userId}", name="movies_with_favorites_get", methods={"GET"}, requirements={"userId"="\d+", "pageNumber"="\d+"})
+	 * @param string $type
+	 * @param int $pageNumber
+	 * @param int $userId
 	 * @return JsonResponse|Response
-	 * @throws ClientExceptionInterface
-	 * @throws RedirectionExceptionInterface
-	 * @throws ServerExceptionInterface
-	 * @throws TransportExceptionInterface
-	 * @throws ORMException
 	 */
-	public function getMoviesWithFavorites($pageNumber, $userId){
+	public function getMostPopularWithFavorites($type, $pageNumber, $userId){
+		if (!$this->isGranted("ROLE_USER") || !$this->isGranted("ROLE_ADMIN")) {
+			throw new HttpException(Response::HTTP_FORBIDDEN, "Access denied!!");
+		}
+
 		$apiId = 1;
 		$em = $this->getDoctrine()->getManager();
 		$repMovies = $em->getRepository(Movies::class);
-		$movies = $repMovies->findByApiIdAndTypeWithUserStatuses($apiId, $userId, 'most_popular', 20, $pageNumber * 20 - 20 );
+		$movies = $repMovies->findByApiIdAndTypeWithUserStatuses($apiId, $userId, $type, 20, $pageNumber * 20 - 20 + 1 );
 
 		if (empty($movies)) { 	// Fetch from remote api
 			$movieApi = new TmdbApi($em);
-			$movies = $movieApi->getPopularMovies($pageNumber, $pageNumber * 20 - 20);
+			$movies = $movieApi->getMovies($type, $pageNumber, $pageNumber * 20 - 20);
 			foreach ($movies as $movie) {
 				// Add movie to Doctrine so that it can be saved
 				$dbMovie = $repMovies->findOneBy(['apiId' => $apiId, 'movieId' => $movie->getMovieId()]);
 				if (!empty($dbMovie)) {
-					$dbMovie->setMostPopular($movie->getMostPopular());
+					$setAction = 'set'.ucfirst($type);
+					$getAction = 'get'.ucfirst($type);
+					$dbMovie->$setAction($movie->$getAction());
 					$em->persist($dbMovie);
 				} else {
 					$em->persist($movie);
@@ -61,13 +66,13 @@ class MoviesController extends AbstractController
 			$em->flush();
 
 			// Now check again to join with users liked movies list
-			$movies = $repMovies->findByApiIdAndTypeWithUserStatuses($apiId, $userId, 'most_popular', 20, $pageNumber * 20 - 20 );
+			$movies = $repMovies->findByApiIdAndTypeWithUserStatuses($apiId, $userId, $type, 20, $pageNumber * 20 - 20 + 1 );
 		}
 		return $this->serializer->response($movies, 200, [], false, true, true);
 	}
 
-	/** Get top rated movies
-	 * @Route("/page/{pageNumber}", name="movies_get", methods={"GET"}, requirements={"pageNumber"="\d+"})
+	/** Get most popular movies
+	 * @Route("/{type}/page/{pageNumber}", name="movies_get", methods={"GET"}, requirements={"pageNumber"="\d+"})
 	 * @return JsonResponse|Response
 	 * @throws ClientExceptionInterface
 	 * @throws RedirectionExceptionInterface
@@ -75,24 +80,33 @@ class MoviesController extends AbstractController
 	 * @throws TransportExceptionInterface
 	 * @throws ORMException
 	 */
-	public function getMovies($pageNumber){
+	public function getMostPopularMovies($type, $pageNumber){
 		$apiId = 1;
 		$em = $this->getDoctrine()->getManager();
 		$repMovies = $em->getRepository(Movies::class);
-		$movies = $repMovies->findMostPopularByApi($apiId, 'most_popular', 20, $pageNumber * 20 - 20);
+		$movies = $repMovies->findByApi($apiId, $type, 20, $pageNumber * 20 - 20 + 1);
 
 		if (empty($movies)) { 	// Fetch from remote api
 			$movieApi = new TmdbApi($em);
-			$movies = $movieApi->getPopularMovies($pageNumber, $pageNumber * 20 - 20);
+			$movies = $movieApi->getMovies($type, $pageNumber, $pageNumber * 20 - 20 + 1);
+
 			foreach ($movies as $movie) {
 				// Add movie to Doctrine so that it can be saved
-				$em->persist($movie);
+				$dbMovie = $repMovies->findOneBy(['apiId' => $apiId, 'movieId' => $movie->getMovieId()]);
+				if (!empty($dbMovie)) {
+					$setAction = 'set'.ucfirst($type);
+					$getAction = 'get'.ucfirst($type);
+					$dbMovie->$setAction($movie->$getAction());
+					$em->persist($dbMovie);
+				} else {
+					$em->persist($movie);
+				}
 			}
 			// Save movies
 			$em->flush();
 
 			// Now check again to join with users liked movies list
-			$movies = $repMovies->findMostPopularByApi($apiId, 'most_popular', 20, $pageNumber * 20 - 20);
+			$movies = $repMovies->findByApi($apiId, $type, 20, $pageNumber * 20 - 20 + 1);
 		}
 
 		return $this->serializer->response($movies, 200, [], false, true, true);
@@ -114,13 +128,10 @@ class MoviesController extends AbstractController
 		$em = $this->getDoctrine()->getManager();
 		$repMovies = $em->getRepository(Movies::class);
 		$movie = $repMovies->findOneBy(['movieId' => $id]);
-		if (!$movie) {
-			return new JsonResponse('No movie found for id '.$id, Response::HTTP_NOT_FOUND);
-		}
 
 		if (empty($movie)) { 	// Fetch from remote api
 			$movieApi = new TmdbApi($em);
-			$movies = $movieApi->getOneMovie($id);
+			$movie = $movieApi->getOneMovie($id)[0];
 
 			// Add movie to Doctrine so that it can be saved
 			$em->persist($movie);
@@ -229,59 +240,17 @@ class MoviesController extends AbstractController
 		return $this->serializer->response($movies, 200, [], false, true, true);
 	}
 
-
-//    /**
-//     * @param Request $request
-//     * @param EntityManagerInterface $entityManager
-//     * @param MoviesRepository $moviesRepository
-//     * @param $id
-//     * @return JsonResponse
-//     * @Route("/movies/{id}", name="movies_put", methods={"PUT"})
-//     */
-//    public function updateMovies(Request $request, EntityManagerInterface $entityManager, MoviesRepository $moviesRepository, $id){
-//
-//        try{
-//            $user = $moviesRepository->find($id);
-//
-//            if (!$user){
-//                return $this->response('User not found', Response::HTTP_NOT_FOUND);
-//            }
-//
-////            $request = $this->transformJsonBody($request);
-//
-////            if (!$request || !$request->get('name') || !$request->request->get('description')){
-////                throw new \Exception();
-////            }
-////
-////            $user->setName($request->get('name'));
-////            $user->setDescription($request->get('description'));
-////            $entityManager->flush();// TODO catch db error
-//
-//            return $this->response('User updated successfully', Response::HTTP_OK);
-//
-//        }catch (\Exception $e){
-//            return $this->response('Data not valid', Response::HTTP_UNPROCESSABLE_ENTITY);
-//        }
-//
-//    }
-//
-//
-//    /**
-//     * @param MoviesRepository $moviesRepository
-//     * @param $id
-//     * @return JsonResponse
-//     * @Route("/movies/{id}", name="movies_delete", methods={"DELETE"})
-//     */
-//    public function deleteMovies(EntityManagerInterface $entityManager, MoviesRepository $moviesRepository, $id){
-//        $movies = $moviesRepository->find($id);
-//
-//        if (!$movies){
-//            return $this->response('User not found', Response::HTTP_NOT_FOUND);
-//        }
-//
-////        $entityManager->remove($movies);// TODO catch db error
-////        $entityManager->flush();
-//
-//        return $this->response('Movies deleted successfully', Response::HTTP_OK);
-//    }
+	/**
+	 * @Route("/{id}/messages/{elementNumber}", name="movie_get_messages_list", methods={"GET"}, requirements={"id"="\d+", "elementNumber"="\d+"})
+	 * @param int $id
+	 * @param int $elementNumber
+	 * @return Response
+	 */
+	public function getMovieMessages($id, $elementNumber)
+	{
+		return $this->forward('App\Controller\EntityController\MessagesController::getAllMovieMessages', [
+			'movieId' => $id,
+			'elementNumber' => $elementNumber,
+		]);
+	}
 }

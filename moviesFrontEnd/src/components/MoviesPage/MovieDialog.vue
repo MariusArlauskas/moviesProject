@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="600px">
+  <v-dialog v-model="dialog" max-width="600px" min-width="600px">
     <template v-slot:activator="{ on }">
       <v-flex style="width:100%; height:100%; cursor:pointer" v-ripple v-on="on">
         <v-img
@@ -7,13 +7,7 @@
           height="100%"
           :src="movie.posterPath"
         ></v-img>
-        <v-img
-          style="margin-left: 25%; margin-top: 25%"
-          v-else
-          height="50%"
-          width="50%"
-          src="../../assets/logo.png"
-        ></v-img>
+        <v-img v-else style="background:var(--v-background-lighten1)" height="100%" width="100%"></v-img>
       </v-flex>
     </template>
     <!-- <v-container
@@ -155,7 +149,7 @@
         <v-btn text>
           <router-link
             class="white--text"
-            :to="{ name: 'MoviePage', params: { id: this.movie.movieId } }"
+            :to="{ name: 'MovieMainWall', params: { id: this.movie.movieId } }"
           >Open movie</router-link>
         </v-btn>
       </v-card-actions>

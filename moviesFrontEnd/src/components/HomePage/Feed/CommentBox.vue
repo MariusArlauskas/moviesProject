@@ -75,7 +75,8 @@ export default {
   }),
   props: {
     parentId: Number,
-    button: Boolean
+    button: Boolean,
+    movieId: Number
   },
   computed: {
     ...mapGetters(["GET_USER"]),
@@ -91,7 +92,11 @@ export default {
       this.$store
         .dispatch("POST_MESSAGE", {
           message: this.textArea,
-          parentId: this.parentId
+          parentId: this.parentId,
+          movieId:
+            typeof this.movieId != "undefined" && this.movieId != null
+              ? this.movieId
+              : 0
         })
         .then(data => {
           data.userId = this.$store.getters.GET_USER.id;
