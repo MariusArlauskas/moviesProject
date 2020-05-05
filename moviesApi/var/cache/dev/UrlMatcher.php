@@ -56,8 +56,8 @@ return [
     [ // $dynamicRoutes
         35 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
         76 => [[['_route' => 'messages_get', '_controller' => 'App\\Controller\\EntityController\\MessagesController::getAllAction'], ['elementNumber', 'lastId'], ['GET' => 0], null, false, true, null]],
-        125 => [[['_route' => 'movies_with_favorites_get', '_controller' => 'App\\Controller\\EntityController\\MoviesController::getMostPopularWithFavorites'], ['type', 'pageNumber', 'userId'], ['GET' => 0], null, false, true, null]],
-        138 => [[['_route' => 'movies_get', '_controller' => 'App\\Controller\\EntityController\\MoviesController::getMostPopularMovies'], ['type', 'pageNumber'], ['GET' => 0], null, false, true, null]],
+        125 => [[['_route' => 'movies_with_favorites_get', '_controller' => 'App\\Controller\\EntityController\\MoviesController::getMoviesWithFavorites'], ['type', 'pageNumber', 'userId'], ['POST' => 0], null, false, true, null]],
+        138 => [[['_route' => 'movies_get', '_controller' => 'App\\Controller\\EntityController\\MoviesController::getMovies'], ['type', 'pageNumber'], ['POST' => 0], null, false, true, null]],
         152 => [[['_route' => 'movie_show_one', '_controller' => 'App\\Controller\\EntityController\\MoviesController::getOneAction'], ['id'], ['GET' => 0], null, false, true, null]],
         201 => [[['_route' => 'movies_get_most_popular_web', 'userId' => 0, '_controller' => 'App\\Controller\\EntityController\\MoviesController::getMostPopularMoviesInWeb'], ['pageNumber', 'type', 'userId'], ['GET' => 0], null, false, true, null]],
         229 => [[['_route' => 'movie_get_messages_list', '_controller' => 'App\\Controller\\EntityController\\MoviesController::getMovieMessages'], ['id', 'elementNumber'], ['GET' => 0], null, false, true, null]],

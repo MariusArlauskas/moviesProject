@@ -8,6 +8,7 @@ use App\Entity\Movies;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,25 +32,50 @@ class MoviesController extends AbstractController
 	}
 
 	/** Get top rated movies
-	 * @Route("/{type}/page/{pageNumber}/user/{userId}", name="movies_with_favorites_get", methods={"GET"}, requirements={"userId"="\d+", "pageNumber"="\d+"})
+	 * @Route("/{type}/page/{pageNumber}/user/{userId}", name="movies_with_favorites_get", methods={"POST"}, requirements={"userId"="\d+", "pageNumber"="\d+"})
 	 * @param string $type
 	 * @param int $pageNumber
 	 * @param int $userId
+	 * @param Request $request
 	 * @return JsonResponse|Response
 	 */
-	public function getMostPopularWithFavorites($type, $pageNumber, $userId){
+	public function getMoviesWithFavorites($type, $pageNumber, $userId, Request $request){
 		if (!$this->isGranted("ROLE_USER") || !$this->isGranted("ROLE_ADMIN")) {
 			throw new HttpException(Response::HTTP_FORBIDDEN, "Access denied!!");
 		}
-
 		$apiId = 1;
+
+		$parametersAsArray = [];
+		if ($content = $request->getContent()) {
+			$parametersAsArray = json_decode($content, true);
+		}
+		$filter = [];
+		if (!empty($parametersAsArray['filter'])) {
+			$filter = $parametersAsArray['filter'];
+		}
+
 		$em = $this->getDoctrine()->getManager();
 		$repMovies = $em->getRepository(Movies::class);
-		$movies = $repMovies->findByApiIdAndTypeWithUserStatuses($apiId, $userId, $type, 20, $pageNumber * 20 - 20 + 1 );
+		if ($pageNumber > 1) {
+			$limit = 20;
+			$offset = $pageNumber * 20 - 20 + 1;
+		} else {
+			$limit = 21;
+			$offset = $pageNumber * 20 - 20;
+		}
+		$movies = $repMovies->findByApiIdAndTypeWithUserStatuses($apiId, $userId, $type, $limit, $offset, $filter);
 
-		if (empty($movies)) { 	// Fetch from remote api
+		while (empty($movies) || count($movies) < 20) { 	// Fetch from remote api
+			if (!empty($filter)) {
+				$pageNumber = ($repMovies->getMaxNumberByType($apiId, $type)[0][$type] / 20) + 1;
+			}
+
 			$movieApi = new TmdbApi($em);
 			$movies = $movieApi->getMovies($type, $pageNumber, $pageNumber * 20 - 20);
+			if (empty($movies)) {
+				break;
+			}
+			$myfile = file_put_contents('loggggg.txt', '------------PAGE '.(($repMovies->getMaxNumberByType($apiId, $type)[0][$type] / 20) + 1).PHP_EOL , FILE_APPEND | LOCK_EX);
 			foreach ($movies as $movie) {
 				// Add movie to Doctrine so that it can be saved
 				$dbMovie = $repMovies->findOneBy(['apiId' => $apiId, 'movieId' => $movie->getMovieId()]);
@@ -66,29 +92,47 @@ class MoviesController extends AbstractController
 			$em->flush();
 
 			// Now check again to join with users liked movies list
-			$movies = $repMovies->findByApiIdAndTypeWithUserStatuses($apiId, $userId, $type, 20, $pageNumber * 20 - 20 + 1 );
+			$movies = $repMovies->findByApiIdAndTypeWithUserStatuses($apiId, $userId, $type, $limit, $offset, $filter );
 		}
 		return $this->serializer->response($movies, 200, [], false, true, true);
 	}
 
 	/** Get most popular movies
-	 * @Route("/{type}/page/{pageNumber}", name="movies_get", methods={"GET"}, requirements={"pageNumber"="\d+"})
+	 * @Route("/{type}/page/{pageNumber}", name="movies_get", methods={"POST"}, requirements={"pageNumber"="\d+"})
+	 * @param Request $request
+	 * @param string $type
+	 * @param int $pageNumber
 	 * @return JsonResponse|Response
-	 * @throws ClientExceptionInterface
-	 * @throws RedirectionExceptionInterface
-	 * @throws ServerExceptionInterface
-	 * @throws TransportExceptionInterface
-	 * @throws ORMException
 	 */
-	public function getMostPopularMovies($type, $pageNumber){
+	public function getMovies(Request $request, $type, $pageNumber){
 		$apiId = 1;
+
+		$parametersAsArray = [];
+		if ($content = $request->getContent()) {
+			$parametersAsArray = json_decode($content, true);
+		}
+		$filter = [];
+		if (!empty($parametersAsArray['filter'])) {
+			$filter = $parametersAsArray['filter'];
+		}
 		$em = $this->getDoctrine()->getManager();
 		$repMovies = $em->getRepository(Movies::class);
-		$movies = $repMovies->findByApi($apiId, $type, 20, $pageNumber * 20 - 20 + 1);
+		if ($pageNumber > 1) {
+			$limit = 20;
+			$offset = $pageNumber * 20 - 20 + 1;
+		} else {
+			$limit = 21;
+			$offset = $pageNumber * 20 - 20;
+		}
+		$movies = $repMovies->findByApi($apiId, $type, $limit, $offset, $filter);
 
-		if (empty($movies)) { 	// Fetch from remote api
+		while (empty($movies) || count($movies) < 20) { 	// Fetch from remote api
+			if (!empty($filter)) {
+				$pageNumber = ($repMovies->getMaxNumberByType($apiId, $type)[0][$type] / 20) + 1;
+			}
+
 			$movieApi = new TmdbApi($em);
-			$movies = $movieApi->getMovies($type, $pageNumber, $pageNumber * 20 - 20 + 1);
+			$movies = $movieApi->getMovies($type, $pageNumber, $pageNumber * 20 - 20);
 
 			foreach ($movies as $movie) {
 				// Add movie to Doctrine so that it can be saved
@@ -106,7 +150,7 @@ class MoviesController extends AbstractController
 			$em->flush();
 
 			// Now check again to join with users liked movies list
-			$movies = $repMovies->findByApi($apiId, $type, 20, $pageNumber * 20 - 20 + 1);
+			$movies = $repMovies->findByApi($apiId, $type, $limit, $offset, $filter);
 		}
 
 		return $this->serializer->response($movies, 200, [], false, true, true);

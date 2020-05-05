@@ -4,32 +4,19 @@
 # frontEnd - Vuejs
 // npm run serve
 
-# In PROGRESS:        
-    Movies filter (at least show by few types and order by genres and seperate shown types in profile (completed, planning..))
+# In PROGRESS:
     
-    User reporting
-    
-    Post reporting
         
 # TODO list (fixes or small details):          
-    Profile:
-        add loading animation to info row
-            profile bar
-                animation when apearing in small screen mode
-            
-    Movie page:
-        add loading like in profile info row
-        add more movie info (genres, popularity stats)
-        fix screen reactivity
-        
     Add rating from my website (in movie page, movie dialog, profile?)
         
 # TODO list (new functions):
+    Feed:
+        ADD user reporting
+        ADD post reporting
+    
     Movies main page:
         ADD suggest movie component
-        
-    Login / signup:
-        ADD background card with picture of main page on the left (after main page is done)
         
     Header
         ADD Search for a movie (probably search self db first an show button to o better search - in API):
@@ -60,11 +47,13 @@
         showing main wall with all users made posts
         Showing users info
         Showing users movies list
+            got filter
         Movie dialog opens on click
         Dialog doesnt let do any actions when in others profile
 
     Movies page (all movies)
         Showing all movies in cards
+            got filter
         User can like or add movies to list by pressing icons near movie title, 
           also posible to remove item from list by choosing - remove
         Showing if a movie is liked or added to list (type is shown near button - completed, paused..)

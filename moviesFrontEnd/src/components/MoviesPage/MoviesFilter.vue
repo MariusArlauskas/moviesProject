@@ -93,18 +93,15 @@ export default {
       { name: "Most popular", value: "mostPopular" },
       { name: "Top Rated", value: "topRated" },
       { name: "Upcoming", value: "upcoming" },
-      { name: "Latest", value: "latest" },
       { name: "Now Playing", value: "nowPlaying" }
     ],
     likeTypes: [
       { name: "All", value: "" },
-      { name: "Liked only", value: "1" },
       { name: "Not liked only", value: "0" }
     ],
     inListTypes: [
       { name: "All", value: "" },
-      { name: "Only in list", value: "1" },
-      { name: "only not in list", value: "0" }
+      { name: "Only not in list", value: "0" }
     ],
     genres: null
   }),

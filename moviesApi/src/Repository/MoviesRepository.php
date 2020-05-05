@@ -20,17 +20,78 @@ class MoviesRepository extends ServiceEntityRepository
         parent::__construct($registry, Movies::class);
     }
 
+    public function getMaxNumberByType($apiId, $type) {
+    	$oType = $type;
+		$type = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $type));		// oneTwo to one_two
+		$sql = '
+			SELECT
+				MAX('.$type.') as '.$oType.'
+			FROM
+				movies
+			WHERE 
+				api_id = '.(int)$apiId.'
+		';
+
+		$conn = $this->getEntityManager()
+			->getConnection();
+		$stmt = $conn->prepare($sql);
+		$stmt->execute();
+		return $stmt->fetchAll();
+	}
+
 	/**
 	 * @param int $apiId
 	 * @param int $userId
 	 * @param string $type
 	 * @param int $limit
 	 * @param int $offset
+	 * @param array $filter
 	 * @return array
 	 * @throws DBALException
 	 */
-    public function findByApiIdAndTypeWithUserStatuses($apiId, $userId, $type, $limit, $offset) {
+    public function findByApiIdAndTypeWithUserStatuses($apiId, $userId, $type, $limit, $offset, $filter) {
 		$type = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $type));		// oneTwo to one_two
+		$setOffset = '';
+		if (!empty($filter)) {
+			$andWhere = '';
+			foreach ($filter as $filt) {
+				switch ($filt['name']) {
+					case 'genre':
+						if (empty($filt['sort'])) {
+							break;
+						}
+						foreach ($filt['sort'] as $flt) {
+							$andWhere .= ' AND m.genres LIKE \'%'.$flt.'%\'';
+						}
+						break;
+					case 'like':
+						if (isset($filt['sort']) && $filt['sort'] == "") {
+							break;
+						}
+						$andWhere .= ' AND (umm.is_favorite=0 OR umm.is_favorite IS NULL)';
+						break;
+					case 'list':
+						if (isset($filt['sort']) && $filt['sort'] == "") {
+							break;
+						}
+						$andWhere .= ' AND (umm.relation_type_id IS NULL OR umm.relation_type_id=0)';
+						break;
+					case 'year':
+						if (empty($filt['sort'])) {
+							break;
+						}
+						$andWhere .= ' AND m.release_date > "'.$filt['sort'][0].'-01-01" AND m.release_date < "'.$filt['sort'][1].'-01-01"';
+						break;
+				}
+			}
+		}
+		if (empty($andWhere)) {
+			$andWhere = 'AND m.'.$type.' >= '.(int)$offset.' AND m.'.$type.' <= ('.(int)$offset.' + 20)';
+		} else {
+			$setOffset = 'OFFSET '.$offset;
+			$andWhere = 'AND m.'.$type.' > 0'.$andWhere;
+		}
+
 		$sql = '
 			SELECT
 				m.id,
@@ -60,10 +121,10 @@ class MoviesRepository extends ServiceEntityRepository
 			ON
 				m.movie_id = umm.movie_id
 			WHERE 
-				m.api_id = '.(int)$apiId.' AND m.'.$type.' >= '.(int)$offset.' AND m.'.$type.' < ('.(int)$offset.' + 20)
+				m.api_id = '.(int)$apiId.' '.$andWhere.'
 			ORDER BY
 				m.'.$type.' ASC
-			LIMIT '.(int)$limit.'
+			LIMIT '.(int)$limit.' '.$setOffset.'
 		';
 
 		$conn = $this->getEntityManager()
@@ -137,11 +198,41 @@ class MoviesRepository extends ServiceEntityRepository
 	 * @param string $type
 	 * @param int $limit
 	 * @param int $offset
+	 * @param array $filter
 	 * @return array
 	 * @throws DBALException
 	 */
-	public function findByApi($apiId, $type, $limit, $offset) {
+	public function findByApi($apiId, $type, $limit, $offset, $filter) {
 		$type = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $type));		// oneTwo to one_two
+		$setOffset = '';
+		if (!empty($filter)) {
+			$andWhere = '';
+			foreach ($filter as $filt) {
+				switch ($filt['name']) {
+					case 'genre':
+						if (empty($filt['sort'])) {
+							break;
+						}
+						foreach ($filt['sort'] as $flt) {
+							$andWhere .= ' AND m.genres LIKE \'%'.$flt.'%\'';
+						}
+						break;
+					case 'year':
+						if (empty($filt['sort'])) {
+							break;
+						}
+						$andWhere .= ' AND m.release_date > "'.$filt['sort'][0].'-01-01" AND m.release_date < "'.$filt['sort'][1].'-01-01"';
+						break;
+				}
+			}
+		}
+		if (empty($andWhere)) {
+			$andWhere = 'AND m.'.$type.' >= '.(int)$offset.' AND m.'.$type.' <= ('.(int)$offset.' + 20)';
+		} else {
+			$setOffset = 'OFFSET '.$offset;
+			$andWhere = 'AND m.'.$type.' > 0'.$andWhere;
+		}
+
 		$sql = '
 			SELECT
 				m.id,
@@ -159,10 +250,10 @@ class MoviesRepository extends ServiceEntityRepository
 			FROM
 				movies m
 			WHERE 
-				m.api_id = '.(int)$apiId.' AND m.'.$type.' >= '.(int)$offset.' AND m.'.$type.' < ('.(int)$offset.' + 20)
+				m.api_id = '.(int)$apiId.' '.$andWhere.'
 			ORDER BY
 				m.'.$type.' ASC
-			LIMIT '.(int)$limit.'
+			LIMIT '.(int)$limit.' '.$setOffset.'
 		';
 
 		$conn = $this->getEntityManager()

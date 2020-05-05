@@ -35,16 +35,17 @@ const actions = {
         })
     });
   },
-  GET_MOVIES: (commit, { page, userId, type }) => {
+  GET_MOVIES: (commit, { page, userId, type, filter }) => {
     var req;
     if (typeof userId === 'undefined' || userId === null) {
       req = `movies/` + type + `/page/` + page;
     } else {
       req = `movies/` + type + `/page/` + page + '/user/' + userId;
     }
+    console.log(filter);
     return new Promise((resolve, reject) => {
       axios
-        .get(req)
+        .post(req, { filter: filter })
         .then(({ data, status }) => {
           if (status === 200) {
             resolve(data);

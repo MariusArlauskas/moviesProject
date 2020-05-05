@@ -43,147 +43,37 @@ export default {
   data: () => ({
     pagesEnd: false,
     pagesLoaded: 1,
+    lastFilter: "mostPopular",
     movies: [],
-    lastFilter: [],
-    moviesAddTypes: {},
-    going: false
+    moviesAddTypes: {}
   }),
   methods: {
     onChangeStuff(filterType) {
       this.movies = [];
       this.onChangeFilter(filterType, []);
     },
-    onChangeFilter(filterType, data) {
-      console.log(filterType);
-      if (filterType == "") {
-        if (this.lastFilter.length != 0) {
-          filterType = this.lastFilter;
-        }
-      }
-      if (typeof data == "undefined" || data.length == 0) {
-        this.movies = [];
-        this.pagesLoaded = 1;
-        this.pagesEnd = false;
-        this.lastFilter = filterType;
-        this.getMovies(filterType[0].sort);
-        return;
-      }
-
-      if (filterType.length != 0) {
-        filterType.forEach(element => {
-          switch (element.name) {
-            case "type":
-              break;
-
-            case "genre":
-              if (element.sort.length == 0) {
-                break;
-              }
-              data = data.filter(obj => {
-                if (obj.genres.indexOf(",") > -1) {
-                  var temp = obj.genres.split(", ");
-                  var ans = true;
-                  element.sort.forEach(el => {
-                    if (!temp.includes(el)) {
-                      ans = false;
-                      return;
-                    }
-                  });
-                  return ans;
-                } else {
-                  if (
-                    element.sort.length == 1 &&
-                    element.sort[0] == obj.genres
-                  ) {
-                    return true;
-                  }
-                  return false;
-                }
-              });
-              break;
-
-            case "like":
-              console.log("try");
-              console.log(element.sort);
-              if (element.sort != "") {
-                console.log("in");
-                data = data.filter(obj => {
-                  if (element.sort == 1) {
-                    return obj.isFavorite != null && obj.isFavorite > 0;
-                  } else {
-                    return obj.isFavorite == null || obj.isFavorite == 0;
-                  }
-                });
-              }
-              break;
-
-            case "list":
-              if (element.sort != "") {
-                data = data.filter(obj => {
-                  if (element.sort == 1) {
-                    return obj.relationTypeId != null && obj.relationTypeId > 0;
-                  } else {
-                    return (
-                      obj.relationTypeId == null || obj.relationTypeId == 0
-                    );
-                  }
-                });
-              }
-              break;
-
-            case "year":
-              data = data.filter(obj => {
-                if (
-                  typeof obj.releaseDate != "undefined" &&
-                  obj.releaseDate != null &&
-                  obj.releaseDate != ""
-                ) {
-                  var releaseDate = new Date(obj.releaseDate);
-                  var date1 = new Date(element.sort[0] + "-01-01");
-                  var date2 = new Date(element.sort[1] + "-01-01");
-                  return releaseDate >= date1 && releaseDate <= date2;
-                } else {
-                  if (element.sort[0] == "1900") {
-                    return true;
-                  }
-                }
-              });
-              break;
-          }
-        });
-      }
-      if (data.length == 0) {
-        if (this.lastFilter[0].length != 0) {
-          this.getMovies(this.lastFilter[0].sort);
-        } else {
-          this.getMovies("mostPopular");
-        }
-      } else {
-        this.movies = [...this.movies, ...data];
-      }
+    onChangeFilter(filterType) {
+      this.pagesEnd = false;
+      this.pagesLoaded = 1;
+      this.movies = [];
+      this.lastFilter = filterType;
+      this.getMovies(filterType[0].sort, filterType);
     },
-    getMovies(type) {
-      if (this.going) {
-        return;
-      }
-      this.going = true;
+    getMovies(type, onChangeFilter = {}) {
       this.$store
         .dispatch("GET_MOVIES", {
           page: this.pagesLoaded,
           userId: this.$store.getters.GET_USER.id,
-          type: type
+          type: type,
+          filter: onChangeFilter
         })
         .then(data => {
           if (typeof data[0] == "undefined" || data.length < 0) {
             this.pagesEnd = true;
             return;
           }
-          if (data.length < 2) {
-            this.pagesEnd = true;
-          }
+          this.movies = [...this.movies, ...data];
           this.pagesLoaded += 1;
-          this.onChangeFilter("", data);
-          this.going = false;
         })
         .catch(err => {
           console.log(err);
@@ -207,7 +97,7 @@ export default {
         } else {
           $state.loaded();
           if (this.lastFilter[0].length != 0) {
-            this.getMovies(this.lastFilter[0].sort);
+            this.getMovies(this.lastFilter[0].sort, this.lastFilter);
           } else {
             this.getMovies("mostPopular");
           }
