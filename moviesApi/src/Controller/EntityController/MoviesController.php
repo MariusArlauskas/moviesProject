@@ -40,7 +40,7 @@ class MoviesController extends AbstractController
 	 * @return JsonResponse|Response
 	 */
 	public function getMoviesWithFavorites($type, $pageNumber, $userId, Request $request){
-		if (!$this->isGranted("ROLE_USER") || !$this->isGranted("ROLE_ADMIN")) {
+		if (!$this->isGranted("ROLE_USER") && !$this->isGranted("ROLE_ADMIN")) {
 			throw new HttpException(Response::HTTP_FORBIDDEN, "Access denied!!");
 		}
 		$apiId = 1;

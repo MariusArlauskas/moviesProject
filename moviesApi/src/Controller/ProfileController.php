@@ -8,6 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
@@ -32,12 +33,14 @@ class ProfileController extends AbstractController
 	}
 
     /**
-     * @IsGranted("ROLE_USER", statusCode=403, message="Access denied!!")
      * @Route("", name="current_user_profile_data", methods={"GET"})
      * @return Response
      */
     public function getSelfAction()
     {
+		if (!$this->isGranted("ROLE_USER") && !$this->isGranted("ROLE_ADMIN")) {
+			throw new HttpException(Response::HTTP_FORBIDDEN, "Access denied!!");
+		}
         $userId = $this->getUser()->getId();
 
         return $this->getAction($userId);
@@ -59,13 +62,15 @@ class ProfileController extends AbstractController
 	}
 
 	/**
-	 * @IsGranted("ROLE_USER", statusCode=403, message="Access denied!!")
 	 * @Route("/{id}/update", name="profile_update", methods={"POST"}, requirements={"id"="\d+"})
 	 * @param Request $request
 	 * @return Response
 	 */
 	public function updateProfile(Request $request)
 	{
+		if (!$this->isGranted("ROLE_USER") && !$this->isGranted("ROLE_ADMIN")) {
+			throw new HttpException(Response::HTTP_FORBIDDEN, "Access denied!!");
+		}
 		return $this->forward('App\Controller\EntityController\UsersController::updateAction', [
 			'id' => $this->getUser()->getId(),
 			'request' => $request,

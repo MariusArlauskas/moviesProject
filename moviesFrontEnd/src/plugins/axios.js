@@ -42,17 +42,14 @@ axios.interceptors.response.use(
   function (error) {
     // && (this.$route.name != 'Login' || this.$route.name != 'Signup')
     if ((error.response.status == 401 || error.response.status == 403)) {
-      store.dispatch("LOGOUT").then(() => {   // Loggout user when session expires
-        if (router.currentRoute.name != 'Login') {
-          router.push("/login");
-          store.commit("SET_NOTIFICATION", {
-            display: true,
-            text: "Please login!",
-            alertClass: "warning"
-          });
-        }
-
-      })
+      if (router.currentRoute.name != 'Login') {
+        router.push("/");
+        store.commit("SET_NOTIFICATION", {
+          display: true,
+          text: "Access denied!",
+          alertClass: "error"
+        });
+      }
     }
     return Promise.reject(error);
   }

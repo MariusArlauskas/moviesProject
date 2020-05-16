@@ -35,7 +35,7 @@ class MessagesController extends AbstractController
 	 */
 	public function createAction(Request $request)
 	{
-		if (!$this->isGranted("ROLE_USER") || !$this->isGranted("ROLE_ADMIN")) {
+		if (!$this->isGranted("ROLE_USER") && !$this->isGranted("ROLE_ADMIN")) {
 			throw new HttpException(Response::HTTP_FORBIDDEN, "Access denied!!");
 		}
 

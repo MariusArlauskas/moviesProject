@@ -36,7 +36,7 @@ class UsersController extends AbstractController
     public function createAction(Request $request)
     {
         if ($this->isGranted("ROLE_USER") || $this->isGranted("ROLE_ADMIN")) {
-            throw new HttpException(Response::HTTP_FORBIDDEN, "Access denied!!");
+            throw new HttpException(Response::HTTP_UNAUTHORIZED, "Access denied!!");
         }
 
         // Assingning data from request and removing unnecessary symbols
@@ -97,7 +97,7 @@ class UsersController extends AbstractController
 	{
 		if ($this->getUser()->getId() != $id) {
 			if (!$this->isGranted("ROLE_ADMIN")) {
-				throw new HttpException(Response::HTTP_FORBIDDEN, "Access denied!!");
+				throw new HttpException(Response::HTTP_UNAUTHORIZED, "Access denied!!");
 			}
 		}
 
@@ -110,7 +110,7 @@ class UsersController extends AbstractController
 		$repository = $this->getDoctrine()->getRepository(Users::class);
 		$user = $repository->findOneBy(['id' => $id]);
 		if (empty($user)) {
-			return $this->serializer->response('User not found!', Response::HTTP_BAD_REQUEST);
+			return $this->serializer->response('User not found!', Response::HTTP_NOT_FOUND);
 		}
 
 		if (!empty($parametersAsArray['chatBannedUntil'])) {
@@ -187,7 +187,7 @@ class UsersController extends AbstractController
 		$repository = $this->getDoctrine()->getRepository(Users::class);
 		$user = $repository->findOneBy(['id' => $id]);
 		if (empty($user)) {
-			return $this->serializer->response('User not found!', Response::HTTP_BAD_REQUEST);
+			return $this->serializer->response('User not found!', Response::HTTP_NOT_FOUND);
 		}
 		if (!empty($parametersAsArray['role'])) {
 			$role = htmlspecialchars(trim($parametersAsArray['role']));
@@ -252,11 +252,13 @@ class UsersController extends AbstractController
 
 	/**
 	 * @Route("", name="user_show_all", methods={"GET"})
-	 * @IsGranted("ROLE_ADMIN", statusCode=403, message="Access denied!!")
 	 * @return JsonResponse
 	 */
 	public function getAllAction()
 	{
+		if (!$this->isGranted("ROLE_ADMIN")) {
+			throw new HttpException(Response::HTTP_FORBIDDEN, "Access denied!!");
+		}
 		// Finding users
 		$repository = $this->getDoctrine()->getRepository(Users::class);
 		$users = $repository->findAll();
@@ -308,6 +310,10 @@ class UsersController extends AbstractController
 	 * @return JsonResponse
 	 */
 	public function addMovieStatus($userId, $apiId, $movieId, $relationType) {
+		if (!$this->isGranted("ROLE_USER") && !$this->isGranted("ROLE_ADMIN")) {
+			throw new HttpException(Response::HTTP_FORBIDDEN, "Access denied!!");
+		}
+
 		$em = $this->getDoctrine()->getManager();
 		$repository = $em->getRepository(UsersMovies::class);
 		$userMovies = $repository->findOneBy([
@@ -365,6 +371,10 @@ class UsersController extends AbstractController
 	 * @return JsonResponse
 	 */
 	public function addUsersRating($userId, $apiId, $movieId, $rating) {
+		if (!$this->isGranted("ROLE_USER") && !$this->isGranted("ROLE_ADMIN")) {
+			throw new HttpException(Response::HTTP_FORBIDDEN, "Access denied!!");
+		}
+
 		$em = $this->getDoctrine()->getManager();
 		$repository = $em->getRepository(UsersMovies::class);
 		$userMovie = $repository->findOneBy([

@@ -1,5 +1,5 @@
 const state = {
-  webTitle: "Movies Society",
+  webTitle: "Movies Site",
   headerLinks: [
     { name: "Home", icon: "mdi-view-dashboard", href: "HomePage", classes: 'white--text', showWhenLoggedIn: true },
     { name: "Movies", icon: "list", href: "Movies", classes: 'white--text', showWhenLoggedIn: true },
