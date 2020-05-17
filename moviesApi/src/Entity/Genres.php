@@ -37,6 +37,13 @@ class Genres
         return $this->id;
     }
 
+	public function setId(int $id): self
+	{
+		$this->id = $id;
+
+		return $this;
+	}
+
     public function getApiId(): ?int
     {
         return $this->apiId;

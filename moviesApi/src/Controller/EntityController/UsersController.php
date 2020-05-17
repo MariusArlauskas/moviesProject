@@ -6,7 +6,6 @@ namespace App\Controller\EntityController;
 use App\Controller\InitSerializer;
 use App\Entity\Users;
 use App\Entity\UsersMovies;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

@@ -19,7 +19,10 @@
       "ext-gd": "*"
     },
     "require-dev": {
+        "symfony/browser-kit": "4.4.*",
+        "symfony/css-selector": "4.4.*",
         "symfony/maker-bundle": "^1.14",
+        "symfony/phpunit-bridge": "^5.0",
         "symfony/web-server-bundle": "4.4.*"
     },
     "config": {
