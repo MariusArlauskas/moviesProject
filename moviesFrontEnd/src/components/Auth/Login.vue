@@ -1,18 +1,5 @@
 <template>
   <v-layout style="height: 100%" align-center justify-center>
-    <!-- <v-layout
-      v-if="typeof this.movies[0] != 'undefined'"
-      style="position:absolute; max-width:100%; height:105%"
-      wrap
-    >
-      <v-img
-        v-for="item in this.movies[0]"
-        :key="item.id"
-        max-height="100%"
-        style="position:relative"
-        :src="item.posterPath"
-      ></v-img>
-    </v-layout>-->
     <v-flex xs10 sm6 md6 xl5>
       <v-form>
         <v-card flat dark style="border-radius:40px; margin-bottom:10%" color="secondary">
@@ -77,10 +64,8 @@
 </template>
 
 <script>
-// import Notification from "../Notification";
 export default {
   name: "login",
-  // components: { Notification },
   data: () => ({
     username: "",
     password: "",

@@ -75,9 +75,13 @@ export default {
           this.movies = [...this.movies, ...data];
           this.pagesLoaded += 1;
         })
-        .catch(err => {
-          console.log(err);
+        .catch(() => {
           this.pagesEnd = true;
+          this.$store.commit("SET_NOTIFICATION", {
+            display: true,
+            text: "No movies found. Please change filter or refresh page!",
+            alertClass: "error"
+          });
         });
     },
     getMovieAddTypes() {

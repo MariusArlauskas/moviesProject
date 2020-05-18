@@ -128,6 +128,14 @@ export default {
             text: this.item.name + " role got changed!",
             alertClass: "success"
           });
+        })
+        .catch(() => {
+          this.pagesEnd = true;
+          this.$store.commit("SET_NOTIFICATION", {
+            display: true,
+            text: "Error. Please try again!",
+            alertClass: "error"
+          });
         });
     },
     saveChatBannedUntil(date) {

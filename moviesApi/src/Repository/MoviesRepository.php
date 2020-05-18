@@ -346,31 +346,4 @@ class MoviesRepository extends ServiceEntityRepository
 
 		return $ojbArr;
 	}
-
-//     /**
-//      * @return Movies[] Returns an array of Movies objects
-//      */
-//    public function findByWithStatuses($value)
-//    {
-//        return $this->createQueryBuilder('m')
-//			->add('select', 'm.*, mu.*')
-//			->add('from', 'movies m')
-//			->add('join', ' user_movies um ON m.movie_id = um.movie_id')
-//			->add('where', ' um.api = '.$value.' and m.api_id = '.$value)
-//			->getQuery()
-//			->getResult()
-//        ;
-//    }
-
-    /*
-    public function findOneBySomeField($value): ?Movies
-    {
-        return $this->createQueryBuilder('m')
-            ->andWhere('m.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

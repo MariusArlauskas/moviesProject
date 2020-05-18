@@ -42,7 +42,6 @@ const actions = {
     } else {
       req = `movies/` + type + `/page/` + page + '/user/' + userId;
     }
-    console.log(filter);
     return new Promise((resolve, reject) => {
       axios
         .post(req, { filter: filter })

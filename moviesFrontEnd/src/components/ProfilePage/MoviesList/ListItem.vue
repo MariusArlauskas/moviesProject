@@ -13,7 +13,6 @@
       style="height:40px; margin-left: 30px; max-width: 40px; min-width:40px"
     >
       <MovieDialog ref="movieDialog" :movie="this.item" :moviesAddTypes="sendMoviesAddTypes()" />
-      <!-- <v-img contain height="100%" :src="this.item.posterPath"></v-img> -->
     </v-flex>
     <v-col
       v-show="this.$vuetify.breakpoint.sm || this.$vuetify.breakpoint.md || this.$vuetify.breakpoint.lg || this.$vuetify.breakpoint.xl"

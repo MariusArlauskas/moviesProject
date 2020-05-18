@@ -21,8 +21,6 @@
             :style="'margin-left:10px; background:' + getColor(this.movie.rating)"
           ></v-container>
         </v-row>
-        <!-- <v-row class="font-weight-thin">Favorites count</v-row>
-        <v-row></v-row>-->
       </v-card>
       <v-card img class="transparent" flat max-width="12%" max-height="100%" min-width="180px">
         <v-img contain max-height="100%" max-width="100%" :src="this.movie.posterPath"></v-img>

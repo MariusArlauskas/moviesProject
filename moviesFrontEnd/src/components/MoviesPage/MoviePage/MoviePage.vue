@@ -4,7 +4,6 @@
     <v-divider class="secondary lighten-1"></v-divider>
     <v-tabs background-color="secondary" dark>
       <v-tab :to="{name: 'MovieMainWall'}" :router="true" class="tab font-weight-thin">Main</v-tab>
-      <!-- <v-tab :to="{name: 'ProfileMoviesList'}" :router="true" class="font-weight-thin">Movies</v-tab> -->
     </v-tabs>
     <router-view />
   </v-flex>

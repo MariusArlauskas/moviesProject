@@ -133,6 +133,9 @@ class MoviesController extends AbstractController
 
 			$movieApi = new TmdbApi($em);
 			$movies = $movieApi->getMovies($type, $pageNumber, $pageNumber * 20 - 20);
+			if (empty($movies)) {
+				return $this->serializer->response('No movies found', Response::HTTP_NOT_FOUND);
+			}
 
 			foreach ($movies as $movie) {
 				// Add movie to Doctrine so that it can be saved

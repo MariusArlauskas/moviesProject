@@ -48,8 +48,6 @@
         <v-row class="mx-0">{{ userAge }}</v-row>
         <v-card-title class="font-weight-thin py-0 px-0">Registered from</v-card-title>
         <v-row class="mx-0">{{ this.user.registerDate }}</v-row>
-        <!-- <v-row class="font-weight-thin">Favorites count</v-row>
-        <v-row></v-row>-->
       </v-card>
     </v-layout>
   </v-card>

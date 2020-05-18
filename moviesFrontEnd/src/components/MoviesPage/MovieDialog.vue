@@ -10,12 +10,6 @@
         <v-img v-else style="background:var(--v-background-lighten1)" height="100%" width="100%"></v-img>
       </v-flex>
     </template>
-    <!-- <v-container
-      v-if="typeof movie.posterPath !== 'undefined' && movie.posterPath !== null"
-      style="position:absolute; min-width:190px; width: 13%; height:200px; left:24%; top: 12%"
-    >
-      <v-card flat style="background-color:var(--v-secondary-base);  height:100%;"></v-card>
-    </v-container>-->
     <v-card
       dark
       width="52%"

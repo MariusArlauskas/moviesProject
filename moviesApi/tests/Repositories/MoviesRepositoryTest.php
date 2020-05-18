@@ -8,18 +8,6 @@ use App\Entity\UsersMovies;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class MoviesRepositoryTest extends KernelTestCase {
-//	public function testfindMessagesSortedByDate() {
-//		$obj = new MessagesRepository();
-//		$results = $obj->findMessagesSortedByDate(20, 0, 0);
-//		$this->assertNotEmpty($results);
-//		foreach ($results as $key => $value) {
-//			if (!empty($lastKey)) {
-//				$this->assertGreaterThanOrEqual($results[$lastKey]->getPostDate(), $results[$key]->getPostDate());
-//			}
-//			$lastKey = $key;
-//		}
-//	}
-
 	/**
 	 * @var \Doctrine\ORM\EntityManager
 	 */

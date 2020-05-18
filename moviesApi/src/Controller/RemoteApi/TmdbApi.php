@@ -46,19 +46,6 @@ class TmdbApi extends AbstractController
 		$this->em = $em;
 	}
 
-//    /**
-//     * @param $movieName
-//     * @return mixed
-//     * @throws ClientExceptionInterface
-//     * @throws RedirectionExceptionInterface
-//     * @throws ServerExceptionInterface
-//     * @throws TransportExceptionInterface
-//     */
-//    public function getMovie($movieName) {
-//        $client = HttpClient::create();
-//        return json_decode($client->request('GET', 'https://api.themoviedb.org/3/search/movie?api_key='.$this->apiKey.'&query='.$movieName)->getContent());
-//    }
-
 	public function getMovies($type, $page, $nr) {
 		$function = $type.'Movies';
 		return $this->$function($page, $nr);
@@ -165,6 +152,9 @@ class TmdbApi extends AbstractController
     protected function returnMovies($movies, $type = 0, $nr = 0) {
 		$movies = json_decode($movies);
 		if (empty($movies->results)) {	// Then its only one movie
+			if (empty($movies->genres)) {
+				return [];
+			}
 			$tmpArr = [];
 			foreach ($movies->genres as $genre) {
 				if (!empty($genre)) {
