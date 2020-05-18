@@ -100,7 +100,10 @@ export default {
           $state.complete();
         } else {
           $state.loaded();
-          if (this.lastFilter[0].length != 0) {
+          if (
+            typeof this.lastFilter[0].sort != "undefined" ||
+            this.lastFilter[0].sort != null
+          ) {
             this.getMovies(this.lastFilter[0].sort, this.lastFilter);
           } else {
             this.getMovies("mostPopular");

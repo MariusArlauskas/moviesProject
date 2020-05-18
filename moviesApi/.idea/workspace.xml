@@ -2,25 +2,54 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e74540c-884f-4b9c-907e-f04adeb4760b" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/../bak ataskaita.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../bak ataskaita.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/loggggg.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/MoviesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/MoviesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/RemoteApi/TmdbApi.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RemoteApi/TmdbApi.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ApisRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ApisRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/GenresRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/GenresRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/MessagesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/MessagesRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Bakalauro_Darbas_Mangirdas_Kazlauskas_IFF-4_1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bak projektas UML.mdzip.bak" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bakalauro_darbo_pavyzdys_2017.pdf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/MoviesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/MoviesRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UsersMoviesRelationTypesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UsersMoviesRelationTypesRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UsersMoviesRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UsersMoviesRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/UsersRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/UsersRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Controllers/UsersControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Controllers/UsersControllerTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Controllers/UsersMoviesRelationsTypesControllerTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Controllers/UsersMoviesRelationsTypesControllerTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Repositories/MoviesRepositoryTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Repositories/MoviesRepositoryTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/AdminSettings/AdminUsers/UserItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/AdminSettings/AdminUsers/UserItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MoviesMain.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MoviesMain.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/MoviesStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/MoviesStore.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/tests/auth/loginTest.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/babel.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/public/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/App.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/assets/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/assets/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/Auth/Login.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/Auth/Signup.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/GenresFolder/GenreMovieInfoModal.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/GenresFolder/Genres.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/GenresFolder/GenresModal.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/GenresFolder/NewGenre.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/GenresFolder/Task.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/GenresFolder/Tasks.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/Header.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/MoreOptions.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/MoviesFolder/MovieGenre.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/MoviesFolder/MovieGenreInfoModal.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/MoviesFolder/MovieGenres.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/MoviesFolder/Movies.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/MoviesFolder/MoviesModal.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/MoviesFolder/NewMovie.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/MoviesFolder/NewMovieGenre.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/MyMoviesFolder/MyMovies.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/Notification.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/OptionsBarFolder/OptionsBar.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/Todo.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/UsersFolder/UserMovie.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/UsersFolder/UserMovies.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/components/UsersFolder/Users.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/plugins/vuetify.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/stores/modules/Data.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/stores/modules/DataMovies.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/stores/modules/DataMyMovies.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/stores/modules/DataUsers.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/stores/modules/ui.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/stores/modules/user.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/src/stores/store.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../moviesFrontEndVueOld/vue.config.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,6 +252,7 @@
       <workItem from="1589716478584" duration="4123000" />
       <workItem from="1589720633986" duration="14130000" />
       <workItem from="1589735552095" duration="8521000" />
+      <workItem from="1589764956359" duration="117000" />
     </task>
     <servers />
   </component>
