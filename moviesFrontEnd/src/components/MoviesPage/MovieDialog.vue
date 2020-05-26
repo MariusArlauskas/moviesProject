@@ -164,9 +164,6 @@ export default {
     likeIcon: "mdi-heart"
   }),
   methods: {
-    log() {
-      console.log(this.movie);
-    },
     getUser() {
       return (
         this.$store.getters.GET_USER &&

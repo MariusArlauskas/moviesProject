@@ -143,6 +143,20 @@ class TmdbApi extends AbstractController
 	}
 
 	/**
+	 * @param $search
+	 * @return array
+	 * @throws ClientExceptionInterface
+	 * @throws ORMException
+	 * @throws RedirectionExceptionInterface
+	 * @throws ServerExceptionInterface
+	 * @throws TransportExceptionInterface
+	 */
+	public function searchMovie($search) {
+		$client = HttpClient::create();
+		return $this->returnMovies($client->request('GET', 'https://api.themoviedb.org/3/search/movie?api_key='.$this->apiKey.'&language=en-US&query='.htmlentities($search))->getContent());
+	}
+
+	/**
 	 * @param $movies
 	 * @param int $type
 	 * @param int $nr

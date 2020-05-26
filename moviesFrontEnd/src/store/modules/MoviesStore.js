@@ -99,6 +99,20 @@ const actions = {
         }
       })
   },
+  SEARCH_MOVIES: (commit, { search }) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .post('movies/find', { search: search })
+        .then(({ data, status }) => {
+          if (status === 200) {
+            resolve(data);
+          }
+        })
+        .catch(error => {
+          reject(error);
+        })
+    });
+  },
 };
 
 const mutations = {

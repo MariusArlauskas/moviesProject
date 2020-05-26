@@ -295,7 +295,7 @@ class MoviesRepository extends ServiceEntityRepository
 				umm.is_favorite as isFavorite,
 				umm.relation_type_id as relationTypeId,
 				umm.user_rating as userRating';
-			$whereUser = '
+			$leftJoinUser = '
 			LEFT JOIN (
 				SELECT
 					*
@@ -318,8 +318,9 @@ class MoviesRepository extends ServiceEntityRepository
 				um.api_id AS apiId,
 				m.genres,
 				m.most_popular AS mostPopular,
-				COUNT(um.id) AS webPopularity,
+				COUNT(um.movie_id) AS webPopularity,
 			   	um.movie_id as movieId
+				'.$selectUser.'
 			FROM
 				users_movies um
 			LEFT JOIN movies m ON
@@ -330,7 +331,7 @@ class MoviesRepository extends ServiceEntityRepository
 			GROUP BY
 				um.movie_id
 			ORDER BY
-				COUNT(um.id) DESC, m.title ASC
+				COUNT(um.movie_id) DESC, m.title ASC
 			LIMIT '.(int)$limit.'  OFFSET '.(int)$offset.'
 		';
 

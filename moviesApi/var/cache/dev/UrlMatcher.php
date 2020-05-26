@@ -12,6 +12,7 @@ return [
         '/api/logout' => [[['_route' => 'logout', '_controller' => 'App\\Controller\\ProfileController::logout'], null, null, null, false, false, null]],
         '/api/genres' => [[['_route' => 'genres_get', '_controller' => 'App\\Controller\\EntityController\\GenresController::getAllAction'], null, ['GET' => 0], null, false, false, null]],
         '/api/messages' => [[['_route' => 'message_create', '_controller' => 'App\\Controller\\EntityController\\MessagesController::createAction'], null, ['POST' => 0], null, false, false, null]],
+        '/api/movies/find' => [[['_route' => 'find_movie', '_controller' => 'App\\Controller\\EntityController\\MoviesController::findMovie'], null, ['POST' => 0], null, false, false, null]],
         '/api/users' => [
             [['_route' => 'user_create', '_controller' => 'App\\Controller\\EntityController\\UsersController::createAction'], null, ['POST' => 0], null, false, false, null],
             [['_route' => 'user_show_all', '_controller' => 'App\\Controller\\EntityController\\UsersController::getAllAction'], null, ['GET' => 0], null, false, false, null],

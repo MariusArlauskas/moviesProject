@@ -5,6 +5,7 @@ namespace App\Controller\EntityController;
 use App\Controller\InitSerializer;
 use App\Controller\RemoteApi\TmdbApi;
 use App\Entity\Movies;
+use App\Entity\UsersMovies;
 use Doctrine\ORM\ORMException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -175,7 +176,6 @@ class MoviesController extends AbstractController
 		$em = $this->getDoctrine()->getManager();
 		$repMovies = $em->getRepository(Movies::class);
 		$movie = $repMovies->findOneBy(['movieId' => $id]);
-
 		if (empty($movie)) { 	// Fetch from remote api
 			$movieApi = new TmdbApi($em);
 			$movie = $movieApi->getOneMovie($id)[0];
@@ -188,8 +188,19 @@ class MoviesController extends AbstractController
 			// Now check again to join with users liked movies list
 			$movie = $repMovies->findOneBy(['movieId' => $id]);
 		}
+		$movie = $movie->toArray();
+		if ($this->isGranted("ROLE_USER") || $this->isGranted("ROLE_ADMIN")) {
+			$userId = $this->getUser()->getId();
+			$repUsersMovies = $em->getRepository(UsersMovies::class);
+			$relation = $repUsersMovies->findOneBy(['userId' => $userId, 'movieId' => $id]);
+			if (!empty($relation)) {
+				$movie['isFavorite'] = $relation->getIsFavorite();
+				$movie['relationTypeId'] = $relation->getRelationTypeId();
+				$movie['userRating'] = $relation->getUserRating();
+			}
+		}
 
-		return $this->serializer->response($movie, 200, [], false, true, true);
+		return $this->serializer->response($movie, 200, [], false, true);
 	}
 
 	/** Fetches and inserts into db
@@ -299,5 +310,41 @@ class MoviesController extends AbstractController
 			'movieId' => $id,
 			'elementNumber' => $elementNumber,
 		]);
+	}
+
+	/**
+	 * @Route("/find", name="find_movie", methods={"POST"})
+	 * @param int $userId
+	 * @return JsonResponse|Response
+	 * @throws ClientExceptionInterface
+	 * @throws RedirectionExceptionInterface
+	 * @throws ServerExceptionInterface
+	 * @throws TransportExceptionInterface
+	 * @throws ORMException
+	 */
+	public function findMovie(Request $request){
+		$apiId = 1;
+
+		// Assingning data from request and removing unnecessary symbols
+		$parametersAsArray = [];
+		if ($content = $request->getContent()) {
+			$parametersAsArray = json_decode($content, true);
+		}
+		// Check if none of the data is missing
+		if (isset($parametersAsArray['search'])) {
+			$search = htmlspecialchars($parametersAsArray['search']);
+		} else {
+			return $this->serializer->response("Missing search data!", Response::HTTP_BAD_REQUEST);
+		}
+
+		$em = $this->getDoctrine()->getManager();
+		$movieApi = new TmdbApi($em);
+		$change = false;
+		$movies = $movieApi->searchMovie($search);
+		if (empty($movies)) {
+			return $this->serializer->response("Nothing found!", Response::HTTP_NOT_FOUND);
+		}
+
+		return $this->serializer->response($movies, 200, [], false, true, true);
 	}
 }

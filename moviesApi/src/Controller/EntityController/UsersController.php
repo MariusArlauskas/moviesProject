@@ -340,6 +340,7 @@ class UsersController extends AbstractController
 		} else {
 			if ($userMovies->getRelationTypeId() == $relationType) {
 				$userMovies->setRelationTypeId(0);
+				$userMovies->setUserRating(null);
 				$userMovies->setDateAdded(new \DateTime('0000-00-00'));
 			} else {
 				if (empty($userMovies->getRelationTypeId()) || $userMovies->getRelationTypeId() == 0) {
