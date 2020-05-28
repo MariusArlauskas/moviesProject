@@ -6,7 +6,13 @@
       dark
     >
       <v-layout style="width: 100%" column>
-        <FeedItem v-for="item in this.messages" :key="item.id" :item="item" :depth="1" />
+        <FeedItem
+          v-for="(item, index) in this.messages"
+          @deleted="deleteMsg(index)"
+          :key="item.id"
+          :item="item"
+          :depth="1"
+        />
         <v-progress-circular
           v-show="!this.pagesEnd"
           v-if="typeof this.messages[0] == 'undefined' && this.messages[0] == null"
@@ -43,6 +49,14 @@ export default {
     textArea: ""
   }),
   methods: {
+    deleteMsg(index) {
+      if (
+        typeof this.messages[index].parentId == "undefined" ||
+        this.messages[index].parentId == null
+      ) {
+        this.messages.splice(index, 1);
+      }
+    },
     getMessages() {
       this.$store
         .dispatch("GET_USERS_MESSAGES", {

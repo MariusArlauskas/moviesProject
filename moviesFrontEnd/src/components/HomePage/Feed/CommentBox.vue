@@ -41,8 +41,12 @@
           </v-list-item>
           <v-slide-y-transition>
             <div v-show="this.textArea != ''">
-              <v-card-actions class="justify-end pb-0">
-                <v-btn height="22px" text @click="postMsg()">
+              <v-card-actions class="pb-0 mx-2">
+                <v-btn left v-show="edit" text height="22px" @click="cancelEdit()">
+                  <span class="body-2 accent--text text--lighten-2">Cancel edit</span>
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn right height="22px" text @click="postMsg()">
                   <span class="body-2 accent--text text--lighten-2">Post</span>
                 </v-btn>
               </v-card-actions>
@@ -70,13 +74,18 @@ export default {
   components: { FeedItem },
   data: () => ({
     writeMsg: false,
+    editing: false,
+    eId: 0,
     textArea: "",
     timer: ""
   }),
   props: {
     parentId: Number,
     button: Boolean,
-    movieId: Number
+    movieId: Number,
+    edit: Boolean,
+    editId: Number,
+    text: String
   },
   computed: {
     ...mapGetters(["GET_USER"]),
@@ -88,9 +97,13 @@ export default {
     }
   },
   methods: {
+    cancelEdit() {
+      this.$emit("edited", true);
+    },
     postMsg() {
       this.$store
         .dispatch("POST_MESSAGE", {
+          id: this.eId,
           message: this.textArea,
           parentId: this.parentId,
           movieId:
@@ -118,6 +131,11 @@ export default {
   created() {
     if (!this.button) {
       this.writeMsg = true;
+    }
+    if (this.edit == true) {
+      this.editing = true;
+      this.eId = this.editId;
+      this.textArea = this.text;
     }
   }
 };

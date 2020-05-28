@@ -67,6 +67,25 @@ class MessagesController extends AbstractController
 			$movieId = htmlspecialchars(trim($parametersAsArray['movieId']));
 		}
 
+		if (!empty($parametersAsArray['id'])) {
+			$id = htmlspecialchars(trim($parametersAsArray['id']));
+		}
+		if (!empty($id)) {	// if update
+			$em = $this->getDoctrine()->getManager();
+			$repMessages = $em->getRepository(Messages::class);
+
+			$message = $repMessages->find($id);
+			$message->setMessage($messageText);
+
+			// Add user to Doctrine for saving
+			$em->persist($message);
+
+			// Save
+			$em->flush();
+
+			return $this->serializer->response($message, 200, [], false, false, true);
+		}
+
 		// Creating user object
 		$message = new Messages();
 		$message->setUserId($userId);
@@ -85,7 +104,30 @@ class MessagesController extends AbstractController
 		// Add user to Doctrine for saving
 		$em->persist($message);
 
-		// Save user
+		// Save
+		$em->flush();
+
+		return $this->serializer->response($message, 200, [], false, false, true);
+	}
+
+	/**
+	 * @Route("/{id}", name="message_delete", methods={"POST"}, requirements={"id"="\d+"})
+	 * @param int $id
+	 * @return JsonResponse|Response
+	 */
+	public function deleteAction($id)
+	{
+		if (!$this->isGranted("ROLE_USER") && !$this->isGranted("ROLE_ADMIN")) {
+			throw new HttpException(Response::HTTP_FORBIDDEN, "Access denied!!");
+		}
+
+		$em = $this->getDoctrine()->getManager();
+		$repMessages = $em->getRepository(Messages::class);
+
+		$message = $repMessages->find($id);
+		$em->remove($message);
+
+		// Save
 		$em->flush();
 
 		return $this->serializer->response($message, 200, [], false, false, true);

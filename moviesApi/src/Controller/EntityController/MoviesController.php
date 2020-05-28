@@ -66,7 +66,12 @@ class MoviesController extends AbstractController
 		}
 		$movies = $repMovies->findByApiIdAndTypeWithUserStatuses($apiId, $userId, $type, $limit, $offset, $filter);
 
+		$tries = 0;
 		while (empty($movies) || count($movies) < 20) { 	// Fetch from remote api
+			if ($tries > 20) {
+				return $this->serializer->response('Change filter or retry', Response::HTTP_NOT_FOUND);
+			}
+			$tries++;
 			if (!empty($filter)) {
 				$pageNumber = ($repMovies->getMaxNumberByType($apiId, $type)[0][$type] / 20) + 1;
 			}
@@ -127,7 +132,12 @@ class MoviesController extends AbstractController
 		}
 		$movies = $repMovies->findByApi($apiId, $type, $limit, $offset, $filter);
 
+		$tries = 0;
 		while (empty($movies) || count($movies) < 20) { 	// Fetch from remote api
+			if ($tries > 20) {
+				return $this->serializer->response('Change filter or retry', Response::HTTP_NOT_FOUND);
+			}
+			$tries++;
 			if (!empty($filter)) {
 				$pageNumber = ($repMovies->getMaxNumberByType($apiId, $type)[0][$type] / 20) + 1;
 			}

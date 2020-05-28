@@ -1,7 +1,7 @@
 <template>
   <v-card
     class="body-2 font-weight-light white--text pt-2"
-    style="max-width:15%; position: absolute"
+    style="max-width:15%; min-width: 200px; position: absolute"
     color="transparent"
     flat
     dark

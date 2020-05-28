@@ -36,10 +36,24 @@ const actions = {
         }
       })
   },
-  POST_MESSAGE: (commit, { message, parentId, movieId }) => {
+  POST_MESSAGE: (commit, { message, parentId, movieId, id = 0 }) => {
     return new Promise((resolve, reject) => {
       axios
-        .post(`messages`, { message: message, parentId: parentId, movieId: movieId })
+        .post(`messages`, { message: message, parentId: parentId, movieId: movieId, id: id })
+        .then(({ data, status }) => {
+          if (status === 200) {
+            resolve(data);
+          }
+        })
+        .catch(error => {
+          reject(error);
+        })
+    });
+  },
+  DELETE_MESSAGE: (commit, { id }) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`messages/` + id)
         .then(({ data, status }) => {
           if (status === 200) {
             resolve(data);
