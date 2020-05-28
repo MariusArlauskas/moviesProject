@@ -81,7 +81,6 @@ class MoviesController extends AbstractController
 			if (empty($movies)) {
 				break;
 			}
-			$myfile = file_put_contents('loggggg.txt', '------------PAGE '.(($repMovies->getMaxNumberByType($apiId, $type)[0][$type] / 20) + 1).PHP_EOL , FILE_APPEND | LOCK_EX);
 			foreach ($movies as $movie) {
 				// Add movie to Doctrine so that it can be saved
 				$dbMovie = $repMovies->findOneBy(['apiId' => $apiId, 'movieId' => $movie->getMovieId()]);

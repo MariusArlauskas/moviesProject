@@ -2,29 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e74540c-884f-4b9c-907e-f04adeb4760b" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/public/Files/1590604792_female20151024106636749.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/Files/1590605494_male20161086657890594.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/Files/1590605692_male20151083628302063.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/Files/1590606071_male1084404485352.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/Files/1590606176_female1023041616821.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/Files/1590606552_female1021680897857.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/loggggg.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/MessagesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/MessagesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/EntityController/MoviesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/EntityController/MoviesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/UrlMatcher.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.php.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainer.xml.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainerCompiler.log" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/srcApp_KernelDevDebugContainerCompiler.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/HomePage/Feed/CommentBox.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/HomePage/Feed/CommentBox.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/HomePage/Feed/FeedItem.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/HomePage/Feed/FeedItem.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/HomePage/Feed/FeedMain.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/HomePage/Feed/FeedMain.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MoviePage/MainWall/MovieFeed.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MoviePage/MainWall/MovieFeed.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MoviesFilter.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/MoviesPage/MoviesFilter.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/MoviesWall/ProfileFeed.vue" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/components/ProfilePage/MoviesWall/ProfileFeed.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/FeedStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/../moviesFrontEnd/src/store/modules/FeedStore.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,7 +210,7 @@
       <workItem from="1590501642298" duration="6526000" />
       <workItem from="1590556048800" duration="43000" />
       <workItem from="1590594164964" duration="3229000" />
-      <workItem from="1590642340815" duration="375000" />
+      <workItem from="1590642340815" duration="469000" />
     </task>
     <servers />
   </component>
